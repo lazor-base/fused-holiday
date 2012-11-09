@@ -4,7 +4,7 @@ require.config({
 		text: '/3rd_party/text'
 	}
 });
-require(["animation", "player", "input", "sprite", "walk", "json!/client/data/mmz.animations.json"], function(animation, player, input, sprite, walk, mmz) {
+require(["animation", "player", "input", "entity", "/client/data/master.js"], function(animation, player, input, entity, master) {
 	input.listen("keydown", function() {
 		input.keyDown(event, input);
 	});
@@ -12,12 +12,24 @@ require(["animation", "player", "input", "sprite", "walk", "json!/client/data/mm
 		input.keyUp(event, input);
 	});
 	animation.setup("canvas");
-	var mainPlayer = player.makePlayer("/client/images/mmz.png", mmz);
+	player.setPlayer(master.characters.mmz);
 	var loop = function() {
 		animation.context.clearRect(0, 0, canvas.width, canvas.height);
 		player.process();
 		requestAnimationFrame(loop);
 	};
-	var mainLoop = animation.startLoop(loop)
-	// walk();
+	// needs to be in main file in order to have correct closure variables.
+	var beginRender = function() {
+		var length = animation.renderList.length;
+		for (var i = 0; i < length; i++) {
+			if (animation.renderList[i].remove) {
+				animation.renderList[i].remove = false;
+				animation.renderList.splice(i);
+			} else {
+				animation.renderList[i].on.animate.call(animation.renderList[i], master.environment, null);
+			}
+		}
+		return requestAnimationFrame(beginRender);
+	};
+	animation.mainLoop = beginRender();
 });

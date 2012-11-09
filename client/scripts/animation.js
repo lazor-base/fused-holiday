@@ -24,6 +24,8 @@ define([], function() {
 	return {
 		canvas: null,
 		context: null,
+		renderList: [],
+		mainLoop: null,
 		startLoop: function(fn) {
 			return fn();
 		},

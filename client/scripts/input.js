@@ -4,23 +4,34 @@ define(["player"], function(entity) {
 		right: false,
 		jump: false,
 		// cache is necessary for knowing what direction the player is facing when no keys are pressed.
-		cache:"right",
+		cache: "right",
 		/**
 		 * rework function to simplify and be more generic
 		 * @return {[type]} [description]
 		 */
 		getType: function() {
 			var action = "stand";
-			var direction = this.cache;
-			if(this.left) {
-				direction = this.cache = "left";
+			var direction = {
+				left: (this.cache === "left"),
+				right: (this.cache === "right")
+			};
+			if (this.left) {
+				direction = {
+					left: true,
+					right: false
+				};
+				this.cache = "left";
 				action = "walk";
 			}
-			if(this.right) {
-				direction = this.cache = "right";
+			if (this.right) {
+				direction = {
+					left: false,
+					right: true
+				};
+				this.cache = "right";
 				action = "walk";
 			}
-			if(this.jump) {
+			if (this.jump) {
 				action = "jump";
 			}
 			return {
