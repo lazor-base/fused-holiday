@@ -62,12 +62,22 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 		 * @return {Boolean}        Whether the entity is moving.
 		 */
 		isMoving: function(entity) {
-			if (entity.data.direction) {
-				for (var attr in entity.data.direction) {
-					if (entity.data.direction[attr]) {
+			if (entity.data.event) {
+				for (var attr in entity.data.event) {
+					if (entity.data.event[attr]) {
+						console.log(attr)
 						return true;
 					}
 				}
+			}
+			return false;
+		},
+		stop: function(entity) {
+			if (entity.data.event) {
+				for (var attr in entity.data.event) {
+					entity.data.event[attr] = false;
+				}
+				return true;
 			}
 			return false;
 		},

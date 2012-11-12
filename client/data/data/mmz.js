@@ -17,7 +17,7 @@ define([], function() {
 			jump: false,
 			fall: false,
 			walk: false,
-			stand: true
+			dash: false
 		},
 		jumpRate: -3,
 		jumpForce: -3,
