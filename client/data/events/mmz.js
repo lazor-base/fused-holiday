@@ -56,11 +56,8 @@ define([], function() {
 		},
 		walk: function(target, event) {
 			var collide = this.on.collision.call(this, target, event);
-			if (collide.trigger === true) {
+			if (collide.triggers.indexOf("left") > -1 || collide.triggers.indexOf("right") > -1) {
 				event = collide.event;
-				if (!event.action.walk) {
-					// return event;
-				}
 			}
 			if (input.keys.left || input.keys.right) {
 				this.data.event.walk = true;
@@ -73,7 +70,7 @@ define([], function() {
 				if (this.data.direction.right || this.data.direction.left) {
 					this.counter = 0;
 				}
-			} else if (this.data.event.walk && !collide.trigger) {
+			} else if (this.data.event.walk && (collide.triggers.indexOf("left") === -1 && collide.triggers.indexOf("right") === -1)) {
 				if (input.keys.right === true) {
 					this.data.x = this.data.x + 1;
 				} else if (input.keys.left === true) {
@@ -89,10 +86,6 @@ define([], function() {
 			return event;
 		},
 		dash: function(target, event) {
-			var collide = this.on.collision.call(this, target, event);
-			if (collide.trigger === true) {
-				event = collide.event;
-			}
 			return event;
 		},
 		stand: function(target, event) {
@@ -101,16 +94,15 @@ define([], function() {
 		jump: function(target, event) {
 			event = this.on.walk.call(this, target, event);
 			var collide = this.on.collision.call(this, target, event);
-			if (collide.trigger === true) {
+			if (collide.triggers.indexOf("top") > -1) {
+				this.data.event.jump = false;
 				event = collide.event;
-			}
-			if (this.data.jumpRate >= 0 || this.data.event.fall) {
 				this.on.fall.call(this, target, event);
 			} else {
+				this.data.fallRate = 0;
 				event.action = "jump";
 				this.data.event.jump = true;
-				this.data.event.fall = false;
-				this.data.y += 2 * this.data.jumpRate;
+				this.data.y += Math.floor(2 * this.data.jumpRate);
 				this.data.jumpRate += target.world.data.gravity;
 				if (!input.keys.space) {
 					this.data.event.jump = false;
@@ -122,16 +114,15 @@ define([], function() {
 		fall: function(target, event) {
 			event = this.on.walk.call(this, target, event);
 			var collide = this.on.collision.call(this, target, event);
-			if (collide.trigger === true) {
+			if (collide.triggers.indexOf("bottom") > -1) {
+				this.data.event.fall = false;
 				event = collide.event;
-			}
-			if (!this.data.event.jump && !this.data.event.fall) {
 				this.on.land.call(this, target, event);
 			} else {
+				this.data.jumpRate = this.data.jumpForce;
 				event.action = "fall";
-				this.data.event.jump = false;
 				this.data.event.fall = true;
-				this.data.y += 2 * this.data.fallRate;
+				this.data.y += Math.floor(2 * this.data.fallRate);
 				this.data.fallRate += target.world.data.gravity;
 			}
 			return event;
@@ -148,12 +139,12 @@ define([], function() {
 		},
 		animate: function(target, event) {
 			var motionType = input.getType();
-			this.data.direction.left = motionType.keys.left;
-			this.data.direction.right = motionType.keys.right;
-			if (this.data.event.jump || input.keys.space) {
-				motionType = this.on.jump.call(this, target, motionType);
-			} else if (this.data.event.fall || input.keys.space) {
+			this.data.direction.left = input.lastDirection === "left";
+			this.data.direction.right = input.lastDirection === "right";
+			if (this.data.event.fall) {
 				motionType = this.on.fall.call(this, target, motionType);
+			} else if (this.data.event.jump || input.keys.space) {
+				motionType = this.on.jump.call(this, target, motionType);
 			} else if (this.data.event.walk || input.keys.left || input.keys.right) {
 				motionType = this.on.walk.call(this, target, motionType);
 			}
@@ -202,35 +193,35 @@ define([], function() {
 
 		collision: function(target, event) {
 			var result = {
-				trigger: false,
+				triggers: [],
 				event: event
 			};
-			if (this.data.x - !! (input.keys.left) < 0) {
-				result.trigger = true;
+			if (this.data.x - !! (input.keys.left) <= 0) {
+				result.triggers.push("left");
 				result.event.action = "stand";
 				this.data.event.walk = false;
 				this.data.event.stand = true;
 			}
-			if (this.data.x + this.data.w + !! (input.keys.right) > animation.canvas.width) {
-				result.trigger = true;
+			if (this.data.x + this.data.w + !! (input.keys.right) >= animation.canvas.width) {
+				result.triggers.push("right");
 				result.event.action = "stand";
 				this.data.event.walk = false;
 				this.data.event.stand = true;
 			}
-			if (this.data.y < 0) {
-				result.trigger = true;
+			if (this.data.y <= 0) {
+				result.triggers.push("top");
 				if (this.data.event.jump) {
 					this.data.event.jump = false;
 					this.data.event.fall = true;
 					result.event.action = "fall";
 				}
 			}
-			if (this.data.y + this.data.h > animation.canvas.height) {
-				result.trigger = true;
+			if (this.data.y + this.data.h >= animation.canvas.height) {
+				result.triggers.push("bottom");
 				if (this.data.event.fall) {
 					this.data.event.jump = false;
 					this.data.event.fall = false;
-					result.event.action = "stand";
+					result.event.action = "land";
 				}
 			}
 			return result;
