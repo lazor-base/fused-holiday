@@ -53,6 +53,10 @@ define(["player"], function(entity) {
 				this.keys.left = true;
 			} else if (event.keyCode === 32) {
 				this.keys.space = true;
+			} else if (event.keyCode === 90) {
+				this.keys.z = true;
+			} else if (event.keyCode === 88) {
+				this.keys.x = true;
 			}
 		},
 		keyUp: function(event, input) {
@@ -62,6 +66,10 @@ define(["player"], function(entity) {
 				this.keys.left = false;
 			} else if (event.keyCode === 32) {
 				this.keys.space = false;
+			} else if (event.keyCode === 90) {
+				this.keys.z = false;
+			} else if (event.keyCode === 88) {
+				this.keys.x = false;
 			}
 		}
 	}

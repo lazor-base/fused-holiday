@@ -2,11 +2,31 @@
 <html>
     <head>
         <title>jQuery+RequireJS Sample Page</title>
+        <style>
+        canvas {
+        	position:absolute;
+        	top:0;
+        	left:0;
+        	background:transparent;
+        	border:1px solid black
+        }
+        #dudes {
+            float:right;
+        }
+        </style>
         <script src="/3rd_party/less.js"></script>
         <script src="/3rd_party/jquery.js"></script>
         <script data-main="/client/scripts/main" src="/3rd_party/require.js"></script>
     </head>
     <body>
-        <canvas id="canvas" style="border:1px solid black"></canvas>
+        <!-- <canvas id="background" width="768" height="384"></canvas>
+        <canvas id="floor" width="768" height="384"></canvas>
+        <canvas id="foreground" width="768" height="384"></canvas>
+        <canvas id="player" width="768" height="384"></canvas>
+        <canvas id="objects" width="768" height="384"></canvas> -->
+        <canvas id="floor" width="768" height="384"></canvas>
+        <canvas id="objects" width="768" height="384"></canvas>
+        <canvas id="player" width="768" height="384"></canvas>
+        <div id="dudes"></div>
     </body>
 </html>

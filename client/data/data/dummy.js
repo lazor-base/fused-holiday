@@ -1,11 +1,11 @@
 define([], function() {
 	return {
 		health: 100,
-		x: 14*32,
-		y: 10*32,
+		x: 15*32,
+		y: 9*32,
 		w: 32,
 		h: 32,
-		id: "mmz",
+		id: "dummy",
 		direction: {
 			up: false,
 			right: false,

@@ -22,8 +22,8 @@ define([], function() {
 		};
 	}());
 	return {
-		canvas: null,
-		context: null,
+		canvas: {},
+		context: {},
 		renderList: [],
 		mainLoop: null,
 		startLoop: function(fn) {
@@ -34,7 +34,8 @@ define([], function() {
 		},
 		setup: function(id) {
 			this.canvas = document.getElementById(id);
-			this.context = canvas.getContext('2d');
+			this.context = this.canvas.getContext('2d');
+			this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
 		}
 	};
 });

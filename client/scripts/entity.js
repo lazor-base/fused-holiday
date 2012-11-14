@@ -28,6 +28,7 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 			}
 			return newObject;
 		},
+		inGame:[],
 		master: {
 			characters: {},
 			tiles: {},
@@ -44,9 +45,9 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 		 * @param  {Object} eventJSON       Events for this entity.
 		 * @return {Object}                 Reference to the master entity.
 		 */
-		make: function(spriteSheetPath, type, animationJSON, dataJSON, eventJSON) {
-			this.master[type] = this.master[type] || {};
-			this.master[type][dataJSON.id] = {
+		make: function(master, spriteSheetPath, type, animationJSON, dataJSON, eventJSON) {
+			master[type] = master[type] || {};
+			master[type][dataJSON.id] = {
 				spriteSheet: spriteSheetPath,
 				image: null,
 				counter: 0,
@@ -54,7 +55,7 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 				data: this.cloneObject(dataJSON),
 				on: this.cloneObject(eventJSON)
 			};
-			return this.master[type][dataJSON.id];
+			return master[type][dataJSON.id];
 		},
 		/**
 		 * Whether entity is moving.
@@ -91,9 +92,9 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 			if (entity.image === null) {
 				var image = new Image();
 				image.src = entity.spriteSheet;
-				entity.image = image;
+				// entity.image = image;
 			}
-			clone.image = entity.image;
+			clone.image = image;
 			return clone;
 		},
 		/**
@@ -109,6 +110,14 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 		 */
 		print: function(type) {
 			return parseJSON["to" + type](this.master);
+		},
+		spawn: function(entity, attributes) {
+			var object = this.clone(entity);
+			for(var attr in attributes) {
+				object.data[attr] = attributes[attr];
+			}
+			this.inGame.push(object);
+			this.animate(this.inGame[this.inGame.length-1]);
 		}
 	};
 });
