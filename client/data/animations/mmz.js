@@ -11,6 +11,17 @@ define([], function() {
 				"cpy": 19
 			}]
 		},
+		"climb": {
+			"speed": 0,
+			"frames": [{
+				"x": 4,
+				"y": 1,
+				"w": 34,
+				"h": 39,
+				"cpx": 18,
+				"cpy": 19
+			}]
+		},
 		"walk": {
 			"speed": 5,
 			"frames": [{

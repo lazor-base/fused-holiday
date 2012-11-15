@@ -28,13 +28,13 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 			}
 			return newObject;
 		},
-		inGame:[],
+		inGame: [],
 		master: {
 			characters: {},
 			tiles: {},
 			objects: {},
 			tools: {},
-			environment:{}
+			environment: {}
 		},
 		/**
 		 * Create a new master copy entity.
@@ -113,11 +113,61 @@ define(["animation", "parseJSON"], function(animation, parseJSON) {
 		},
 		spawn: function(entity, attributes) {
 			var object = this.clone(entity);
-			for(var attr in attributes) {
+			for (var attr in attributes) {
 				object.data[attr] = attributes[attr];
 			}
 			this.inGame.push(object);
-			this.animate(this.inGame[this.inGame.length-1]);
+			this.animate(this.inGame[this.inGame.length - 1]);
+		},
+		collide: function(entity) {
+			var result = [];
+			var sx = entity.data.x - entity.data.frameData.cpx;
+			var sy = entity.data.y - entity.data.frameData.cpy;
+			var ex = sx + entity.data.w;
+			var ey = sy + entity.data.h;
+			var mx = (sx + ex) / 2;
+			var my = (sy + ey) / 2;
+			for (var i = 0; i < animation.renderList.length; i++) {
+				var target = animation.renderList[i];
+				var tsx = target.data.x;
+				var tsy = target.data.y;
+				var tex = tsx + target.data.w;
+				var tey = tsy + target.data.h;
+				var tmx = (tsx + tex) / 2;
+				var tmy = (tsy + tey) / 2;
+				animation.context.fillRect(sx, sy, 32, 32)
+				animation.context.fillRect(tsx, tsy, target.data.w, target.data.h)
+				if (sx - !! (entity.data.direction.left === true) <= tex && (sy <= tey && ey >= tsy) && sx - !! (entity.data.direction.left === true) >= tsx) {
+					console.log("left")
+					result.push({
+						direction: "left",
+						target: target
+					});
+				}
+				if (ex + !! (entity.data.direction.right === true) >= tsx && (sy <= tey && ey >= tsy) && ex + !! (entity.data.direction.right === true) <= tex) {
+					console.log("right")
+					result.push({
+						direction: "right",
+						target: target
+					});
+				}
+				if (sy - !! (entity.data.event.jump === true) <= tey && (sx <= tex && ex >= tsx) && sy - !! (entity.data.event.jump === true) >= tsy) {
+					console.log("top")
+					result.push({
+						direction: "top",
+						target: target
+					});
+				}
+				if (ey + !! (entity.data.event.fall === true) >= tsy && (sx <= tex && ex >= tsx) && ey + !! (entity.data.event.fall === true) <= tey) {
+					console.log("bottom")
+					result.push({
+						direction: "bottom",
+						target: target
+					});
+				}
+			}
+			console.log(result)
+			return result;
 		}
 	};
 });

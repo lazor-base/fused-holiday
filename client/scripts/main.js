@@ -1,5 +1,4 @@
 require(["animation", "player", "input", "entity", "map", "/client/data/maps.js", "/client/data/master.js"], function(animation, player, input, entity, map, maps, master) {
-	console.log(master.characters.mmz)
 
 	input.listen("keydown", function() {
 		input.keyDown(event, input);
@@ -9,9 +8,9 @@ require(["animation", "player", "input", "entity", "map", "/client/data/maps.js"
 	});
 	map.buildMap("test")
 	// animation.setup("player");
-	animation.setup("floor");
 	// animation.setup("objects");
 	player.setPlayer(master.characters.mmz);
+	entity.spawn(master.characters.block,{});
 	var dudes = 0;
 	// needs to be in main file in order to have correct closure variables.
 	var beginRender = function() {
@@ -28,9 +27,9 @@ require(["animation", "player", "input", "entity", "map", "/client/data/maps.js"
 		if (input.keys.x) {
 			if (animation.renderList.length > 0) {
 				animation.renderList[0].remove = true;
+				dudes--;
 			}
 		}
-		animation.setup("floor");
 		map.animate();
 		animation.setup("player");
 		player.player.on.animate.call(player.player, master.environment, {
