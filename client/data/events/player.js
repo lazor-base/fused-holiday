@@ -193,6 +193,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.on.parseTilePosition.call(this, target, event);
 		},
 		fall: function(target, event) {
+			console.log("fall")
 			this.data.action = "fall";
 			this.data.event.fall = true;
 			this.data.y += Math.floor(2 * this.data.fallRate);
@@ -200,6 +201,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.on.parseTilePosition.call(this, target, event);
 		},
 		land: function(target, event) {
+			console.log("land")
 			this.data.action = "land";
 			this.data.onLand = true;
 			this.data.event.jump = false;
@@ -263,11 +265,11 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		collideBottom: function(target) {
 			if (this.data.event.fall) {
-				this.on.land.call(this)
+			console.log("collide")
+			this.data.y = (target.y*32)-13;
+				this.on.land.call(this);
 			}
-			this.data.onLand = true;
 			this.data.blocked.down = true;
-			this.data.action = "stand";
 		},
 		collideTop: function(target) {
 			if (this.data.event.jump) {

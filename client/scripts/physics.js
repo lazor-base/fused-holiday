@@ -3,7 +3,7 @@ define(["entity", "map"], function(entity, map) {
 		return item.indexOf(content) > -1;
 	};
 	var round = function(number) {
-		var num = Math.round(number / 32) - 1;
+		var num = Math.floor(number / 32);
 		if (num < 0) {
 			num = 0;
 		}
@@ -18,8 +18,8 @@ define(["entity", "map"], function(entity, map) {
 			var tileId = thisLayer.data[(width * y) + x] - 1;
 			if (tileId !== -1) {
 				var tiles = map.currentMap.tilesets[0].tileproperties;
-				if (tiles.passable === "false") {
-					results = tiles[tileId]
+				if (tiles[tileId].passable === "false") {
+					results = tiles[tileId];
 				}
 			}
 		}
@@ -43,7 +43,7 @@ define(["entity", "map"], function(entity, map) {
 				var left = mapCollision(round(sx + modifier), round(my));
 				if (sx + modifier <= 0 || left) {
 					console.log(left)
-					entity.on.collideLeft.call(entity, left)
+					entity.on.collideLeft.call(entity, {x:round(sx + modifier)})
 				}
 				if (entity.data.event.walk && entity.data.direction.right) {
 					modifier = entity.data.walkSpeed;
@@ -51,7 +51,7 @@ define(["entity", "map"], function(entity, map) {
 				var right = mapCollision(round(ex + modifier), round(my));
 				if (ex + modifier >= map.currentMap.width * 32 || right) {
 					console.log(right)
-					entity.on.collideRight.call(entity, right)
+					entity.on.collideRight.call(entity, {x:round(ex + modifier)})
 				}
 				if (entity.data.event.jump) {
 					modifier = Math.floor(2 * entity.data.jumpRate);
@@ -59,18 +59,14 @@ define(["entity", "map"], function(entity, map) {
 				var top = mapCollision(round(mx), round(sy + modifier));
 				if (sy + modifier <= 0 || top) {
 					console.log(top)
-					entity.on.collideTop.call(entity, top)
+					entity.on.collideTop.call(entity, {y:round(sy + modifier)})
 				}
 				if (entity.data.event.fall) {
 					modifier = Math.floor(2 * entity.data.fallRate);
 				}
 				var bottom = mapCollision(round(mx), round(ey + modifier));
 				if (ey + modifier >= map.currentMap.height * 32 || bottom) {
-					entity.on.collideBottom.call(entity, bottom)
-				} else {
-					if (entity.data.id === "player") {
-						console.log(ey+modifier, round(ey + modifier),map.currentMap.height * 32, round(map.currentMap.height * 32), Math.floor(2 * entity.data.fallRate))
-					}
+					entity.on.collideBottom.call(entity, {y:round(ey + modifier)})
 				}
 			}
 		} else {
