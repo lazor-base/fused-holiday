@@ -136,7 +136,7 @@ define(["animation", "input", "map"], function(animation, input, map) {
 			if (this.data.oldFrame.animation !== "") {
 				oldFrame = this.animations[this.data.oldFrame.animation].frames[this.data.oldFrame.index];
 			}
-			var frameData = this.animations[motionType.action].frames[index];
+			var frameData = this.data.frameData = this.animations[motionType.action].frames[index];
 			if (this.data.direction.left === true) {
 				if (!this.data.isFlipped) {
 					event.context.save();

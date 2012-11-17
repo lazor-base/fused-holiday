@@ -1,4 +1,4 @@
-define(["/client/data/maps/test.js", "player", "animation"], function(test, player, animation) {
+define(["/client/data/maps/test.js", "animation"], function(test, animation) {
 	return {
 		maps: {
 			test: test
@@ -10,11 +10,7 @@ define(["/client/data/maps/test.js", "player", "animation"], function(test, play
 			this.sheetImage = new Image();
 			this.sheetImage.src = this.currentMap.tilesets[0].image;
 		},
-		animate: function() {
-			// var playerData = player.player.data;
-			// var tiles = maps.tiles[this.currentMap.sheet].data;
-			// var focusX = Math.round(playerData.x / this.currentMap.size) - 6;
-			// var focusY = Math.round(playerData.y / this.currentMap.size) - 6;
+		animate: function(animation) {
 			var thisLayer, l, x, y, tileId, width, height, tile;
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
@@ -32,14 +28,6 @@ define(["/client/data/maps/test.js", "player", "animation"], function(test, play
 					}
 				}
 			}
-			// for (var y = 0; y < this.currentMap.layers.floor.length; y++) {
-			// 	for (var x = 0; x < this.currentMap.layers.floor[y].length; x++) {
-			// 		var tileId = this.currentMap.layers.floor[y][x];
-			// 		if (tileId !== -1) {
-			// 			animation.context.drawImage(this.sheetImage, this.currentMap.size * tiles[tileId].x, this.currentMap.size * tiles[tileId].y, this.currentMap.size, this.currentMap.size, this.currentMap.size * x, this.currentMap.size * y, this.currentMap.size, this.currentMap.size);
-			// 		}
-			// 	}
-			// }
 		},
 		collide: function(x, y) {
 			var results = [];

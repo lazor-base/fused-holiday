@@ -18,10 +18,15 @@ define([], function() {
 			walk: false,
 			dash: false
 		},
+		frameData:null,
 		jumpRate: -3,
 		jumpForce: -3,
 		fallRate: 0,
 		isFlipped: false,
+		physics: {
+			checkAgainst:["map"],
+			types:["entity"]
+		},
 		oldFrame: {
 			animation: "",
 			index: 0

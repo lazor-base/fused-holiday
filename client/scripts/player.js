@@ -1,9 +1,9 @@
-define(["sprite", "input", "entity"], function(sprite, input, entity) {
+define(["entity"], function(entity) {
 	return {
 		player: null,
-		setPlayer: function(reference) {
-			this.player = entity.clone(reference);
-			// entity.animate(this.player);
+		setPlayer: function(masterReference) {
+			this.player = entity.clone(masterReference);
+			entity.animate(this.player);
 		}
 	};
 });

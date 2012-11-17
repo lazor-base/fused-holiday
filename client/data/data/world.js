@@ -1,6 +1,6 @@
 define([], function() {
 	return {
 		id: "world",
-		gravity: 0.05
+		gravity: 0.1
 	};
 });

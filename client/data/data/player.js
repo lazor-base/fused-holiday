@@ -7,7 +7,7 @@ define([], function() {
 		tileY:10,
 		w: 32,
 		h: 32,
-		id: "mmz",
+		id: "player",
 		direction: {
 			up: false,
 			right: false,
@@ -26,11 +26,22 @@ define([], function() {
 		lastDirection: "right",
 		action:"stand",
 		onLand:false,
+		blocked: {
+			up:false,
+			down:false,
+			right:false,
+			left:false
+		},
 		jumpRate: -3,
 		jumpForce: -3,
 		fallRate: 0,
+		walkSpeed:1,
 		frameData:null,
 		isFlipped: false,
+		physics: {
+			checkAgainst:["map","entity","bullet"],
+			types:["player","entity"]
+		},
 		oldFrame: {
 			animation: "",
 			index: 0

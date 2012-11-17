@@ -1,4 +1,4 @@
-define([], function() {
+define(["physics","map"], function(physics,map) {
 	(function() {
 		var lastTime = 0;
 		var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -35,7 +35,33 @@ define([], function() {
 		setup: function(id) {
 			this.canvas = document.getElementById(id);
 			this.context = this.canvas.getContext('2d');
-			this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		},
+		animationLoop: function(map, master) {
+			var length = this.renderList.length;
+			var thisEntity;
+			map.animate(this);
+			this.setup("objects");
+			for (var i = 0; i < length; i++) {
+				var thisEntity = this.renderList[i];
+				if (thisEntity.remove) {
+					thisEntity.on.destroy.call(thisEntity, null, null);
+					this.renderList.splice(i);
+					length = this.renderList.length;
+					i--;
+				} else {
+					physics(thisEntity,this.renderList);
+					if (thisEntity.data.id === "player") {
+						this.setup("player");
+						thisEntity.on.animate.call(thisEntity, master.environment, null);
+						this.context.fillRect(thisEntity.data.x-thisEntity.data.frameData.cpx,thisEntity.data.y-thisEntity.data.frameData.cpy,thisEntity.data.w,thisEntity.data.h)
+						this.setup("objects");
+					} else {
+						thisEntity.on.animate.call(thisEntity, master.environment, null);
+						this.context.fillRect(thisEntity.data.x-thisEntity.data.frameData.cpx,thisEntity.data.y-thisEntity.data.frameData.cpy,thisEntity.data.w,thisEntity.data.h)
+					}
+				}
+			}
 		}
 	};
 });

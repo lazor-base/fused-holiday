@@ -2,10 +2,10 @@ define(["animation", "input", "map"], function(animation, input, map) {
 	return {
 		animate: function(target, event) {
 			var frameData = this.animations["idle"].frames[0];
-				event.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, this.data.x - frameData.cpx, this.data.y - frameData.cpy, frameData.w, frameData.h);
+			animation.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, this.data.x - frameData.cpx, this.data.y - frameData.cpy, frameData.w, frameData.h);
 
 		},
-		fall:function(target, event) {
+		fall: function(target, event) {
 			var collide = this.on.collision.call(this, target, event);
 			this.data.jumpRate = this.data.jumpForce;
 			if (collide.triggers.indexOf("bottom") > -1) {
@@ -18,7 +18,8 @@ define(["animation", "input", "map"], function(animation, input, map) {
 				this.data.fallRate += target.world.data.gravity;
 			}
 			this.on.parseTilePosition.call(this, target, event);
-		},land:function(target, event) {
+		},
+		land: function(target, event) {
 
 		},
 		parseTilePosition: function(target, event) {

@@ -29,8 +29,8 @@ define([], function() {
 				"y": 22,
 				"w": 47,
 				"h": 24,
-				"cpx": 23,
-				"cpy": 12
+				"cpx": 15,
+				"cpy": 19
 			}]
 		},
 		"jump": {
@@ -40,7 +40,7 @@ define([], function() {
 				"y": 11,
 				"w": 23,
 				"h": 41,
-				"cpx": 12,
+				"cpx": 16,
 				"cpy": 20
 			}]
 		},
@@ -51,7 +51,7 @@ define([], function() {
 				"y": 10,
 				"w": 29,
 				"h": 49,
-				"cpx": 14,
+				"cpx": 16,
 				"cpy": 24
 			}]
 		},
