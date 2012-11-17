@@ -1,4 +1,4 @@
-define(["player"], function(entity) {
+define([], function() {
 	return {
 		keys: {
 			up: false,

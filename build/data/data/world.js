@@ -1,0 +1,1 @@
+define([],function(){return{id:"world",gravity:.1}})

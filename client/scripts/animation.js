@@ -1,4 +1,4 @@
-define(["physics","map"], function(physics,map) {
+define(["physics", "map"], function(physics, map) {
 	(function() {
 		var lastTime = 0;
 		var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -50,15 +50,21 @@ define(["physics","map"], function(physics,map) {
 					length = this.renderList.length;
 					i--;
 				} else {
-					physics(thisEntity,this.renderList);
+					physics(thisEntity, this.renderList);
 					if (thisEntity.data.id === "player") {
 						this.setup("player");
 						thisEntity.on.animate.call(thisEntity, master.environment, null);
-						this.context.fillRect(thisEntity.data.x-thisEntity.data.frameData.cpx,thisEntity.data.y-thisEntity.data.frameData.cpy,thisEntity.data.w,thisEntity.data.h)
+						this.context.fillStyle = "rgba(0,0,0,0.5)";
+						this.context.fillRect(thisEntity.data.x - thisEntity.data.frameData.cpx, thisEntity.data.y - thisEntity.data.frameData.cpy, thisEntity.data.w, thisEntity.data.h)
+						// this.context.fillStyle = "red";
+						// this.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 						this.setup("objects");
 					} else {
 						thisEntity.on.animate.call(thisEntity, master.environment, null);
-						this.context.fillRect(thisEntity.data.x-thisEntity.data.frameData.cpx,thisEntity.data.y-thisEntity.data.frameData.cpy,thisEntity.data.w,thisEntity.data.h)
+						this.context.fillStyle = "rgba(0,0,0,0.5)";
+						this.context.fillRect(thisEntity.data.x - thisEntity.data.frameData.cpx, thisEntity.data.y - thisEntity.data.frameData.cpy, thisEntity.data.w, thisEntity.data.h)
+						// this.context.fillStyle = "red";
+						// this.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 					}
 				}
 			}

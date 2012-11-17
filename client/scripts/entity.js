@@ -89,10 +89,11 @@ define(["animation"], function(animation) {
 		 */
 		clone: function(entity) {
 			var clone = this.cloneObject(entity);
-				var image = new Image();
-				image.src = entity.spriteSheet;
-				// entity.image = image;
+			var image = new Image();
+			image.src = entity.spriteSheet;
+			// entity.image = image;
 			clone.image = image;
+			clone.data.uniqueId = Math.floor(Math.random() * 1000000);
 			clone.data.frameData = clone.animations[clone.data.action].frames[0];
 			return clone;
 		},

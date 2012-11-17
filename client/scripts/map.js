@@ -1,4 +1,4 @@
-define(["/client/data/maps/test.js", "animation"], function(test, animation) {
+define(["/data/maps/test.js", "animation"], function(test, animation) {
 	return {
 		maps: {
 			test: test

@@ -12,6 +12,22 @@ define([], function() {
 		fallRate: 0,
 		passable:false,
 		frameData:null,
+		onLand:false,
+		moveSpeed:1,
+		direction: {
+			right: false,
+			left: false
+		},
+		event: {
+			fall: true,
+			move: false
+		},
+		blocked: {
+			up:false,
+			down:false,
+			right:false,
+			left:false
+		},
 		physics: {
 			checkAgainst:["map"],
 			types:["entity","block"]

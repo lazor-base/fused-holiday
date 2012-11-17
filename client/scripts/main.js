@@ -1,4 +1,4 @@
-require(["animation", "player", "input", "entity", "map", "/client/data/maps.js", "/client/data/master.js"], function(animation, player, input, entity, map, maps, master) {
+require(["animation", "input", "entity", "map", "/data/master.js"], function(animation, input, entity, map, master) {
 
 	input.listen("keydown", function() {
 		input.keyDown(event, input);
@@ -7,14 +7,11 @@ require(["animation", "player", "input", "entity", "map", "/client/data/maps.js"
 		input.keyUp(event, input);
 	});
 	map.buildMap("test")
-	// player.setPlayer(master.characters.player);
 	entity.spawn(master.characters.player, {}, animation.renderList);
 	entity.spawn(master.characters.block, {}, animation.renderList);
 	var beginRender = function() {
 		animation.animationLoop.call(animation, map, master);
 		return requestAnimationFrame(beginRender);
 	};
-	$(function() {
-		animation.mainLoop = beginRender();
-	});
+	animation.mainLoop = beginRender();
 });
