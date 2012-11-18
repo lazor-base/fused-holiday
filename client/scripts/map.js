@@ -1,7 +1,8 @@
-define(["/data/maps/test.js", "animation"], function(test, animation) {
+define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation"], function(test, moarmaps, animation) {
 	return {
 		maps: {
-			test: test
+			test: test,
+			moarmaps: moarmaps
 		},
 		currentMap: null,
 		sheetImage: null,
