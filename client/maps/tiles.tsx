@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tileset SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <tileset name="tiles" tilewidth="32" tileheight="32">
  <image source="../images/tiles.png" trans="ffffff" width="192" height="192"/>
  <tile id="0">
@@ -135,6 +134,48 @@
    <property name="passable" value="false"/>
    <property name="x" value="2"/>
    <property name="y" value="2"/>
+  </properties>
+ </tile>
+ <tile id="15">
+  <properties>
+   <property name="group" value="wall"/>
+   <property name="name" value="wall_floor_left"/>
+   <property name="passable" value="false"/>
+   <property name="x" value="3"/>
+   <property name="y" value="2"/>
+  </properties>
+ </tile>
+ <tile id="16">
+  <properties>
+   <property name="group" value="wall"/>
+   <property name="name" value="wall_left_end"/>
+   <property name="passable" value="false"/>
+   <property name="x" value="4"/>
+   <property name="y" value="2"/>
+  </properties>
+ </tile>
+ <tile id="20">
+  <properties>
+   <property name="event" value="ladder"/>
+  </properties>
+ </tile>
+ <tile id="21">
+  <properties>
+   <property name="event" value="door"/>
+  </properties>
+ </tile>
+ <tile id="22">
+  <properties>
+   <property name="event" value="doorA"/>
+  </properties>
+ </tile>
+ <tile id="23">
+  <properties>
+   <property name="group" value="door"/>
+   <property name="name" value="background_door"/>
+   <property name="passable" value="true"/>
+   <property name="x" value="5"/>
+   <property name="y" value="3"/>
   </properties>
  </tile>
 </tileset>

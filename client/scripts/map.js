@@ -15,15 +15,17 @@ define(["/data/maps/test.js", "animation"], function(test, animation) {
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
 				thisLayer = this.currentMap.layers[l];
-				animation.setup(thisLayer.name);
-				width = thisLayer.width;
-				height = thisLayer.height;
-				for (y = 0; y < height; y++) {
-					for (x = 0; x < width; x++) {
-						tileId = thisLayer.data[(width * y) + x] - 1;
-						if (tileId !== -1) {
-							tile = this.currentMap.tilesets[0].tileproperties[tileId];
-							animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * x, this.currentMap.tileheight * y, this.currentMap.tileheight, this.currentMap.tileheight);
+				if (thisLayer.name !== "event") {
+					animation.setup(thisLayer.name);
+					width = thisLayer.width;
+					height = thisLayer.height;
+					for (y = 0; y < height; y++) {
+						for (x = 0; x < width; x++) {
+							tileId = thisLayer.data[(width * y) + x] - 1;
+							if (tileId !== -1) {
+								tile = this.currentMap.tilesets[0].tileproperties[tileId];
+								animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * x, this.currentMap.tileheight * y, this.currentMap.tileheight, this.currentMap.tileheight);
+							}
 						}
 					}
 				}
