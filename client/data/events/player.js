@@ -5,7 +5,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				this.data.event.stop = false;
 				return true;
 			}
-			if (this.data.event.climb) {
+			if (this.data.event.climb && !this.data.event.fall) {
 				return true;
 			}
 			if (input.keys.left || input.keys.right) {
@@ -50,9 +50,12 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		climb: function(target, event) {
 			var find = function(list, type) {
-				for (var i = 0; i < list.length; i++) {
-					if (list[i].group === type) {
-						return list[i];
+				if (list) {
+					for (var i = 0; i < list.length; i++) {
+						if (!list[i]) {}
+						if (list[i].event.indexOf(type) > -1) {
+							return list[i];
+						}
 					}
 				}
 				return false;
@@ -81,7 +84,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			};
 			var fall = function() {
 				if (!this.data.onLand && this.data.event.climb) {
-					this.data.event.climb = false;
+					// this.data.event.climb = false;
 					this.data.event.fall = true;
 				}
 			};
@@ -94,7 +97,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			if (input.keys.up === true) {
 				if ((this.data.event.jump || this.data.event.fall) && !this.data.event.climb) {
 					climbUp.call(this);
-				} else if (find(current, "wall") && find(current, "ladder") && !find(above, "ladder")) {
+				} else if (find(current, "ladder") && !find(above, "ladder")) {
 					climbUp.call(this);
 				} else if (find(current, "ladder") && find(above, "ladder")) {
 					climbUp.call(this);
@@ -117,6 +120,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				} else {
 					fall.call(this);
 				}
+			}else if(input.keys.space) {
+				fall.call(this);
 			}
 		},
 		parseTilePosition: function() {
@@ -169,7 +174,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 						x = x - 1;
 						collideData = map.events(x, y);
 						data = find(collideData, "door");
-						if (data) {
+						// to avoid teleporting past background doors we need to make sure this is a normal door
+						if (data && data.event === "door") {
 							this.on.door.call(this, target, {
 								x: x,
 								y: y
@@ -179,7 +185,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 						x = x + 1;
 						collideData = map.events(x, y);
 						data = find(collideData, "door");
-						if (data) {
+						if (data && data.event === "door") {
 							this.on.door.call(this, target, {
 								x: x,
 								y: y
@@ -191,7 +197,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			return event;
 		},
 		jump: function(target, event) {
-			if (!input.keys.space || this.data.jumpRate >= 0 || this.data.event.climb) {
+			if (!input.keys.space || this.data.jumpRate >= 0) {
 				this.data.event.jump = false;
 				this.data.event.fall = true;
 			} else {
@@ -206,7 +212,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		fall: function(target, event) {
 			this.data.action = "fall";
 			this.data.event.fall = true;
-			this.data.event.climb = false;
+			// this.data.event.climb = false;
 			this.data.event.jump = false;
 			this.data.y += Math.floor(2 * this.data.fallRate);
 			this.data.fallRate += target.world.data.gravity;
@@ -240,10 +246,10 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			}
 			if (this.data.event.fall || (!this.data.onLand && !this.data.event.climb && !this.data.event.jump)) {
 				this.on.fall.call(this, target, event);
-			} else if (this.data.event.jump || input.keys.space) {
-				this.on.jump.call(this, target, event);
 			} else if (this.data.event.climb) {
 				this.on.climb.call(this, target, event);
+			} else if (this.data.event.jump || input.keys.space) {
+				this.on.jump.call(this, target, event);
 			}
 			if (this.data.event.walk || input.keys.left || input.keys.right) {
 				this.on.walk.call(this, target, event);
