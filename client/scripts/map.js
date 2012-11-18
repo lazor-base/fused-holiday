@@ -31,19 +31,44 @@ define(["/data/maps/test.js", "animation"], function(test, animation) {
 				}
 			}
 		},
-		collide: function(x, y) {
+		events: function(x, y) {
 			var results = [];
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
 				var thisLayer = this.currentMap.layers[l];
-				var width = thisLayer.width;
-				var tileId = thisLayer.data[(width * y) + x] - 1;
-				if (tileId !== -1) {
-					var tiles = this.currentMap.tilesets[0].tileproperties;
-					results.push(tiles[tileId]);
+				if (thisLayer.name === "event") {
+					var width = thisLayer.width;
+					var tileId = thisLayer.data[(width * y) + x] - 1;
+					if (tileId !== -1) {
+						var tiles = this.currentMap.tilesets[0].tileproperties;
+						results.push(tiles[tileId]);
+					}
 				}
 			}
 			return results;
+		},
+		matchDoor: function(originX, originY) {
+			var thisLayer, l, x, y, tileId, width, height, tile, searchTile;
+			var length = this.currentMap.layers.length;
+			for (l = 0; l < length; l++) {
+				thisLayer = this.currentMap.layers[l];
+				if (thisLayer.name === "event") {
+					width = thisLayer.width;
+					height = thisLayer.height;
+					searchTile = thisLayer.data[(width * originY) + originX] - 1;
+					for (y = 0; y < height; y++) {
+						for (x = 0; x < width; x++) {
+							tileId = thisLayer.data[(width * y) + x] - 1;
+							if (tileId === searchTile && originX !== x && originY !== y) {
+								return {
+									x: x,
+									y: y
+								};
+							}
+						}
+					}
+				}
+			}
 		}
 	};
 });

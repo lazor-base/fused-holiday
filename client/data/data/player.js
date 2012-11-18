@@ -32,6 +32,7 @@ define([], function() {
 			right:false,
 			left:false
 		},
+		coolDown:0,
 		jumpRate: -3,
 		jumpForce: -3,
 		fallRate: 0,

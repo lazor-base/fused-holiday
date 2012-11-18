@@ -35,10 +35,17 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			}
 		},
 		door: function(target, event) {
-			if (this.data.direction.left) {
-				this.data.x = (event.x - 1) * 32 + 15;
-			} else if (this.data.direction.right) {
-				this.data.x = (event.x + 1) * 32 + 16;
+			if (event.door) {
+				var target = map.matchDoor(event.x, event.y);
+				this.data.coolDown = 10;
+				this.data.x = (target.x * 32) + this.data.frameData.cpx;
+				this.data.y = (target.y * 32) + this.data.frameData.cpy;
+			} else {
+				if (this.data.direction.left) {
+					this.data.x = (event.x - 1) * 32 + 15;
+				} else if (this.data.direction.right) {
+					this.data.x = (event.x + 1) * 32 + 16;
+				}
 			}
 		},
 		climb: function(target, event) {
@@ -81,9 +88,9 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			var collideData, data;
 			var x = this.data.tileX;
 			var y = this.data.tileY;
-			var current = map.collide(x, y);
-			var above = map.collide(x, y - 1);
-			var below = map.collide(x, y + 1);
+			var current = map.events(x, y);
+			var above = map.events(x, y - 1);
+			var below = map.events(x, y + 1);
 			if (input.keys.up === true) {
 				if ((this.data.event.jump || this.data.event.fall) && !this.data.event.climb) {
 					climbUp.call(this);
@@ -114,7 +121,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		parseTilePosition: function() {
 			var round = function(number) {
-				var num = Math.round(number / 32) ;
+				var num = Math.round(number / 32);
 				return num;
 			};
 			var speed = this.animations[this.data.action].speed;
@@ -129,12 +136,14 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.data.tileY = round(this.data.y - this.data.frameData.cpy);
 		},
 		action: function(target, event) {
+			if(this.data.coolDown) {
+				return false;
+			}
 			var find = function(list, type) {
 				if (list) {
 					for (var i = 0; i < list.length; i++) {
-						if (!list[i]) {
-						}
-						if (list[i].group === type) {
+						if (!list[i]) {}
+						if (list[i].event.indexOf(type) > -1) {
 							return list[i];
 						}
 					}
@@ -144,20 +153,21 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			var collideData, data, current, below;
 			var x = this.data.tileX;
 			var y = this.data.tileY;
-			current = map.collide(x, y);
-			below = map.collide(x, y + 1);
+			current = map.events(x, y);
+			below = map.events(x, y + 1);
 			if (find(current, "door")) {
 				this.on.door.call(this, target, {
 					x: x,
-					y: y
+					y: y,
+					door: find(current, "door")
 				});
 			} else {
 				if (find(current, "ladder") || find(below, "ladder")) {
 					this.on.climb.call(this, target, event);
 				} else {
 					if (this.data.direction.left) {
-						// x = x - 1;
-						collideData = map.collide(x, y);
+						x = x - 1;
+						collideData = map.events(x, y);
 						data = find(collideData, "door");
 						if (data) {
 							this.on.door.call(this, target, {
@@ -167,7 +177,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 						}
 					} else {
 						x = x + 1;
-						collideData = map.collide(x, y);
+						collideData = map.events(x, y);
 						data = find(collideData, "door");
 						if (data) {
 							this.on.door.call(this, target, {
@@ -185,8 +195,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				this.data.event.jump = false;
 				this.data.event.fall = true;
 			} else {
-				if(this.data.event.jump === false) {
-				}
+				if (this.data.event.jump === false) {}
 				this.data.onLand = false;
 				this.data.action = "jump";
 				this.data.event.jump = true;
@@ -302,6 +311,12 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			if (this.data.isFlipped) {
 				animation.context.restore();
 				this.data.isFlipped = false;
+			}
+			if (this.data.coolDown > 0) {
+				this.data.coolDown--;
+			}
+			if (this.data.coolDown < 0) {
+				this.data.coolDown = 0;
 			}
 			this.on.parseTilePosition.call(this);
 		}
