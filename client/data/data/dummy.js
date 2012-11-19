@@ -20,6 +20,7 @@ define([], function() {
 		},
 		frameData:null,
 		jumpRate: -3,
+		moving:false,
 		jumpForce: -3,
 		fallRate: 0,
 		isFlipped: false,

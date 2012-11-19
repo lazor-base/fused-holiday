@@ -21,8 +21,10 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				}
 			} else if (this.data.event.walk) {
 				if (input.keys.right === true && this.data.blocked.right === false) {
+					this.data.moving = true;
 					this.data.x = this.data.x + this.data.walkSpeed;
 				} else if (input.keys.left === true && this.data.blocked.left === false) {
+					this.data.moving = true;
 					this.data.x = this.data.x - this.data.walkSpeed;
 				}
 
@@ -36,7 +38,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		door: function(target, event) {
 			if (event.door) {
-				var target = map.matchDoor(event.x, event.y);
+				var target = event.map.matchDoor(event.x, event.y);
 				this.data.coolDown = 10;
 				this.data.x = (target.x * 32) + this.data.frameData.cpx;
 				this.data.y = (target.y * 32) + this.data.frameData.cpy;
@@ -48,7 +50,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				}
 			}
 		},
-		climb: function(target, event) {
+		climb: function(target, context, map) {
 			var find = function(list, type) {
 				if (list) {
 					for (var i = 0; i < list.length; i++) {
@@ -61,6 +63,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				return false;
 			};
 			var climbUp = function() {
+				this.data.moving = true;
 				this.data.fallRate = 0;
 				this.data.jumpRate = this.data.jumpForce;
 				this.data.action = "climb";
@@ -72,6 +75,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				this.data.event.climb = true;
 			};
 			var climDown = function() {
+				this.data.moving = true;
 				this.data.fallRate = 0;
 				this.data.jumpRate = this.data.jumpForce;
 				this.data.action = "climb";
@@ -120,7 +124,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				} else {
 					fall.call(this);
 				}
-			}else if(input.keys.space) {
+			} else if (input.keys.space) {
 				fall.call(this);
 			}
 		},
@@ -140,8 +144,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.data.tileX = round(this.data.x - this.data.frameData.cpx);
 			this.data.tileY = round(this.data.y - this.data.frameData.cpy);
 		},
-		action: function(target, event) {
-			if(this.data.coolDown) {
+		action: function(target, context, map) {
+			if (this.data.coolDown) {
 				return false;
 			}
 			var find = function(list, type) {
@@ -164,11 +168,12 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				this.on.door.call(this, target, {
 					x: x,
 					y: y,
-					door: find(current, "door")
+					door: find(current, "door"),
+					map: map
 				});
 			} else {
 				if (find(current, "ladder") || find(below, "ladder")) {
-					this.on.climb.call(this, target, event);
+					this.on.climb.call(this, target, context, map);
 				} else {
 					if (this.data.direction.left) {
 						x = x - 1;
@@ -178,7 +183,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 						if (data && data.event === "door") {
 							this.on.door.call(this, target, {
 								x: x,
-								y: y
+								y: y,
+								map: map
 							});
 						}
 					} else {
@@ -188,7 +194,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 						if (data && data.event === "door") {
 							this.on.door.call(this, target, {
 								x: x,
-								y: y
+								y: y,
+								map: map
 							});
 						}
 					}
@@ -196,11 +203,28 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			}
 			return event;
 		},
+		moveMap: function(target) {
+			if (this.data.x < target.world.data.minOffset) {
+				target.world.data.offsetX = target.world.data.minOffset;
+			} else if (this.data.x + target.world.data.minOffset > target.world.data.maxOffsetX) {
+				target.world.data.offsetX = target.world.data.maxOffsetX-target.world.data.minOffset;
+			} else {
+				target.world.data.offsetX = this.data.x;
+			}
+			if (this.data.y < target.world.data.minOffset) {
+				target.world.data.offsetY = target.world.data.minOffset;
+			} else if (this.data.y + target.world.data.minOffset > target.world.data.maxOffsetY) {
+				target.world.data.offsetY = target.world.data.maxOffsetY-target.world.data.minOffset;
+			} else {
+				target.world.data.offsetY = this.data.y;
+			}
+		},
 		jump: function(target, event) {
 			if (!input.keys.space || this.data.jumpRate >= 0) {
 				this.data.event.jump = false;
 				this.data.event.fall = true;
 			} else {
+				this.data.moving = true;
 				if (this.data.event.jump === false) {}
 				this.data.onLand = false;
 				this.data.action = "jump";
@@ -210,6 +234,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			}
 		},
 		fall: function(target, event) {
+			this.data.moving = true;
 			this.data.action = "fall";
 			this.data.event.fall = true;
 			// this.data.event.climb = false;
@@ -227,7 +252,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.data.fallRate = 0;
 			this.data.jumpRate = this.data.jumpForce;
 		},
-		animate: function(target, event) {
+		animate: function(target, context, map) {
+			this.data.moving = false;
 			if (input.keys.left && input.keys.right) {
 				//both keys pressed, dont change anything.
 			} else if (input.keys.left || input.keys.right) {
@@ -242,17 +268,17 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.data.direction.left = this.data.lastDirection === "left";
 			this.data.direction.right = this.data.lastDirection === "right";
 			if ((this.data.event.action || input.keys.up || input.keys.down) && this.data.event.climb === false) {
-				this.on.action.call(this, target, event);
+				this.on.action.call(this, target, context, map);
 			}
 			if (this.data.event.fall || (!this.data.onLand && !this.data.event.climb && !this.data.event.jump)) {
-				this.on.fall.call(this, target, event);
+				this.on.fall.call(this, target, context);
 			} else if (this.data.event.climb) {
-				this.on.climb.call(this, target, event);
+				this.on.climb.call(this, target, context, map);
 			} else if (this.data.event.jump || input.keys.space) {
-				this.on.jump.call(this, target, event);
+				this.on.jump.call(this, target, context);
 			}
 			if (this.data.event.walk || input.keys.left || input.keys.right) {
-				this.on.walk.call(this, target, event);
+				this.on.walk.call(this, target, context);
 			}
 			if (this.animations[this.data.action].speed > 0 && this.data.event.climb === false) {
 				this.counter++;
@@ -266,16 +292,17 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			var frameData = this.data.frameData = this.animations[this.data.action].frames[index];
 			if (this.data.direction.left === true) {
 				if (!this.data.isFlipped) {
-					animation.context.save();
-					animation.context.scale(-1, 1);
-					animation.context.translate(-animation.canvas.width, 0);
+					context.save();
+					context.scale(-1, 1);
+					context.translate(-context.canvas.width, 0);
 					this.data.isFlipped = true;
 				}
-				animation.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, animation.canvas.width - (this.data.x - frameData.cpx) - frameData.w, this.data.y - frameData.cpy, frameData.w, frameData.h);
+				context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, context.canvas.width - map.offset(this.data.x - frameData.cpx, "X") - frameData.w, map.offset(this.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
 			} else {
-				animation.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, this.data.x - frameData.cpx, this.data.y - frameData.cpy, frameData.w, frameData.h);
+				context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, map.offset(this.data.x - frameData.cpx, "X"), map.offset(this.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
 			}
-			this.on.resetCollisions.call(this);
+			this.on.resetCollisions.call(this, context);
+			this.on.moveMap.call(this, target, context);
 		},
 		collideBottom: function(target) {
 			if (this.data.event.fall) {
@@ -307,7 +334,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.data.blocked.left = true;
 		},
 		// everything to be done after the sprite has been animated.
-		resetCollisions: function() {
+		resetCollisions: function(context) {
 			this.data.action = "stand";
 			this.data.onLand = false;
 			this.data.blocked.left = false;
@@ -315,7 +342,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			this.data.blocked.up = false;
 			this.data.blocked.down = false;
 			if (this.data.isFlipped) {
-				animation.context.restore();
+				context.restore();
 				this.data.isFlipped = false;
 			}
 			if (this.data.coolDown > 0) {

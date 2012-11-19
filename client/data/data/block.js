@@ -22,6 +22,7 @@ define([], function() {
 			fall: true,
 			move: false
 		},
+		moving:false,
 		blocked: {
 			up:false,
 			down:false,

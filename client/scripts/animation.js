@@ -40,7 +40,6 @@ define(["physics", "map"], function(physics, map) {
 		animationLoop: function(map, master) {
 			var length = this.renderList.length;
 			var thisEntity;
-			map.animate(this);
 			this.setup("objects");
 			for (var i = 0; i < length; i++) {
 				var thisEntity = this.renderList[i];
@@ -53,21 +52,22 @@ define(["physics", "map"], function(physics, map) {
 					physics(thisEntity, this.renderList);
 					if (thisEntity.data.id === "player") {
 						this.setup("player");
-						thisEntity.on.animate.call(thisEntity, master.environment, null);
+						thisEntity.on.animate.call(thisEntity, master.environment, this.context, map);
 						this.context.fillStyle = "rgba(0,0,0,0.5)";
-						this.context.fillRect(thisEntity.data.x - thisEntity.data.frameData.cpx, thisEntity.data.y - thisEntity.data.frameData.cpy, thisEntity.data.w, thisEntity.data.h)
+						this.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// this.context.fillStyle = "red";
 						// this.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 						this.setup("objects");
 					} else {
-						thisEntity.on.animate.call(thisEntity, master.environment, null);
+						thisEntity.on.animate.call(thisEntity, master.environment, this.context, map);
 						this.context.fillStyle = "rgba(0,0,0,0.5)";
-						this.context.fillRect(thisEntity.data.x - thisEntity.data.frameData.cpx, thisEntity.data.y - thisEntity.data.frameData.cpy, thisEntity.data.w, thisEntity.data.h)
+						this.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// this.context.fillStyle = "red";
 						// this.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 					}
 				}
 			}
+			map.animate(this);
 		}
 	};
 });
