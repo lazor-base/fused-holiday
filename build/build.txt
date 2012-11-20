@@ -2,14 +2,12 @@
 scripts/main.js
 ----------------
 /data/maps/test.js
-scripts/map.js
-scripts/physics.js
-scripts/animation.js
-scripts/input.js
+/data/maps/moarmaps.js
 scripts/entity.js
 /data/data/world.js
 /data/animations/playertest.js
 /data/data/player.js
+scripts/input.js
 /data/events/player.js
 /data/animations/dummy.js
 /data/data/dummy.js
@@ -18,4 +16,7 @@ scripts/entity.js
 /data/data/block.js
 /data/events/block.js
 /data/master.js
+scripts/map.js
+scripts/physics.js
+scripts/animation.js
 scripts/main.js

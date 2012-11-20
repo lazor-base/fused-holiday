@@ -1,4 +1,5 @@
-define([], function() {
+define(["load"], function(load) {
+	load.ready();
 	return {
 		keys: {
 			up: false,
@@ -11,12 +12,14 @@ define([], function() {
 		},
 		listen: function(name, fn) {
 			document.addEventListener(name, fn);
+			return false;
 		},
 		trigger: function(name, details) {
 			var event = new CustomEvent(name, {
 				"detail": details
 			});
 			document.dispatchEvent(event);
+			return false;
 		},
 		keyDown: function(event, input) {
 			if (event.keyCode === 39) {
@@ -40,6 +43,7 @@ define([], function() {
 			if (event.keyCode === 88) {
 				this.keys.x = true;
 			}
+			return false;
 		},
 		keyUp: function(event, input) {
 			if (event.keyCode === 39) {
@@ -63,6 +67,7 @@ define([], function() {
 			if (event.keyCode === 88) {
 				this.keys.x = false;
 			}
+			return false;
 		}
 	}
 });

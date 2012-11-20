@@ -1,4 +1,5 @@
-define([], function() {
+define(["load"], function(load) {
+	load.ready();
 	return {
 		id: "world",
 		gravity: 0.1,

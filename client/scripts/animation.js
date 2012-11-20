@@ -1,4 +1,5 @@
-define(["physics", "map"], function(physics, map) {
+define(["physics", "map","load"], function(physics, map,load) {
+	load.ready();
 	(function() {
 		var lastTime = 0;
 		var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -31,11 +32,13 @@ define(["physics", "map"], function(physics, map) {
 		},
 		stopLoop: function(id) {
 			cancelAnimationFrame(id);
+			return false;
 		},
 		setup: function(id) {
 			this.canvas = document.getElementById(id);
 			this.context = this.canvas.getContext('2d');
 			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+			return false;
 		},
 		animationLoop: function(map, master) {
 			var length = this.renderList.length;
@@ -53,21 +56,22 @@ define(["physics", "map"], function(physics, map) {
 					if (thisEntity.data.id === "player") {
 						this.setup("player");
 						thisEntity.on.animate.call(thisEntity, master.environment, this.context, map);
-						this.context.fillStyle = "rgba(0,0,0,0.5)";
-						this.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
+						// this.context.fillStyle = "rgba(0,0,0,0.5)";
+						// this.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// this.context.fillStyle = "red";
 						// this.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 						this.setup("objects");
 					} else {
 						thisEntity.on.animate.call(thisEntity, master.environment, this.context, map);
-						this.context.fillStyle = "rgba(0,0,0,0.5)";
-						this.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
+						// this.context.fillStyle = "rgba(0,0,0,0.5)";
+						// this.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// this.context.fillStyle = "red";
 						// this.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 					}
 				}
 			}
 			map.animate(this);
+			return false;
 		}
 	};
 });

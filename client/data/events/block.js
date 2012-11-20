@@ -1,4 +1,5 @@
-define(["animation", "input", "map"], function(animation, input, map) {
+define(["animation", "input", "map","load"], function(animation, input, map,load) {
+	load.ready();
 	return {
 		animate: function(target, event) {
 			if (this.data.event.fall || !this.data.onLand) {

@@ -1,4 +1,5 @@
-define(["map"], function(map) {
+define(["map","load"], function(map,load) {
+	load.ready();
 	var contains = function(item, content) {
 		return item.indexOf(content) > -1;
 	};
@@ -101,8 +102,7 @@ define(["map"], function(map) {
 					}
 				}
 			}
-		} else {
-			return false;
 		}
+			return false;
 	};
 });

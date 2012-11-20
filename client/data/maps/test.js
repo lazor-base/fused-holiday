@@ -1,4 +1,5 @@
-define([], function() {
+define(["load"], function(load) {
+    load.ready();
     return {
         "height": 12,
         "layers": [{

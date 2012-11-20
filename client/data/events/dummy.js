@@ -1,4 +1,5 @@
-define(["animation", "input", "map"], function(animation, input, map) {
+define(["animation", "input", "map","load"], function(animation, input, map,load) {
+	load.ready();
 	return {
 		walk: function(target, event) {
 			var collide = this.on.collision.call(this, target, event);

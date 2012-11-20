@@ -1,4 +1,5 @@
-define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/master.js"], function(test, moarmaps, animation, master) {
+define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/master.js","load"], function(test, moarmaps, animation, master,load) {
+	load.ready();
 	return {
 		maps: {
 			test: test,
@@ -21,7 +22,7 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 			this.sheetImage.src = this.currentMap.tilesets[0].image;
 			this.maxOffsetX = master.environment.world.data.maxOffsetX = this.currentMap.width * 32;
 			this.maxOffsetY = master.environment.world.data.maxOffsetY = this.currentMap.width * 32;
-
+			return false;
 		},
 		animate: function(animation) {
 			var thisLayer, l, x, y, tileId, width, tile, thisY, thisX;
@@ -34,30 +35,31 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 				this.drawnMap = false;
 			}
 
-			// if (this.drawnMap === false) {
-			for (l = 0; l < length; l++) {
-				thisLayer = this.currentMap.layers[l];
-				if (thisLayer.name !== "event") {
-					animation.setup(thisLayer.name);
-					width = thisLayer.width;
-					for (x = -1; x < this.xList.length; x++) {
-						thisX = this.xList[x + 1];
-						for (y = -1; y < this.yList.length; y++) {
-							thisY = this.yList[y + 1];
-							if (typeof thisLayer.data[(width * thisY) + thisX] === "number") {
-								tileId = thisLayer.data[(width * thisY) + thisX] - 1;
-								if (tileId !== -1) {
-									// console.log(this.currentMap.tileheight * x,this.currentMap.tileheight * y, animation)
-									tile = this.currentMap.tilesets[0].tileproperties[tileId];
-									animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight);
+			if (this.drawnMap === false) {
+				for (l = 0; l < length; l++) {
+					thisLayer = this.currentMap.layers[l];
+					if (thisLayer.name !== "event") {
+						animation.setup(thisLayer.name);
+						width = thisLayer.width;
+						for (x = -1; x < this.xList.length; x++) {
+							thisX = this.xList[x + 1];
+							for (y = -1; y < this.yList.length; y++) {
+								thisY = this.yList[y + 1];
+								if (typeof thisLayer.data[(width * thisY) + thisX] === "number") {
+									tileId = thisLayer.data[(width * thisY) + thisX] - 1;
+									if (tileId !== -1) {
+										// console.log(this.currentMap.tileheight * x,this.currentMap.tileheight * y, animation)
+										tile = this.currentMap.tilesets[0].tileproperties[tileId];
+										animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight);
+									}
 								}
 							}
 						}
 					}
 				}
+				this.drawnMap = true;
 			}
-			this.drawnMap = true;
-			// }
+			return false;
 		},
 		remainder: function(number) {
 			return number % 32;
@@ -85,8 +87,17 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 			numbers.push(roundedEnd);
 			return numbers;
 		},
+		tileList0: [],
+		tileList1: [],
+		tileList2: [],
+		tileList3: [],
+		tileListIndex: 0,
 		getTiles: function(xList, yList, debug) {
-			var tileResult = [];
+			var index = this.tileListIndex;
+			var results = this["tileList" + index];
+			if (results.length) {
+				results.length = 0;
+			}
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
 				var thisLayer = this.currentMap.layers[l];
@@ -98,17 +109,29 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 						var tileId = thisLayer.data[(width * thisY) + thisX] - 1;
 						var tiles = this.currentMap.tilesets[0].tileproperties;
 						if (tileId === -1) {
-							tileResult.push(false)
+							results.push(false)
 						} else {
-							tileResult.push(tiles[tileId].passable === "false");
+							results.push(tiles[tileId].passable === "false");
 						}
 					}
 				}
 			}
-			return tileResult;
+			this.tileListIndex++;
+			if (this.tileListIndex > 3) {
+				this.tileListIndex = 0;
+			}
+			return results;
 		},
+		eventDataList0: [],
+		eventDataList1: [],
+		eventDataList2: [],
+		eventDataListIndex: 0,
 		events: function(x, y) {
-			var results = [];
+			var index = this.eventDataListIndex;
+			var results = this["eventDataList" + index];
+			if (results.length) {
+				results.length = 0;
+			}
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
 				var thisLayer = this.currentMap.layers[l];
@@ -117,14 +140,27 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 					var tileId = thisLayer.data[(width * y) + x] - 1;
 					if (tileId !== -1) {
 						var tiles = this.currentMap.tilesets[0].tileproperties;
-						results.push(tiles[tileId]);
+						if (results[index]) {
+							results[index] = tiles[tileId];
+						} else {
+							results.push(tiles[tileId]);
+						}
 					}
 				}
 			}
+			this.eventDataListIndex++;
+			if (this.eventDataListIndex > 2) {
+				this.eventDataListIndex = 0;
+			}
 			return results;
 		},
+		xy: {
+			x: 0,
+			y: 0
+		},
 		matchDoor: function(originX, originY) {
-			var thisLayer, l, x, y, tileId, width, height, tile, searchTile;
+			var thisLayer, l, x, y, tileId, width, height, tile, searchTile, xy;
+			xy = this.xy;
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
 				thisLayer = this.currentMap.layers[l];
@@ -137,20 +173,18 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 							tileId = thisLayer.data[(width * y) + x] - 1;
 							if (tileId !== -1) {
 								if (tileId === searchTile && (originX !== x || originY !== y)) {
-									return {
-										x: x,
-										y: y
-									};
+									xy.x = x;
+									xy.y = y;
+									return xy;
 								}
 							}
 						}
 					}
 				}
 			}
-			return {
-				x: originX,
-				y: originY
-			};
+			xy.x = originX;
+			xy.y = originY;
+			return xy;
 		}
 	};
 });

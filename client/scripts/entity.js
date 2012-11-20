@@ -1,4 +1,5 @@
-define(["animation"], function(animation) {
+define(["animation","load"], function(animation,load) {
+	load.ready();
 	return {
 		/**
 		 * Copy readable properties to a new object and return the clone.
@@ -97,13 +98,6 @@ define(["animation"], function(animation) {
 			clone.data.frameData = clone.animations[clone.data.action].frames[0];
 			return clone;
 		},
-		/**
-		 * Create a string copy of the master object.
-		 * @return {String} JSON string of master object.
-		 */
-		print: function(type) {
-			return parseJSON["to" + type](this.master);
-		},
 		spawn: function(entity, attributes, renderList) {
 			var object = this.clone(entity);
 			for (var attr in attributes) {
@@ -111,6 +105,7 @@ define(["animation"], function(animation) {
 			}
 			this.inGame.push(object);
 			renderList.push(object);
+			return false;
 		},
 		collide: function(entity) {
 			var result = [];

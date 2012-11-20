@@ -160,6 +160,30 @@
     <property name="y" value="2"/>
    </properties>
   </tile>
+  <tile id="20">
+   <properties>
+    <property name="event" value="ladder"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="event" value="door"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="event" value="doorA"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="background_door"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="5"/>
+    <property name="y" value="3"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="24" height="12">
   <data encoding="base64" compression="zlib">
@@ -173,7 +197,12 @@
  </layer>
  <layer name="foreground" width="24" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4Aw4AJibiDmGTV/1HwqAgAXtwDH
+   eJxjYBgFo4Aw4AJibiDmIUOvBI3NJwaMmo8K0OOE1u7HBQBXFwD3
+  </data>
+ </layer>
+ <layer name="event" width="24" height="12" opacity="0.65">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A4IEqmPnEam08sGOzmi9HRfGxxQuvwwQYAEjMA2Q==
   </data>
  </layer>
 </map>

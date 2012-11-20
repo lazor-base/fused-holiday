@@ -1,1 +1,75 @@
-define(["animation"],function(e){return{cloneObject:function(e,t){if(t){var n=[];for(var r=0;r<e.length;r++)typeof e[r]=="object"?n.push(this.cloneObject(e[r],Array.isArray(e[r]))):n.push(e[r])}else{var n={};for(var i in e)typeof e[i]=="object"?n[i]=this.cloneObject(e[i],Array.isArray(e[i])):n[i]=e[i]}return n},inGame:[],master:{characters:{},tiles:{},objects:{},tools:{},environment:{}},make:function(e,t,n,r,i,s){return e[n]=e[n]||{},e[n][i.id]={spriteSheet:t,image:null,counter:0,animations:this.cloneObject(r),data:this.cloneObject(i),on:this.cloneObject(s)},e[n][i.id]},isMoving:function(e){if(e.data.event)for(var t in e.data.event)if(e.data.event[t])return console.log(t),!0;return!1},stop:function(e){if(e.data.event){for(var t in e.data.event)e.data.event[t]=!1;return!0}return!1},clone:function(e){var t=this.cloneObject(e),n=new Image;return n.src=e.spriteSheet,t.image=n,t.data.uniqueId=Math.floor(Math.random()*1e6),t.data.frameData=t.animations[t.data.action].frames[0],t},print:function(e){return parseJSON["to"+e](this.master)},spawn:function(e,t,n){var r=this.clone(e);for(var i in t)r.data[i]=t[i];this.inGame.push(r),n.push(r)},collide:function(t){var n=[],r=t.data.x-t.data.frameData.cpx,i=t.data.y-t.data.frameData.cpy,s=r+t.data.w,o=i+t.data.h,u=(r+s)/2,a=(i+o)/2;for(var f=0;f<e.renderList.length;f++){var l=e.renderList[f],c=l.data.x,h=l.data.y,p=c+l.data.w,d=h+l.data.h,v=(c+p)/2,m=(h+d)/2;e.context.fillRect(r,i,32,32),e.context.fillRect(c,h,l.data.w,l.data.h),r-(t.data.direction.left===!0)<=p&&i<=d&&o>=h&&r-(t.data.direction.left===!0)>=c&&n.push({direction:"left",target:l}),s+(t.data.direction.right===!0)>=c&&i<=d&&o>=h&&s+(t.data.direction.right===!0)<=p&&n.push({direction:"right",target:l}),i-(t.data.event.jump===!0)<=d&&r<=p&&s>=c&&i-(t.data.event.jump===!0)>=h&&n.push({direction:"top",target:l}),o+(t.data.event.fall===!0)>=h&&r<=p&&s>=c&&o+(t.data.event.fall===!0)<=d&&n.push({direction:"bottom",target:l})}return n}}})
+define([ "animation" ], function(animation) {
+    return {
+        cloneObject: function(object, isArray) {
+            if (isArray) {
+                var newObject = [];
+                for (var i = 0; i < object.length; i++) typeof object[i] == "object" ? newObject.push(this.cloneObject(object[i], Array.isArray(object[i]))) : newObject.push(object[i]);
+            } else {
+                var newObject = {};
+                for (var attr in object) typeof object[attr] == "object" ? newObject[attr] = this.cloneObject(object[attr], Array.isArray(object[attr])) : newObject[attr] = object[attr];
+            }
+            return newObject;
+        },
+        inGame: [],
+        master: {
+            characters: {},
+            tiles: {},
+            objects: {},
+            tools: {},
+            environment: {}
+        },
+        make: function(master, spriteSheetPath, type, animationJSON, dataJSON, eventJSON) {
+            return master[type] = master[type] || {}, master[type][dataJSON.id
+] = {
+                spriteSheet: spriteSheetPath,
+                image: null,
+                counter: 0,
+                animations: this.cloneObject(animationJSON),
+                data: this.cloneObject(dataJSON),
+                on: this.cloneObject(eventJSON)
+            }, master[type][dataJSON.id];
+        },
+        isMoving: function(entity) {
+            if (entity.data.event) for (var attr in entity.data.event) if (entity.data.event[attr]) return console.log(attr), !0;
+            return !1;
+        },
+        stop: function(entity) {
+            if (entity.data.event) {
+                for (var attr in entity.data.event) entity.data.event[attr] = !1;
+                return !0;
+            }
+            return !1;
+        },
+        clone: function(entity) {
+            var clone = this.cloneObject(entity), image = new Image;
+            return image.src = entity.spriteSheet, clone.image = image, clone.data.uniqueId = Math.floor(Math.random() * 1e6), clone.data.frameData = 
+clone.animations[clone.data.action].frames[0], clone;
+        },
+        spawn: function(entity, attributes, renderList) {
+            var object = this.clone(entity);
+            for (var attr in attributes) object.data[attr] = attributes[attr];
+            return this.inGame.push(object), renderList.push(object), !1;
+        },
+        collide: function(entity) {
+            var result = [], sx = entity.data.x - entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2;
+            for (var i = 0; i < animation.renderList.length; i++) {
+                var target = animation.renderList[i], tsx = target.data.x, tsy = target.data.y, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
+                animation.context.fillRect(sx, sy, 32, 32), animation.context.fillRect(tsx, tsy, target.data.w, target.data.h), sx - (entity.data.direction
+.left === !0) <= tex && sy <= tey && ey >= tsy && sx - (entity.data.direction.left === !0) >= tsx && result.push({
+                    direction: "left",
+                    target: target
+                }), ex + (entity.data.direction.right === !0) >= tsx && sy <= tey && ey >= tsy && ex + (entity.data.direction.right === !0) <= tex && result.push({
+                    direction: "right",
+                    target: target
+                }), sy - (entity.data.event.jump === !0) <= tey && sx <= tex && ex >= tsx && sy - (entity.data.event.jump === !0) >= tsy && result.push({
+                    direction: "top",
+                    target: target
+                }), ey + (entity.data.event.fall === !0) >= tsy && sx <= tex && ex >= tsx && ey + (entity.data.event.fall === !0) <= tey && result.push({
+                    direction: "bottom",
+                    target: target
+                });
+            }
+            return result;
+        }
+    };
+});

@@ -1,4 +1,5 @@
-define([], function() {
+define(["load"], function(load) {
+	load.ready();
 	return {
 		health: 100,
 		x: 15*32,
