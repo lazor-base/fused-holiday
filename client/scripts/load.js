@@ -11,7 +11,7 @@ define([], function() {
 			}
 			this.progressDiv.innerText = ((this.progress/this.total)*100)+"%";
 			if (this.progress === this.total) {
-				this.progressDiv.classList.add("closed");
+				this.progressDiv.setAttribute("class","closed");
 				this.progressDiv = null;
 				this.callback();
 			}
