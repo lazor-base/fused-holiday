@@ -56,7 +56,7 @@ define([ "load" ], function(load) {
         tilesets: [ {
             
 firstgid: 1,
-            image: "../../images/tiles.png",
+            image: "../images/tiles.png",
             imageheight: 192,
             imagewidth: 192,
             margin: 0,

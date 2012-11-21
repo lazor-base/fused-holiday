@@ -1,4 +1,4 @@
-require(["animation", "input", "entity", "map", "/data/master.js","load"], function(animation, input, entity, map, master,load) {
+require(["animation", "input", "entity", "map", "data/master.js","load"], function(animation, input, entity, map, master,load) {
 	input.listen("keydown", function() {
 		input.keyDown(event, input);
 	});

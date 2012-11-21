@@ -68,8 +68,8 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				var target = event.map.matchDoor(event.x, event.y);
 				this.data.targetDoor.x = target.x;
 				this.data.targetDoor.y = target.y;
-				this.data.targetDoor.xSpeed = Math.floor(((target.x - this.data.tileX) * 32) / 8);
-				this.data.targetDoor.ySpeed = Math.floor(((target.y - this.data.tileY) * 32) / 8);
+				this.data.targetDoor.xSpeed = Math.floor(((target.x - this.data.tileX) * 32) / 12);
+				this.data.targetDoor.ySpeed = Math.floor(((target.y - this.data.tileY) * 32) / 12);
 			} else if (event.door.event === "door" && !locked) {
 				event.map.removeDoor(event.x, event.y);
 			}

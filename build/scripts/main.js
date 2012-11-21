@@ -13,7 +13,7 @@ define("load", [], function() {
             this.callback = callback;
         }
     };
-}), define("/data/maps/test.js", [ "load" ], function(load) {
+}), define("data/maps/test.js", [ "load" ], function(load) {
     return load.ready(), {
         height: 12,
         layers: [ {
@@ -71,7 +71,7 @@ define("load", [], function() {
         tileheight: 32,
         tilesets: [ {
             firstgid: 1,
-            image: "../../images/tiles.png",
+            image: "../images/tiles.png",
             imageheight: 192,
             imagewidth: 192,
             margin: 0,
@@ -238,7 +238,7 @@ name: "door_top",
         version: 1,
         width: 24
     };
-}), define("/data/maps/moarmaps.js", [ "load" ], function(load) {
+}), define("data/maps/moarmaps.js", [ "load" ], function(load) {
     return load.ready(), {
         height: 25,
         layers: [ {
@@ -286,8 +286,8 @@ name: "door_top",
             y: 0
         }, {
             data: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 0, 21, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 0, 21, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 0, 21, 0, 29, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 22, 0, 21, 0, 29, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 , 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 21, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
             height: 25,
@@ -304,11 +304,11 @@ name: "door_top",
         tileheight: 32,
         tilesets: [ {
             firstgid: 1,
-            image: "../../images/tiles.png",
+            image: "../images/tiles.png",
             imageheight: 192,
-            imagewidth: 192
-,
-            margin: 0,
+            imagewidth: 192,
+            
+margin: 0,
             name: "tiles",
             properties: {},
             spacing: 0,
@@ -341,9 +341,9 @@ name: "door_top",
                     passable: "true",
                     x: "5",
                     y: "1"
-                
-},
-                "12": {
+                },
+                "12"
+: {
                     group: "wall",
                     name: "wall_bottom_end",
                     passable: "false",
@@ -375,8 +375,8 @@ name: "door_top",
                     group: "wall",
                     name: "wall_left_end",
                     passable: "false",
-                    
-x: "4",
+                    x: "4"
+,
                     y: "2"
                 },
                 "2": {
@@ -402,7 +402,18 @@ x: "4",
                     x: "5",
                     y: "3"
                 },
-                "3": {
+                "26": {
+                    event: "spawnPlayer"
+                },
+                "27": {
+                    event: "mapEnd"
+                },
+                "28": {
+                    event: "door",
+                    lock: "level1"
+                },
+                "3"
+: {
                     group: "door",
                     name: "door_base",
                     passable: "false",
@@ -411,8 +422,7 @@ x: "4",
                 },
                 "4": {
                     group: "door",
-                    
-name: "door_top",
+                    name: "door_top",
                     passable: "false",
                     x: "4",
                     y: "0"
@@ -436,7 +446,8 @@ name: "door_top",
                     name: "wall_right_left",
                     passable: "false",
                     x: "1",
-                    y: "1"
+                    
+y: "1"
                 },
                 "8": {
                     group: "wall",
@@ -445,8 +456,7 @@ name: "door_top",
                     x: "2",
                     y: "1"
                 },
-                "9"
-: {
+                "9": {
                     group: "empty",
                     name: "ladder_left",
                     passable: "true",
@@ -466,12 +476,12 @@ name: "door_top",
         cloneObject: function(object, isArray) {
             if (isArray) {
                 var newObject = [];
-                for (var i = 0; i < object.length; i++) typeof object[i] == "object" ? newObject.push(this.cloneObject(object[i], Array.isArray(object[i]))) : newObject.push(object[i]);
+                for (var i = 0; i < object.length; i++) typeof object[i] == "object" ? newObject.push(this.cloneObject(object[i], Array.isArray(object[i]))) : newObject.push(object
+[i]);
             } else {
                 var newObject = {};
                 for (var attr in object) typeof object[attr] == "object" ? newObject[attr] = this.cloneObject(object[attr], Array.isArray(object[attr])) : newObject[attr] = object[attr];
-            
-}
+            }
             return newObject;
         },
         inGame: [],
@@ -492,14 +502,14 @@ name: "door_top",
                 on: this.cloneObject(eventJSON)
             }, master[type][dataJSON.id];
         },
-        isMoving: function(entity) {
+        isMoving: function(entity
+) {
             if (entity.data.event) for (var attr in entity.data.event) if (entity.data.event[attr]) return console.log(attr), !0;
             return !1;
         },
         stop: function(entity) {
             if (entity.data.event) {
-                for (
-var attr in entity.data.event) entity.data.event[attr] = !1;
+                for (var attr in entity.data.event) entity.data.event[attr] = !1;
                 return !0;
             }
             return !1;
@@ -513,20 +523,20 @@ var attr in entity.data.event) entity.data.event[attr] = !1;
             for (var attr in attributes) object.data[attr] = attributes[attr];
             return this.inGame.push(object), renderList.push(object), !1;
         },
-        collide: function(entity) {
+        collide: function(
+entity) {
             var result = [], sx = entity.data.x - entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2;
-            for (var i = 0; i < 
-animation.renderList.length; i++) {
+            for (var i = 0; i < animation.renderList.length; i++) {
                 var target = animation.renderList[i], tsx = target.data.x, tsy = target.data.y, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
                 animation.context.fillRect(sx, sy, 32, 32), animation.context.fillRect(tsx, tsy, target.data.w, target.data.h), sx - (entity.data.direction.left === !0) <= tex && sy <= tey && ey >= tsy && sx - (entity.data.direction.left === !0) >= tsx && result.push({
                     direction: "left",
                     target: target
                 }), ex + (entity.data.direction.right === !0) >= tsx && sy <= tey && ey >= tsy && ex + (entity.data.direction.right === !0) <= tex && result.push({
-                    direction: "right",
+                    
+direction: "right",
                     target: target
                 }), sy - (entity.data.event.jump === !0) <= tey && sx <= tex && ex >= tsx && sy - (entity.data.event.jump === !0) >= tsy && result.push({
-                    direction: "top"
-,
+                    direction: "top",
                     target: target
                 }), ey + (entity.data.event.fall === !0) >= tsy && sx <= tex && ex >= tsx && ey + (entity.data.event.fall === !0) <= tey && result.push({
                     direction: "bottom",
@@ -536,7 +546,7 @@ animation.renderList.length; i++) {
             return result;
         }
     };
-}), define("/data/data/world.js", [ "load" ], function(load) {
+}), define("data/data/world.js", [ "load" ], function(load) {
     return load.ready(), {
         id: "world",
         gravity: .125,
@@ -546,11 +556,12 @@ animation.renderList.length; i++) {
         maxOffsetX: 0,
         maxOffsetY: 0
     };
-}), define("/data/animations/playertest.js", [ "load" ], function(load) {
+}), define("data/animations/playertest.js", [ "load" ], function(load) {
     return load.ready(), {
         stand: {
             speed: 0,
-            frames: [ {
+            frames: 
+[ {
                 x: 3,
                 y: 14,
                 w: 32,
@@ -562,8 +573,7 @@ animation.renderList.length; i++) {
         climb: {
             speed: 0,
             frames: [ {
-                
-x: 289,
+                x: 289,
                 y: 10,
                 w: 44,
                 h: 52,
@@ -599,7 +609,8 @@ x: 289,
                 x: 168,
                 y: 10,
                 w: 29,
-                h: 49,
+                
+h: 49,
                 cpx: 16,
                 cpy: 24
             } ]
@@ -611,13 +622,12 @@ x: 289,
                 y: 6,
                 w: 46,
                 h: 58,
-                
-cpx: 16,
+                cpx: 16,
                 cpy: 20
             } ]
         }
     };
-}), define("/data/data/player.js", [ "load" ], function(load) {
+}), define("data/data/player.js", [ "load" ], function(load) {
     return load.ready(), {
         health: 100,
         x: 448,
@@ -648,7 +658,8 @@ cpx: 16,
         blocked: {
             up: !1,
             down: !1,
-            right: !1,
+            
+right: !1,
             left: !1
         },
         travel: !1,
@@ -662,8 +673,7 @@ cpx: 16,
             level1: !1
         },
         moving: !1,
-        
-coolDown: 0,
+        coolDown: 0,
         jumpRate: -3,
         jumpForce: -3,
         fallRate: 0,
@@ -693,36 +703,36 @@ coolDown: 0,
         listen: function(name, fn) {
             return document.addEventListener(name, fn), !1;
         },
-        trigger: function(name, details) {
+        trigger: function(
+name, details) {
             var event = new CustomEvent(name, {
                 detail: details
             });
             return document.dispatchEvent(event), !1;
         },
         keyDown: function(event, input) {
-            return event.keyCode === 39 && 
-(this.keys.right = !0), event.keyCode === 37 && (this.keys.left = !0), event.keyCode === 32 && (this.keys.space = !0), event.keyCode === 38 && (this.keys.up = !0), event.keyCode === 40 && (this.keys.down = !0), event.keyCode === 90 && (this.keys.z = !0), event.keyCode === 88 && (this.keys.x = !0), !1;
+            return event.keyCode === 39 && (this.keys.right = !0), event.keyCode === 37 && (this.keys.left = !0), event.keyCode === 32 && (this.keys.space = !0), event.keyCode === 38 && (this.keys.up = !0), event.keyCode === 40 && (this.keys.down = !0), event.keyCode === 90 && (this.keys.z = !0), event.keyCode === 88 && (this.keys.x = !0), !1;
         },
         keyUp: function(event, input) {
             return event.keyCode === 39 && (this.keys.right = !1), event.keyCode === 37 && (this.keys.left = !1), event.keyCode === 32 && (this.keys.space = !1), event.keyCode === 38 && (this.keys.up = !1), event.keyCode === 40 && (this.keys.down = !1), event.keyCode === 90 && (this.keys.z = !1), event.keyCode === 88 && (this.keys.x = !1), !1;
         }
     };
-}), define("/data/events/player.js", [ "animation", "input", "map", "entity", "load" ], function(animation, input, map, entity, load) {
+}), define("data/events/player.js"
+, [ "animation", "input", "map", "entity", "load" ], function(animation, input, map, entity, load) {
     return load.ready(), {
         walk: function(target, event) {
             if (this.data.event.stop) return this.data.event.stop = !1, !0;
-            
-if (this.data.event.climb && !this.data.event.fall) return !0;
+            if (this.data.event.climb && !this.data.event.fall) return !0;
             input.keys.left || input.keys.right ? (this.data.event.walk = !0, this.data.event.stand = !1) : (this.data.event.walk = !1, this.data.event.stand = !0);
             if (input.keys.left && input.keys.right) {
                 if (this.data.direction.right || this.data.direction.left) this.counter = 0;
             } else this.data.event.walk && (input.keys.right === !0 && this.data.blocked.right === !1 ? (this.data.moving = !0, this.data.x = this.data.x + this.data.walkSpeed) : input.keys.left === !0 && this.data.blocked.left === !1 && (this.data.moving = !0, this.data.x = this.data.x - this.data.walkSpeed));
-            return input.keys.right === !1 && this.data.direction.right === !0 && (this.counter = 0), input.keys.left === !1 && this.data.direction.left === !0 && (this.counter = 0), !1;
+            return input.keys.right === !1 && this.data.
+direction.right === !0 && (this.counter = 0), input.keys.left === !1 && this.data.direction.left === !0 && (this.counter = 0), !1;
         },
         moveDoors: function(map) {
             if (this.data.travel) {
-                if (this.data.tileX === this
-.data.targetDoor.x && this.data.tileY === this.data.targetDoor.y) return this.data.x = this.data.targetDoor.x * 32 + this.data.frameData.cpx, this.data.y = this.data.targetDoor.y * 32 + this.data.frameData.cpy, this.data.travel = !1, !0;
+                if (this.data.tileX === this.data.targetDoor.x && this.data.tileY === this.data.targetDoor.y) return this.data.x = this.data.targetDoor.x * 32 + this.data.frameData.cpx, this.data.y = this.data.targetDoor.y * 32 + this.data.frameData.cpy, this.data.travel = !1, !0;
                 this.data.x += this.data.targetDoor.xSpeed, this.data.y += this.data.targetDoor.ySpeed;
             }
             return !1;
@@ -735,11 +745,11 @@ if (this.data.event.climb && !this.data.event.fall) return !0;
                 if (!this.data.keys[event.door.lock]) return console.log("locked door!"), !1;
                 locked = !1;
             }
-            if (event.door.event !== "door" && !locked) {
+            if (event.door.event !== "door" && !
+locked) {
                 this.data.travel = !0;
                 var target = event.map.matchDoor(event.x, event.y);
-                this.data.targetDoor.x = target.x, this.data.targetDoor.y = target.y, this.data.targetDoor.xSpeed = Math.floor((target.x - 
-this.data.tileX) * 32 / 8), this.data.targetDoor.ySpeed = Math.floor((target.y - this.data.tileY) * 32 / 8);
+                this.data.targetDoor.x = target.x, this.data.targetDoor.y = target.y, this.data.targetDoor.xSpeed = Math.floor((target.x - this.data.tileX) * 32 / 12), this.data.targetDoor.ySpeed = Math.floor((target.y - this.data.tileY) * 32 / 12);
             } else event.door.event === "door" && !locked && event.map.removeDoor(event.x, event.y);
             return !1;
         },
@@ -751,24 +761,24 @@ this.data.tileX) * 32 / 8), this.data.targetDoor.ySpeed = Math.floor((target.y -
                 }
                 return !1;
             }, climbUp = function() {
-                return this.data.moving = !0, this.data.fallRate = 0, this.data.jumpRate = this.data.jumpForce, this.data.action = "climb", this.data.event.jump = !1, this.data.event.fall = !1, this.data.y = this.data.y - 1, this.data.onLand = !1, this.counter++, this.data.event.climb = !0, !1;
+                return this.data.moving = !0, this.data.fallRate = 0, this.data.jumpRate = this.data.jumpForce, this.data.action = "climb", this.data.event
+.jump = !1, this.data.event.fall = !1, this.data.y = this.data.y - 1, this.data.onLand = !1, this.counter++, this.data.event.climb = !0, !1;
             }, climDown = function() {
-                return this.data.moving = !0, this.data.fallRate = 0, this.
-data.jumpRate = this.data.jumpForce, this.data.action = "climb", this.data.event.jump = !1, this.data.event.fall = !1, this.data.y = this.data.y + 1, this.data.onLand = !1, this.counter++, this.data.event.climb = !0, !1;
+                return this.data.moving = !0, this.data.fallRate = 0, this.data.jumpRate = this.data.jumpForce, this.data.action = "climb", this.data.event.jump = !1, this.data.event.fall = !1, this.data.y = this.data.y + 1, this.data.onLand = !1, this.counter++, this.data.event.climb = !0, !1;
             }, fall = function() {
                 return !this.data.onLand && this.data.event.climb && (this.data.event.fall = !0), !1;
             }, collideData, data, x = this.data.tileX, y = this.data.tileY, current = map.events(x, y), above = map.events(x, y - 1), below = map.events(x, y + 1);
-            return input.keys.up === !0 ? (this.data.event.jump || this.data.event.fall) && !this.data.event.climb ? climbUp.call(this) : find(current, "ladder") && !find(above, "ladder") ? climbUp.call(this) : find(current, "ladder") && find(above, "ladder") ? climbUp.call(this) : !find(current, "ladder") && find(below, "ladder") && this.data.event.climb ? climbUp.call(this) : !find(current, "ladder") && !find(above, "ladder") ? fall.call(this) : fall.call(this) : input.keys
-.down === !0 ? find(current, "wall") && find(current, "ladder") && find(below, "ladder") ? climDown.call(this) : !find(current, "ladder") && find(below, "ladder") ? climDown.call(this) : find(current, "ladder") && find(below, "ladder") ? climDown.call(this) : find(current, "ladder") && !find(below, "ladder") ? fall.call(this) : fall.call(this) : input.keys.space && fall.call(this), !1;
+            return input.keys.up === !0 ? (this.data.event.jump || this.data.event.fall) && !this.data.event.climb ? climbUp.call(this) : find(current, "ladder") && !find(above, "ladder") ? climbUp.call(this) : find(current, "ladder"
+) && find(above, "ladder") ? climbUp.call(this) : !find(current, "ladder") && find(below, "ladder") && this.data.event.climb ? climbUp.call(this) : !find(current, "ladder") && !find(above, "ladder") ? fall.call(this) : fall.call(this) : input.keys.down === !0 ? find(current, "wall") && find(current, "ladder") && find(below, "ladder") ? climDown.call(this) : !find(current, "ladder") && find(below, "ladder") ? climDown.call(this) : find(current, "ladder") && find(below, "ladder") ? climDown.call(this) : find(current, "ladder") && !find(below, "ladder") ? fall.call(this) : fall.call(this) : input.keys.space && fall.call(this), !1;
         },
         parseTilePosition: function() {
             var round = function(number) {
                 var num = Math.round(number / 32);
                 return num;
             }, speed = this.animations[this.data.action].speed, counter = this.counter, index = Math.floor(counter / speed);
-            if (index > this.animations[this.data.action].frames.length - 1 || speed === 0) index = 0, this.counter = 0;
-            return this.data.frameData = this.animations[this.data.action].frames[index], this.data.tileX = round(this.data.x - this.data.frameData.cpx), this.data.tileY = round(this.data.y - this
-.data.frameData.cpy), !1;
+            if (index > this.animations[this.data.action].frames.length - 1 || 
+speed === 0) index = 0, this.counter = 0;
+            return this.data.frameData = this.animations[this.data.action].frames[index], this.data.tileX = round(this.data.x - this.data.frameData.cpx), this.data.tileY = round(this.data.y - this.data.frameData.cpy), !1;
         },
         action: function(target, context, map) {
             if (this.data.coolDown) return !1;
@@ -784,8 +794,8 @@ data.jumpRate = this.data.jumpForce, this.data.action = "climb", this.data.event
                 y: y,
                 door: find(current, "door"),
                 map: map
-            }) : find(current, "ladder") || find(below, "ladder") ? this.on.climb.call(this, target, context, map) : (this.data.direction.left ? x -= 1 : this.data.direction.right && (x += 1), collideData = map.events(x, y), data = find(collideData, "door"), data && 
-data.event === "door" && this.on.door.call(this, target, {
+            }) : find(current
+, "ladder") || find(below, "ladder") ? this.on.climb.call(this, target, context, map) : (this.data.direction.left ? x -= 1 : this.data.direction.right && (x += 1), collideData = map.events(x, y), data = find(collideData, "door"), data && data.event === "door" && this.on.door.call(this, target, {
                 x: x,
                 y: y,
                 door: data,
@@ -793,30 +803,30 @@ data.event === "door" && this.on.door.call(this, target, {
             })), !1;
         },
         moveMap: function(target) {
-            return this.data.x < target.world.data.minOffset ? target.world.data.offsetX = target.world.data.minOffset : this.data.x + target.world.data.minOffset > target.world.data.maxOffsetX ? target.world.data.offsetX = target.world.data.maxOffsetX - target.world.data.minOffset : target.world.data.offsetX = this.data.x, this.data.y < target.world.data.minOffset ? target.world.data.offsetY = target.world.data.minOffset : this.data.y + target.world.data.minOffset > target.world.data.maxOffsetY ? target.world.data.offsetY = target.world.data.maxOffsetY - target.world.data.minOffset : target.world.data.offsetY = this.data.y, !1;
+            return this.data.x < target.world.data.minOffset ? target.world.data.offsetX = target.world.data.minOffset : this.data.x + target.world.data.minOffset > target.world.data.maxOffsetX ? target.world.data.offsetX = target.world.data.maxOffsetX - target.world.data.minOffset : target.world.data.offsetX = this.data.x, this.data.y < target.world.data.minOffset ? target.world.data.offsetY = target.world.data.minOffset : this.data.y + target.world.data.minOffset > target.world.data.maxOffsetY ? target.world.data.offsetY = target.world
+.data.maxOffsetY - target.world.data.minOffset : target.world.data.offsetY = this.data.y, !1;
         },
         jump: function(target, event) {
-            return !input.keys.space || this.data.jumpRate >= 0 ? (this.data.event.jump = !1
-, this.data.event.fall = !0) : (this.data.moving = !0, this.data.event.jump === !1, this.data.onLand = !1, this.data.action = "jump", this.data.event.jump = !0, this.data.y += Math.floor(2 * this.data.jumpRate), this.data.jumpRate += target.world.data.gravity), !1;
+            return !input.keys.space || this.data.jumpRate >= 0 ? (this.data.event.jump = !1, this.data.event.fall = !0) : (this.data.moving = !0, this.data.event.jump === !1, this.data.onLand = !1, this.data.action = "jump", this.data.event.jump = !0, this.data.y += Math.floor(2 * this.data.jumpRate), this.data.jumpRate += target.world.data.gravity), !1;
         },
         fall: function(target, event) {
             return this.data.moving = !0, this.data.action = "fall", this.data.event.fall = !0, this.data.event.jump = !1, this.data.y += Math.floor(2 * this.data.fallRate), this.data.fallRate += target.world.data.gravity, !1;
         },
         land: function(target, event) {
-            return this.data.action = "land", this.data.onLand = !0, this.data.event.jump = !1, this.data.event.fall = !1, this.data.event.climb = !1, this.data.fallRate = 0, this.data.jumpRate = this.data.jumpForce, !1;
+            return this.data.action = "land", this.data.onLand = !0, this.data.event.jump = !1, this.data.event.fall = !1, this.data.event.climb = !1, this.data.fallRate = 0
+, this.data.jumpRate = this.data.jumpForce, !1;
         },
         animate: function(target, context, map) {
             this.data.moving = !1;
-            if (this.data.travel) return this.on.moveDoors.call(this, map), this.on.resetCollisions
-.call(this, context), this.on.moveMap.call(this, target, context), !1;
+            if (this.data.travel) return this.on.moveDoors.call(this, map), this.on.resetCollisions.call(this, context), this.on.moveMap.call(this, target, context), !1;
             if (!input.keys.left || !input.keys.right) if (input.keys.left || input.keys.right) input.keys.left && (this.data.lastDirection = "left"), input.keys.right && (this.data.lastDirection = "right"), this.data.action = "walk";
-            this.data.direction.left = this.data.lastDirection === "left", this.data.direction.right = this.data.lastDirection === "right", (this.data.event.action || input.keys.up || input.keys.down) && this.data.event.climb === !1 && this.on.action.call(this, target, context, map), this.data.event.fall || !this.data.onLand && !this.data.event.climb && !this.data.event.jump ? this.on.fall.call(this, target, context) : this.data.event.climb ? this.on.climb.call(this, target, context, map) : (this.data.event.jump || input.keys.space) && this.on.jump.call(this, target, context), (this.data.event.walk || input.keys.left || input.keys.right) && this.on.walk.call(this, target, context), this
-.animations[this.data.action].speed > 0 && this.data.event.climb === !1 && this.counter++;
+            this.data.direction.left = this.data.lastDirection === "left", this.data.direction.right = this.data.lastDirection === "right", (this.data.event.action || input.keys.up || input.keys.down) && this.data.event.climb === !1 && this.on.action.call(this, target, context, map), this.data.event.fall || !this.data.onLand && !this.data.event.climb && !this.data.event.jump ? this.on.fall.call(this, target, context) : this.data.event.climb ? this.
+on.climb.call(this, target, context, map) : (this.data.event.jump || input.keys.space) && this.on.jump.call(this, target, context), (this.data.event.walk || input.keys.left || input.keys.right) && this.on.walk.call(this, target, context), this.animations[this.data.action].speed > 0 && this.data.event.climb === !1 && this.counter++;
             var speed = this.animations[this.data.action].speed, index = Math.floor(this.counter / speed);
             if (index > this.animations[this.data.action].frames.length - 1 || speed === 0) index = 0, this.counter = 0;
             var frameData = this.data.frameData = this.animations[this.data.action].frames[index];
-            return this.data.direction.left === !0 ? (this.data.isFlipped || (context.save(), context.scale(-1, 1), context.translate(-context.canvas.width, 0), this.data.isFlipped = !0), context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, context.canvas.width - map.offset(this.data.x - frameData.cpx, "X") - frameData.w, map.offset(this.data.y - frameData.cpy, "Y"), frameData.w, frameData.h)) : context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, map.offset(this.data.x - frameData.cpx, "X"), map.offset(this.data.y - frameData
-.cpy, "Y"), frameData.w, frameData.h), this.on.resetCollisions.call(this, context), this.on.moveMap.call(this, target, context), !1;
+            return this.data.direction.left === !0 ? (this.data.isFlipped || (context.save(), context.scale(-1, 1), context.translate(-context.canvas.width, 0), this.data.isFlipped = !0), context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, context.canvas.width - map.offset(this.data.x - frameData.cpx, "X") - 
+frameData.w, map.offset(this.data.y - frameData.cpy, "Y"), frameData.w, frameData.h)) : context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, map.offset(this.data.x - frameData.cpx, "X"), map.offset(this.data.y - frameData.cpy, "Y"), frameData.w, frameData.h), this.on.resetCollisions.call(this, context), this.on.moveMap.call(this, target, context), !1;
         },
         collideBottom: function(target) {
             return this.data.event.fall && (this.data.y = target.y * 32 - 13, this.on.land.call(this)), this.data.onLand = !0, this.data.blocked.down = !0, !1;
@@ -827,15 +837,15 @@ data.event === "door" && this.on.door.call(this, target, {
         collideRight: function(target) {
             return this.data.action = "stand", this.data.event.walk = !1, this.data.event.stand = !0, this.data.blocked.right = !0, !1;
         },
-        collideLeft: function(target) {
+        
+collideLeft: function(target) {
             return this.data.action = "stand", this.data.event.walk = !1, this.data.event.stand = !0, this.data.blocked.left = !0, !1;
         },
         resetCollisions: function(context) {
-            return this
-.data.action = "stand", this.data.onLand = !1, this.data.blocked.left = !1, this.data.blocked.right = !1, this.data.blocked.up = !1, this.data.blocked.down = !1, this.data.isFlipped && (context.restore(), this.data.isFlipped = !1), this.data.coolDown > 0 && this.data.coolDown--, this.data.coolDown < 0 && (this.data.coolDown = 0), this.on.parseTilePosition.call(this), !1;
+            return this.data.action = "stand", this.data.onLand = !1, this.data.blocked.left = !1, this.data.blocked.right = !1, this.data.blocked.up = !1, this.data.blocked.down = !1, this.data.isFlipped && (context.restore(), this.data.isFlipped = !1), this.data.coolDown > 0 && this.data.coolDown--, this.data.coolDown < 0 && (this.data.coolDown = 0), this.on.parseTilePosition.call(this), !1;
         }
     };
-}), define("/data/animations/dummy.js", [ "load" ], function(load) {
+}), define("data/animations/dummy.js", [ "load" ], function(load) {
     return load.ready(), {
         stand: {
             speed: 0,
@@ -850,7 +860,8 @@ data.event === "door" && this.on.door.call(this, target, {
         },
         walk: {
             speed: 5,
-            frames: [ {
+            
+frames: [ {
                 x: 6,
                 y: 44,
                 w: 30,
@@ -860,8 +871,7 @@ data.event === "door" && this.on.door.call(this, target, {
             }, {
                 x: 45,
                 y: 44,
-                w: 32
-,
+                w: 32,
                 h: 38,
                 cpx: 18,
                 cpy: 19
@@ -895,7 +905,8 @@ data.event === "door" && this.on.door.call(this, target, {
                 cpy: 19
             }, {
                 x: 261,
-                y: 44,
+                
+y: 44,
                 w: 28,
                 h: 37,
                 cpx: 18,
@@ -905,8 +916,7 @@ data.event === "door" && this.on.door.call(this, target, {
                 y: 43,
                 w: 34,
                 h: 38,
-                cpx: 18
-,
+                cpx: 18,
                 cpy: 19
             }, {
                 x: 340,
@@ -942,7 +952,8 @@ data.event === "door" && this.on.door.call(this, target, {
                 cpy: 19
             } ]
         },
-        fall: {
+        
+fall: {
             speed: 0,
             frames: [ {
                 x: 298,
@@ -953,8 +964,7 @@ data.event === "door" && this.on.door.call(this, target, {
                 cpy: 19
             } ]
         },
-        land
-: {
+        land: {
             speed: 0,
             frames: [ {
                 x: 86,
@@ -966,7 +976,7 @@ data.event === "door" && this.on.door.call(this, target, {
             } ]
         }
     };
-}), define("/data/data/dummy.js", [ "load" ], function(load) {
+}), define("data/data/dummy.js", [ "load" ], function(load) {
     return load.ready(), {
         health: 100,
         x: 480,
@@ -991,7 +1001,8 @@ data.event === "door" && this.on.door.call(this, target, {
         moving: !1,
         jumpForce: -3,
         fallRate: 0,
-        isFlipped: !1,
+        
+isFlipped: !1,
         physics: {
             checkAgainst: [ "map" ],
             types: [ "entity" ]
@@ -1001,40 +1012,39 @@ data.event === "door" && this.on.door.call(this, target, {
             index: 0
         }
     };
-}), define("/data/events/dummy.js"
-, [ "animation", "input", "map", "load" ], function(animation, input, map, load) {
+}), define("data/events/dummy.js", [ "animation", "input", "map", "load" ], function(animation, input, map, load) {
     return load.ready(), {
         walk: function(target, event) {
             var collide = this.on.collision.call(this, target, event);
             if (collide.triggers.indexOf("left") > -1 || collide.triggers.indexOf("right") > -1) event = collide.event;
             return !input.keys.left && !input.keys.right && (this.data.event.walk = !1, this.data.event.stand = !0), (!input.keys.left || !input.keys.right) && this.data.event.walk && collide.triggers.indexOf("left") === -1 && collide.triggers.indexOf("right") === -1, input.keys.right === !1 && this.data.direction.right === !0, input.keys.left === !1 && this.data.direction.left === !0, event;
         },
-        dash: function(target, event) {
+        dash: function(
+target, event) {
             return event;
         },
         stand: function(target, event) {
             return event;
         },
         jump: function(target, event) {
-            event = this.on.walk.call(this, target, event)
-;
+            event = this.on.walk.call(this, target, event);
             var collide = this.on.collision.call(this, target, event);
             return collide.triggers.indexOf("top") > -1 || this.data.jumpRate >= 0 ? (this.data.event.jump = !1, event = collide.event, this.on.fall.call(this, target, event)) : (this.data.fallRate = 0, event.action = "jump", this.data.event.jump = !0, this.data.y += Math.floor(2 * this.data.jumpRate), this.data.jumpRate += target.world.data.gravity, !input.keys.space), event;
         },
         fall: function(target, event) {
             event = this.on.walk.call(this, target, event);
             var collide = this.on.collision.call(this, target, event);
-            return collide.triggers.indexOf("bottom") > -1 ? (this.data.event.fall = !1, event = collide.event, this.on.land.call(this, target, event)) : (this.data.jumpRate = this.data.jumpForce, event.action = "fall", this.data.event.fall = !0, this.data.y += Math.floor(2 * this.data.fallRate), this.data.fallRate += target.world.data.gravity), event;
+            return collide.triggers.indexOf("bottom") > -1 ? (this.data.event.fall = !1, event = collide.event, this.on.land.call(this, 
+target, event)) : (this.data.jumpRate = this.data.jumpForce, event.action = "fall", this.data.event.fall = !0, this.data.y += Math.floor(2 * this.data.fallRate), this.data.fallRate += target.world.data.gravity), event;
         },
-        
-land: function(target, event) {
+        land: function(target, event) {
             return this.data.event.jump = !1, this.data.event.fall = !1, this.data.fallRate = 0, this.data.jumpRate = this.data.jumpForce, event;
         },
         crouch: function(target, event) {},
         destroy: function(target, event) {
             var oldFrame = null;
-            this.data.oldFrame.animation !== "" && (oldFrame = this.animations[this.data.oldFrame.animation].frames[this.data.oldFrame.index]), this.data.direction.left === !0 ? (this.data.isFlipped || (event.context.save(), event.context.scale(-1, 1), event.context.translate(-animation.canvas.width, 0), this.data.isFlipped = !0), oldFrame !== null && event.context.clearRect(animation.canvas.width - (this.data.oldFrame.x - oldFrame.cpx) - oldFrame.w - 3, this.data.oldFrame.y - oldFrame.cpy - 3, oldFrame.w + 3, oldFrame.h + 3)) : (this.data.isFlipped && (event.context.restore(), this.data.isFlipped = !1), oldFrame !== null && event.context.clearRect(this.data.oldFrame.x - oldFrame.cpx - 3
-, this.data.oldFrame.y - oldFrame.cpy - 3, oldFrame.w + 3, oldFrame.h + 3));
+            this.data.oldFrame.animation !== "" && (oldFrame = this.animations[this.data.oldFrame.animation].frames[this.data.oldFrame.index]), this.data.direction.left === !0 ? (this.data.isFlipped || (event.context.save(), event.context.scale(-1, 1), event.context.translate(-animation.canvas.width, 0), this.data.isFlipped = !0), oldFrame !== null && event.context.clearRect(animation.canvas.width - (this.data.oldFrame.x - oldFrame.cpx) - oldFrame.w - 3
+, this.data.oldFrame.y - oldFrame.cpy - 3, oldFrame.w + 3, oldFrame.h + 3)) : (this.data.isFlipped && (event.context.restore(), this.data.isFlipped = !1), oldFrame !== null && event.context.clearRect(this.data.oldFrame.x - oldFrame.cpx - 3, this.data.oldFrame.y - oldFrame.cpy - 3, oldFrame.w + 3, oldFrame.h + 3));
         },
         animate: function(target, event) {
             var motionType = {
@@ -1043,17 +1053,17 @@ land: function(target, event) {
             };
             this.data.event.fall ? motionType = this.on.fall.call(this, target, motionType) : this.data.event.jump ? motionType = this.on.jump.call(this, target, motionType) : this.data.event.walk && (motionType = this.on.walk.call(this, target, motionType)), this.animations[motionType.action].speed > 0 && this.counter++;
             var speed = this.animations[motionType.action].speed, counter = this.counter, index = Math.floor(counter / speed);
-            if (index > this.animations[motionType.action].frames.length - 1 || speed === 0) index = 0, this.counter = 0;
+            if (index > this.animations[motionType.action].frames.length - 1 || 
+speed === 0) index = 0, this.counter = 0;
             var oldFrame = null;
             this.data.oldFrame.animation !== "" && (oldFrame = this.animations[this.data.oldFrame.animation].frames[this.data.oldFrame.index]);
-            var frameData = 
-this.data.frameData = this.animations[motionType.action].frames[index];
-            this.data.direction.left === !0 ? (this.data.isFlipped || (event.context.save(), event.context.scale(-1, 1), event.context.translate(-animation.canvas.width, 0), this.data.isFlipped = !0), event.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, animation.canvas.width - (this.data.x - frameData.cpx) - frameData.w, this.data.y - frameData.cpy, frameData.w, frameData.h)) : event.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, this.data.x - frameData.cpx, this.data.y - frameData.cpy, frameData.w, frameData.h), this.data.isFlipped && (event.context.restore(), this.data.isFlipped = !1), this.data.oldFrame.index = index, this.data.oldFrame.animation = motionType.action, this.data.oldFrame.x = this.data.x, this.data.oldFrame.y = this.data.y;
+            var frameData = this.data.frameData = this.animations[motionType.action].frames[index];
+            this.data.direction.left === !0 ? (this.data.isFlipped || (event.context.save(), event.context.scale(-1, 1), event.context.translate(-animation.canvas.width, 0), this.data.isFlipped = !0), event.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, animation.canvas.width - (this.data.x - frameData.cpx) - frameData.w, this.data.y - frameData.cpy, frameData.w, frameData.h)) : event.context.drawImage(this.image, frameData.x, frameData.y, frameData.w, frameData.h, this.data.x - frameData.cpx, this.data.y - frameData.cpy, frameData.w, frameData.h), this.data.isFlipped && (event.context.restore(), this.data.isFlipped = !1), this.data.oldFrame
+.index = index, this.data.oldFrame.animation = motionType.action, this.data.oldFrame.x = this.data.x, this.data.oldFrame.y = this.data.y;
         },
         collision: function(target, event) {
             var result = {
-                triggers
-: [],
+                triggers: [],
                 event: event
             }, round = function(number) {
                 var num = Math.round(number / 32) - 1;
@@ -1061,16 +1071,16 @@ this.data.frameData = this.animations[motionType.action].frames[index];
             }, sx = this.data.x, sy = this.data.y, ex = this.data.x + this.data.w, ey = this.data.y + this.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2, collideData = map.collide(round(sx), round(my));
             if (sx <= 0 || collideData.passable === !1) result.triggers.push("left"), result.event.action = "stand", this.data.event.walk = !1, this.data.event.stand = !0;
             collideData = map.collide(round(ex), round(my));
-            if (ex >= animation.canvas.width || collideData.passable === !1) result.triggers.push("right"), result.event.action = "stand", this.data.event.walk = !1, this.data.event.stand = !0;
+            if (ex >= animation.canvas.width || collideData.passable === !1) result.triggers.push("right"), result.event.action = "stand"
+, this.data.event.walk = !1, this.data.event.stand = !0;
             collideData = map.collide(round(mx), round(sy));
-            if (sy <= 0 || collideData.passable === !1) result.triggers.push("top"), this.data.event.jump && (this.data.event.jump = !1
-, this.data.event.fall = !0, result.event.action = "fall");
+            if (sy <= 0 || collideData.passable === !1) result.triggers.push("top"), this.data.event.jump && (this.data.event.jump = !1, this.data.event.fall = !0, result.event.action = "fall");
             collideData = map.collide(round(mx), round(ey));
             if (ey >= animation.canvas.height || collideData.passable === !1) result.triggers.push("bottom"), this.data.event.fall && (this.data.event.jump = !1, this.data.event.fall = !1, result.event.action = "land");
             return result;
         }
     };
-}), define("/data/animations/block.js", [ "load" ], function(load) {
+}), define("data/animations/block.js", [ "load" ], function(load) {
     return load.ready(), {
         idle: {
             speed: 0,
@@ -1084,7 +1094,8 @@ this.data.frameData = this.animations[motionType.action].frames[index];
             } ]
         }
     };
-}), define("/data/data/block.js", [ "load" ], function(load) {
+}), define("data/data/block.js", 
+[ "load" ], function(load) {
     return load.ready(), {
         health: 100,
         x: 448,
@@ -1096,8 +1107,7 @@ this.data.frameData = this.animations[motionType.action].frames[index];
         id: "block",
         action: "idle",
         fallRate: 0,
-        passable
-: !1,
+        passable: !1,
         frameData: null,
         onLand: !1,
         moveSpeed: 1,
@@ -1124,11 +1134,11 @@ this.data.frameData = this.animations[motionType.action].frames[index];
             fall: !0
         }
     };
-}), define("/data/events/block.js", [ "animation", "input", "map", "load" ], function(animation, input, map, load) {
+}), define("data/events/block.js", [ "animation", "input", "map", "load" ], function(animation, input, map, load) {
     return load.ready(), {
         animate: function(target, event) {
-            (this.data.event.fall || !this.data.onLand) && this.on.fall.call(this, target, event), this.data.event.move && this.on.move.call(this, target, event), animation.context.drawImage(this.image, this.data.frameData.x, this.data.frameData.y, this.data.frameData.w, this.data.frameData.h, 
-this.data.x - this.data.frameData.cpx, this.data.y - this.data.frameData.cpy, this.data.w, this.data.h), this.on.resetCollisions.call(this);
+            (this.data.event.fall || !this
+.data.onLand) && this.on.fall.call(this, target, event), this.data.event.move && this.on.move.call(this, target, event), animation.context.drawImage(this.image, this.data.frameData.x, this.data.frameData.y, this.data.frameData.w, this.data.frameData.h, this.data.x - this.data.frameData.cpx, this.data.y - this.data.frameData.cpy, this.data.w, this.data.h), this.on.resetCollisions.call(this);
         },
         move: function(target, event) {
             this.data.direction.right === !0 && this.data.blocked.right === !1 ? this.data.x = this.data.x + this.data.moveSpeed : this.data.direction.left === !0 && this.data.blocked.left === !1 && (this.data.x = this.data.x - this.data.moveSpeed);
@@ -1137,13 +1147,13 @@ this.data.x - this.data.frameData.cpx, this.data.y - this.data.frameData.cpy, th
             this.data.event.fall = !0, this.data.y += Math.floor(2 * this.data.fallRate), this.data.fallRate += target.world.data.gravity;
         },
         land: function(target, event) {
-            this.data.onLand = !0, this.data.event.fall = !1, this.data.fallRate = 0;
+            this.data.onLand = !0, this.data.event.fall = !1, this
+.data.fallRate = 0;
         },
         collideBottom: function(target) {
             this.data.event.fall && (this.data.y = target.y * 32 - 32, this.on.land.call(this)), this.data.onLand = !0, this.data.blocked.down = !0;
         },
-        collideTop: 
-function(target) {
+        collideTop: function(target) {
             this.data.blocked.up = !0;
         },
         collideRight: function(target) {
@@ -1157,26 +1167,26 @@ function(target) {
                 var num = Math.round(number / 32);
                 return num;
             }, speed = this.animations[this.data.action].speed, counter = this.counter, index = Math.floor(counter / speed);
-            if (index > this.animations[this.data.action].frames.length - 1 || speed === 0) index = 0, this.counter = 0;
+            if (index > this.animations[this.data.action].frames.length - 1 || speed === 0
+) index = 0, this.counter = 0;
             this.data.frameData = this.animations[this.data.action].frames[index], this.data.tileX = round(this.data.x - this.data.frameData.cpx), this.data.tileY = round(this.data.y - this.data.frameData.cpy);
         },
-        
-resetCollisions: function() {
+        resetCollisions: function() {
             this.data.action = "idle", this.data.onLand = !1, this.data.direction.left = !1, this.data.direction.right = !1, this.data.blocked.left = !1, this.data.blocked.right = !1, this.data.blocked.up = !1, this.data.blocked.down = !1, this.data.isFlipped && (animation.context.restore(), this.data.isFlipped = !1), this.on.parseTilePosition.call(this);
         }
     };
-}), define("/data/master.js", [ "entity", "/data/data/world.js", "/data/animations/playertest.js", "/data/data/player.js", "/data/events/player.js", "/data/animations/dummy.js", "/data/data/dummy.js", "/data/events/dummy.js", "/data/animations/block.js", "/data/data/block.js", "/data/events/block.js", "load" ], function(entity, world, playerAnimation, playerData, playerEvents, dummyanimation, dummydata, dummyevents, blockAnimation, blockData, blockEvents, load) {
+}), define("data/master.js", [ "entity", "data/data/world.js", "data/animations/playertest.js", "data/data/player.js", "data/events/player.js", "data/animations/dummy.js", "data/data/dummy.js", "data/events/dummy.js", "data/animations/block.js", "data/data/block.js", "data/events/block.js", "load" ], function(entity, world, playerAnimation
+, playerData, playerEvents, dummyanimation, dummydata, dummyevents, blockAnimation, blockData, blockEvents, load) {
     load.ready();
     var master = {
         characters: {},
         tiles: {},
         objects: {},
         tools: {},
-        
-environment: {}
+        environment: {}
     };
-    return entity.make(master, "/images/tiles.png", "characters", blockAnimation, blockData, blockEvents), entity.make(master, "/images/playertest.png", "characters", playerAnimation, playerData, playerEvents), entity.make(master, "/images/mmz.png", "characters", dummyanimation, dummydata, dummyevents), entity.make(master, null, "environment", null, world, null), master;
-}), define("map", [ "/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/master.js", "load" ], function(test, moarmaps, animation, master, load) {
+    return entity.make(master, "../images/tiles.png", "characters", blockAnimation, blockData, blockEvents), entity.make(master, "../images/playertest.png", "characters", playerAnimation, playerData, playerEvents), entity.make(master, "../images/mmz.png", "characters", dummyanimation, dummydata, dummyevents), entity.make(master, null, "environment", null, world, null), master;
+}), define("map", [ "data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.js", "load" ], function(test, moarmaps, animation, master, load) {
     return load.ready(), {
         maps: {
             test: test,
@@ -1184,14 +1194,14 @@ environment: {}
         },
         world: master.environment.world.data,
         offsetX: -1,
-        offsetY: -1,
+        offsetY: -1
+,
         xList: [],
         yList: [],
         minOffset: master.environment.world.data.minOffset,
         maxOffsetX: master.environment.world.data.maxOffsetX,
         maxOffsetY: master.environment.world.data.maxOffsetY,
-        currentMap: null
-,
+        currentMap: null,
         sheetImage: null,
         drawnMap: !1,
         buildMap: function(name) {
@@ -1202,11 +1212,11 @@ environment: {}
             for (l = 0; l < length; l++) {
                 thisLayer = this.currentMap.layers[l];
                 if (thisLayer.name === "event") {
-                    width = thisLayer.width, height = thisLayer.height;
+                    
+width = thisLayer.width, height = thisLayer.height;
                     for (var x = 0; x < width; x++) for (var y = 0; y < height; y++) {
                         tileId = thisLayer.data[width * y + x] - 1;
-                        
-if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") return x * 32;
+                        if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") return x * 32;
                     }
                 }
             }
@@ -1220,25 +1230,25 @@ if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") return x * 32;
                     width = thisLayer.width, height = thisLayer.height;
                     for (var x = 0; x < width; x++) for (var y = 0; y < height; y++) {
                         tileId = thisLayer.data[width * y + x] - 1;
-                        if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") return y * 32;
+                        if (tileId !== -1 && 
+tiles[tileId].event === "spawnPlayer") return y * 32;
                     }
                 }
             }
             return !1;
         },
         animate: function(animation) {
-            var thisLayer, l, x, y, tileId, width, 
-tile, thisY, thisX, length = this.currentMap.layers.length;
+            var thisLayer, l, x, y, tileId, width, tile, thisY, thisX, length = this.currentMap.layers.length;
             if (this.offsetX !== this.world.offsetX || this.offsetY !== this.world.offsetY) this.offsetX = this.world.offsetX, this.offsetY = this.world.offsetY, this.xList = this.roundBetween(this.offsetX - this.minOffset, this.offsetX + this.minOffset, !0), this.yList = this.roundBetween(this.offsetY - this.minOffset, this.offsetY + this.minOffset, !0), this.drawnMap = !1;
             if (this.drawnMap === !1) {
                 for (l = 0; l < length; l++) {
                     thisLayer = this.currentMap.layers[l];
                     if (thisLayer.name !== "event") {
                         animation.setup(thisLayer.name), width = thisLayer.width;
-                        for (x = -1; x < this.xList.length; x++) {
+                        for (x = -1; x < this.xList
+.length; x++) {
                             thisX = this.xList[x + 1];
-                            for (y = -1; y < this.yList.length; y++) thisY = this.yList[y + 1], typeof thisLayer.data[width * thisY + thisX] == "number" && (tileId = 
-thisLayer.data[width * thisY + thisX] - 1, tileId !== -1 && (tile = this.currentMap.tilesets[0].tileproperties[tileId], animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight)));
+                            for (y = -1; y < this.yList.length; y++) thisY = this.yList[y + 1], typeof thisLayer.data[width * thisY + thisX] == "number" && (tileId = thisLayer.data[width * thisY + thisX] - 1, tileId !== -1 && (tile = this.currentMap.tilesets[0].tileproperties[tileId], animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight)));
                         }
                     }
                 }
@@ -1249,14 +1259,14 @@ thisLayer.data[width * thisY + thisX] - 1, tileId !== -1 && (tile = this.current
         remainder: function(number) {
             return number % 32;
         },
-        offset: function(number, position) {
+        offset: function(number, position
+) {
             return number - (this["offset" + position] - this.minOffset);
         },
         roundBetween: function(start, end, map) {
             var round = function(number) {
                 var num = Math.floor(number / 32);
-                
-return num < 0 && (num = 0), num;
+                return num < 0 && (num = 0), num;
             };
             if (start % 32 === 0 && !map) return [ round(start) ];
             var roundedStart = round(start), roundedEnd = round(end), numbers = [];
@@ -1273,12 +1283,12 @@ return num < 0 && (num = 0), num;
             results.length && (results.length = 0);
             var length = this.currentMap.layers.length;
             for (l = 0; l < length; l++) {
-                var thisLayer = this.currentMap.layers[l], width = thisLayer.width;
+                var thisLayer = 
+this.currentMap.layers[l], width = thisLayer.width;
                 for (var x = 0; x < xList.length; x++) {
                     var thisX = xList[x];
                     for (var y = 0; y < yList.length; y++) {
-                        
-var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles = this.currentMap.tilesets[0].tileproperties;
+                        var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles = this.currentMap.tilesets[0].tileproperties;
                         tileId === -1 ? results.push(!1) : results.push(tiles[tileId].passable === "false");
                     }
                 }
@@ -1291,9 +1301,9 @@ var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles 
         eventDataListIndex: 0,
         events: function(x, y) {
             var index = this.eventDataListIndex, results = this["eventDataList" + index], tiles = this.currentMap.tilesets[0].tileproperties, length = this.currentMap.layers.length, thisLayer, width, tileId, l;
-            results.length && (results.length = 0);
-            for (l = 0; l < length; l++) thisLayer = this.currentMap.layers[l], thisLayer.name === "event" && (width = thisLayer.width, tileId = thisLayer.data[width * y + x] - 1, tileId !== -1 && 
-(results[index] ? results[index] = tiles[tileId] : results.push(tiles[tileId])));
+            
+results.length && (results.length = 0);
+            for (l = 0; l < length; l++) thisLayer = this.currentMap.layers[l], thisLayer.name === "event" && (width = thisLayer.width, tileId = thisLayer.data[width * y + x] - 1, tileId !== -1 && (results[index] ? results[index] = tiles[tileId] : results.push(tiles[tileId])));
             return this.eventDataListIndex++, this.eventDataListIndex > 2 && (this.eventDataListIndex = 0), results;
         },
         removeDoor: function(x, y) {
@@ -1302,7 +1312,8 @@ var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles 
                 thisLayer = this.currentMap.layers[l];
                 if (thisLayer.name === "event" || thisLayer.name === "floor") {
                     width = thisLayer.width;
-                    for (i = y - 1; i < y + 2; i++) tileId = thisLayer.data[width * i + x] - 1, tileId !== -1 && (tiles[tileId].group === "door" || tiles[tileId].event && tiles[tileId].event.indexOf("door") > -1) && (thisLayer.data[width * i + x] = 0, this.drawnMap = !1);
+                    for (i = y - 1; i < y + 2; i++) tileId = thisLayer.data[width * i + x] - 1, tileId !== -1 && (tiles[tileId].group === "door" || tiles[
+tileId].event && tiles[tileId].event.indexOf("door") > -1) && (thisLayer.data[width * i + x] = 0, this.drawnMap = !1);
                 }
             }
             return !1;
@@ -1310,8 +1321,7 @@ var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles 
         xy: {
             x: 0,
             y: 0
-        
-},
+        },
         matchDoor: function(originX, originY) {
             var thisLayer, l, x, y, tileId, width, height, tile, searchTile, xy;
             xy = this.xy;
@@ -1322,7 +1332,8 @@ var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles 
                     width = thisLayer.width, height = thisLayer.height, searchTile = thisLayer.data[width * originY + originX] - 1;
                     for (y = 0; y < height; y++) for (x = 0; x < width; x++) {
                         tileId = thisLayer.data[width * y + x] - 1;
-                        if (tileId !== -1 && tileId === searchTile && (originX !== x || originY !== y)) return xy.x = x, xy.y = y, xy;
+                        if (tileId !== -1 && tileId === searchTile && (originX !== x || originY !== y)) return xy.x = 
+x, xy.y = y, xy;
                     }
                 }
             }
@@ -1331,8 +1342,7 @@ var thisY = yList[y], tileId = thisLayer.data[width * thisY + thisX] - 1, tiles 
     };
 }), define("physics", [ "map", "load" ], function(map, load) {
     load.ready();
-    var contains = 
-function(item, content) {
+    var contains = function(item, content) {
         return item.indexOf(content) > -1;
     }, round = function(number) {
         var num = Math.floor(number / 32);
@@ -1349,21 +1359,21 @@ function(item, content) {
         return results;
     };
     return function Physics(entity, renderList) {
-        var checkAgainst = entity.data.physics.checkAgainst, types = entity.data.physics.types;
+        
+var checkAgainst = entity.data.physics.checkAgainst, types = entity.data.physics.types;
         if (entity.data.physics.checkAgainst.length > 0) {
-            var sx = entity.data.x - entity.data.frameData.cpx, sy = entity.data.y - entity
-.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2, modifier = 0, tsx, tsy, tex, tey;
+            var sx = entity.data.x - entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2, modifier = 0, tsx, tsy, tex, tey;
             if (contains(checkAgainst, "map")) {
                 modifier = 0, entity.data.event.walk && entity.data.direction.left && (modifier = entity.data.walkSpeed);
                 var left = map.getTiles([ round(sx - modifier) ], map.roundBetween(sy, ey));
                 (sx + modifier <= 0 || left.indexOf(!0) > -1) && entity.on.collideLeft.call(entity, {
                     x: round(sx + modifier)
                 }), modifier = 0, entity.data.event.walk && entity.data.direction.right && (modifier = entity.data.walkSpeed);
-                var right = map.getTiles([ round(ex + modifier) ], map.roundBetween(sy, ey));
+                var right = map.getTiles([ round(ex + modifier) ], map.roundBetween
+(sy, ey));
                 (ex + modifier >= map.currentMap.width * 32 || right.indexOf(!0) > -1) && entity.on.collideRight.call(entity, {
                     x: round(ex + modifier)
-                }), modifier = 0, entity.data.event.jump && 
-(modifier = Math.floor(2 * entity.data.jumpRate));
+                }), modifier = 0, entity.data.event.jump && (modifier = Math.floor(2 * entity.data.jumpRate));
                 var top = map.getTiles(map.roundBetween(sx, ex), [ round(sy + modifier) ]);
                 (sy + modifier <= 0 || top.indexOf(!0) > -1) && entity.on.collideTop.call(entity, {
                     y: round(sy + modifier)
@@ -1373,10 +1383,10 @@ function(item, content) {
                     y: round(ey + modifier)
                 });
             }
-            if (contains(checkAgainst, "entity")) for (var i = 0; i < renderList.length; i++) {
+            if (contains(checkAgainst, "entity")) for (var i = 0
+; i < renderList.length; i++) {
                 var target = renderList[i];
-                if (target.data.uniqueId !== entity.data.uniqueId && contains(target.data.physics.types, "entity")) var tsx = target.data.x - target.data.frameData
-.cpx, tsy = target.data.y - target.data.frameData.cpy, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
+                if (target.data.uniqueId !== entity.data.uniqueId && contains(target.data.physics.types, "entity")) var tsx = target.data.x - target.data.frameData.cpx, tsy = target.data.y - target.data.frameData.cpy, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
             }
         }
         return !1;
@@ -1385,12 +1395,12 @@ function(item, content) {
     return load.ready(), function() {
         var lastTime = 0, vendors = [ "ms", "moz", "webkit", "o" ];
         for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"], window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
-        window.requestAnimationFrame || (window.requestAnimationFrame = function(callback, element) {
+        window.requestAnimationFrame || (window.requestAnimationFrame = function(
+callback, element) {
             var currTime = (new Date).getTime(), timeToCall = Math.max(0, 16 - (currTime - lastTime)), id = window.setTimeout(function() {
                 callback(currTime + timeToCall);
             }, timeToCall);
-            
-return lastTime = currTime + timeToCall, id;
+            return lastTime = currTime + timeToCall, id;
         }), window.cancelAnimationFrame || (window.cancelAnimationFrame = function(id) {
             clearTimeout(id);
         });
@@ -1409,31 +1419,31 @@ return lastTime = currTime + timeToCall, id;
             return this.canvas = document.getElementById(id), this.context = this.canvas.getContext("2d"), this.context.clearRect(0, 0, this.canvas.width, this.canvas.height), !1;
         },
         animationLoop: function(map, master) {
-            var length = this.renderList.length, thisEntity;
+            var length = this.renderList.length
+, thisEntity;
             this.setup("objects");
             for (var i = 0; i < length; i++) {
                 var thisEntity = this.renderList[i];
-                thisEntity.remove ? (thisEntity.on.destroy.call(thisEntity, null, null), this.renderList
-.splice(i), length = this.renderList.length, i--) : (physics(thisEntity, this.renderList), thisEntity.data.id === "player" ? (this.setup("player"), thisEntity.on.animate.call(thisEntity, master.environment, this.context, map), this.setup("objects")) : thisEntity.on.animate.call(thisEntity, master.environment, this.context, map));
+                thisEntity.remove ? (thisEntity.on.destroy.call(thisEntity, null, null), this.renderList.splice(i), length = this.renderList.length, i--) : (physics(thisEntity, this.renderList), thisEntity.data.id === "player" ? (this.setup("player"), thisEntity.on.animate.call(thisEntity, master.environment, this.context, map), this.setup("objects")) : thisEntity.on.animate.call(thisEntity, master.environment, this.context, map));
             }
             return map.animate(this), !1;
         }
     };
-}), require([ "animation", "input", "entity", "map", "/data/master.js", "load" ], function(animation, input, entity, map, master, load) {
+}), require([ "animation", "input", "entity", "map", "data/master.js", "load" ], function(animation, input, entity, map, master, load) {
     input.listen("keydown", function() {
         input.keyDown(event, input);
     }), input.listen("keyup", function() {
         input.keyUp(event, input);
     });
     function randomFromTo(from, to) {
-        return Math.floor(Math.random() * (to - from + 1) + from);
+        
+return Math.floor(Math.random() * (to - from + 1) + from);
     }
     map.buildMap("test"), entity.spawn(master.characters.player, {
         x: map.findPlayerSpawnX(),
         y: map.findPlayerSpawnY()
     }, animation.renderList);
-    var beginRender = 
-function() {
+    var beginRender = function() {
         return animation.animationLoop.call(animation, map, master), requestAnimationFrame(beginRender);
     }, setup = function() {
         animation.mainLoop = beginRender();
