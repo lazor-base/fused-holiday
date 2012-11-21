@@ -1,5 +1,5 @@
-define([ "physics", "map" ], function(physics, map) {
-    return function() {
+define([ "physics", "map", "load" ], function(physics, map, load) {
+    return load.ready(), function() {
         var lastTime = 0, vendors = [ "ms", "moz", "webkit", "o" ];
         for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"], window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
         window.requestAnimationFrame || (window.requestAnimationFrame = function(callback, element) {
@@ -12,9 +12,9 @@ define([ "physics", "map" ], function(physics, map) {
         });
     }(), {
         canvas: {},
-        context: {},
-        renderList
-: [],
+        
+context: {},
+        renderList: [],
         mainLoop: null,
         startLoop: function(fn) {
             return fn();
@@ -30,8 +30,8 @@ define([ "physics", "map" ], function(physics, map) {
             this.setup("objects");
             for (var i = 0; i < length; i++) {
                 var thisEntity = this.renderList[i];
-                thisEntity.remove ? (thisEntity.on.destroy.call(thisEntity, null, null), this.renderList.splice(i), length = this.renderList.length, i--) : (physics(thisEntity, this.renderList), thisEntity.data.id === "player" ? (this.setup("player"), thisEntity.on.animate.call(thisEntity, master.environment, this.context, map), this.setup("objects"
-)) : thisEntity.on.animate.call(thisEntity, master.environment, this.context, map));
+                thisEntity.remove ? (thisEntity.on.destroy.call(thisEntity, null, null), this.renderList.splice(i), length = this.renderList.length, i--) : (physics(thisEntity, this.renderList), thisEntity.data.id === "player" ? (this.setup("player"), thisEntity.on.animate.call(thisEntity, master.environment, this
+.context, map), this.setup("objects")) : thisEntity.on.animate.call(thisEntity, master.environment, this.context, map));
             }
             return map.animate(this), !1;
         }

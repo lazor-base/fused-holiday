@@ -1,4 +1,4 @@
-define(["animation", "input", "map", "entity","load"], function(animation, input, map, entity,load) {
+define(["animation", "input", "map", "entity", "load"], function(animation, input, map, entity, load) {
 	load.ready();
 	return {
 		walk: function(target, event) {
@@ -41,43 +41,38 @@ define(["animation", "input", "map", "entity","load"], function(animation, input
 		moveDoors: function(map) {
 			if (this.data.travel) {
 				if (this.data.tileX === this.data.targetDoor.x && this.data.tileY === this.data.targetDoor.y) {
+					this.data.x = this.data.targetDoor.x * 32 + this.data.frameData.cpx;
+					this.data.y = this.data.targetDoor.y * 32 + this.data.frameData.cpy;
 					this.data.travel = false;
 					return true;
 				}
-				if (this.data.tileX < this.data.targetDoor.x) {
-					this.data.x += 16;
-				}
-				if (this.data.tileX > this.data.targetDoor.x) {
-					this.data.x -= 16;
-				}
-				if (this.data.tileY < this.data.targetDoor.y) {
-					this.data.y += 16;
-				}
-				if (this.data.tileY > this.data.targetDoor.y) {
-					this.data.y -= 16;
-				}
+				this.data.x += this.data.targetDoor.xSpeed;
+				this.data.y += this.data.targetDoor.ySpeed;
 			}
 			return false;
 		},
 		door: function(target, event) {
 			this.data.coolDown = 10;
-			if (event.door) {
+			var locked = false;
+			if (event.door.lock) {
+				locked = true;
+				if (this.data.keys[event.door.lock]) {
+					locked = false;
+				} else {
+					console.log("locked door!")
+					return false;
+				}
+			}
+			if (event.door.event !== "door" && !locked) {
+				this.data.travel = true;
 				var target = event.map.matchDoor(event.x, event.y);
 				this.data.targetDoor.x = target.x;
 				this.data.targetDoor.y = target.y;
-				// this.data.x = (target.x * 32) + this.data.frameData.cpx;
-				// this.data.y = (target.y * 32) + this.data.frameData.cpy;
-			} else {
-				this.data.targetDoor.y = event.y;
-				if (this.data.direction.left) {
-					this.data.targetDoor.x = event.x - 1;
-					// this.data.x = (event.x - 1) * 32 + 15;
-				} else if (this.data.direction.right) {
-					this.data.targetDoor.x = event.x + 1;
-					// this.data.x = (event.x + 1) * 32 + 16;
-				}
+				this.data.targetDoor.xSpeed = Math.floor(((target.x - this.data.tileX) * 32) / 8);
+				this.data.targetDoor.ySpeed = Math.floor(((target.y - this.data.tileY) * 32) / 8);
+			} else if (event.door.event === "door" && !locked) {
+				event.map.removeDoor(event.x, event.y);
 			}
-			this.data.travel = true;
 			return false;
 		},
 		climb: function(target, context, map) {
@@ -213,27 +208,19 @@ define(["animation", "input", "map", "entity","load"], function(animation, input
 				} else {
 					if (this.data.direction.left) {
 						x = x - 1;
-						collideData = map.events(x, y);
-						data = find(collideData, "door");
-						// to avoid teleporting past background doors we need to make sure this is a normal door
-						if (data && data.event === "door") {
-							this.on.door.call(this, target, {
-								x: x,
-								y: y,
-								map: map
-							});
-						}
-					} else {
+					} else if (this.data.direction.right) {
 						x = x + 1;
-						collideData = map.events(x, y);
-						data = find(collideData, "door");
-						if (data && data.event === "door") {
-							this.on.door.call(this, target, {
-								x: x,
-								y: y,
-								map: map
-							});
-						}
+					}
+					collideData = map.events(x, y);
+					data = find(collideData, "door");
+					// to avoid teleporting past background doors we need to make sure this is a normal door
+					if (data && data.event === "door") {
+						this.on.door.call(this, target, {
+							x: x,
+							y: y,
+							door: data,
+							map: map
+						});
 					}
 				}
 			}

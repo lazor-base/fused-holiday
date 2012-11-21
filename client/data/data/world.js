@@ -2,7 +2,7 @@ define(["load"], function(load) {
 	load.ready();
 	return {
 		id: "world",
-		gravity: 0.1,
+		gravity: 0.125,
 		offsetX: 160,
 		offsetY: 160,
 		minOffset: 224,

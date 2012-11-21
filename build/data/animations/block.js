@@ -1,5 +1,5 @@
-define([], function() {
-    return {
+define([ "load" ], function(load) {
+    return load.ready(), {
         idle: {
             speed: 0,
             frames: [ {

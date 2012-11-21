@@ -1,5 +1,5 @@
-define([], function() {
-    return {
+define([ "load" ], function(load) {
+    return load.ready(), {
         stand: {
             speed: 0,
             frames: [ {
@@ -45,9 +45,9 @@ define([], function() {
             } ]
         },
         fall: {
-            speed: 0,
             
-frames: [ {
+speed: 0,
+            frames: [ {
                 x: 168,
                 y: 10,
                 w: 29,

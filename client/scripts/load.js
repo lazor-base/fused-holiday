@@ -13,7 +13,6 @@ define([], function() {
 			if (this.progress === this.total) {
 				this.progressDiv.classList.add("closed");
 				this.progressDiv = null;
-				console.log(this.callback)
 				this.callback();
 			}
 		},

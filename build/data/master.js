@@ -1,4 +1,5 @@
-define([ "entity", "/data/data/world.js", "/data/animations/playertest.js", "/data/data/player.js", "/data/events/player.js", "/data/animations/dummy.js", "/data/data/dummy.js", "/data/events/dummy.js", "/data/animations/block.js", "/data/data/block.js", "/data/events/block.js" ], function(entity, world, playerAnimation, playerData, playerEvents, dummyanimation, dummydata, dummyevents, blockAnimation, blockData, blockEvents) {
+define([ "entity", "/data/data/world.js", "/data/animations/playertest.js", "/data/data/player.js", "/data/events/player.js", "/data/animations/dummy.js", "/data/data/dummy.js", "/data/events/dummy.js", "/data/animations/block.js", "/data/data/block.js", "/data/events/block.js", "load" ], function(entity, world, playerAnimation, playerData, playerEvents, dummyanimation, dummydata, dummyevents, blockAnimation, blockData, blockEvents, load) {
+    load.ready();
     var master = {
         characters: {},
         tiles: {},

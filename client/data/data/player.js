@@ -36,14 +36,19 @@ define(["load"], function(load) {
 		travel: false,
 		targetDoor: {
 			x: 0,
-			y: 0
+			y: 0,
+			xSpeed:0,
+			ySpeed:0
+		},
+		keys:{
+			level1:false,
 		},
 		moving: false,
 		coolDown: 0,
 		jumpRate: -3,
 		jumpForce: -3,
 		fallRate: 0,
-		walkSpeed: 1,
+		walkSpeed: 2,
 		frameData: null,
 		isFlipped: false,
 		physics: {

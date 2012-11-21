@@ -10,7 +10,10 @@ require(["animation", "input", "entity", "map", "/data/master.js","load"], funct
 		return Math.floor(Math.random() * (to - from + 1) + from);
 	}
 	map.buildMap("test")
-	entity.spawn(master.characters.player, {}, animation.renderList);
+	entity.spawn(master.characters.player, {
+		x:map.findPlayerSpawnX(),
+		y:map.findPlayerSpawnY()
+	}, animation.renderList);
 	// entity.spawn(master.characters.block, {
 	// 	x: randomFromTo(1,22)*32
 	// }, animation.renderList);

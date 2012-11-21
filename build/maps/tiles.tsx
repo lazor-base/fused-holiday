@@ -178,4 +178,20 @@
    <property name="y" value="3"/>
   </properties>
  </tile>
+ <tile id="26">
+  <properties>
+   <property name="event" value="spawnPlayer"/>
+  </properties>
+ </tile>
+ <tile id="27">
+  <properties>
+   <property name="event" value="mapEnd"/>
+  </properties>
+ </tile>
+ <tile id="28">
+  <properties>
+   <property name="event" value="door"/>
+   <property name="lock" value="level1"/>
+  </properties>
+ </tile>
 </tileset>

@@ -1,4 +1,5 @@
-define([ "map" ], function(map) {
+define([ "map", "load" ], function(map, load) {
+    load.ready();
     var contains = function(item, content) {
         return item.indexOf(content) > -1;
     }, round = function(number) {
@@ -18,8 +19,8 @@ define([ "map" ], function(map) {
     return function Physics(entity, renderList) {
         var checkAgainst = entity.data.physics.checkAgainst, types = entity.data.physics.types;
         if (entity.data.physics.checkAgainst.length > 0) {
-            var sx = entity.data.x - 
-entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2, modifier = 0, tsx, tsy, tex, tey;
+            
+var sx = entity.data.x - entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2, modifier = 0, tsx, tsy, tex, tey;
             if (contains(checkAgainst, "map")) {
                 modifier = 0, entity.data.event.walk && entity.data.direction.left && (modifier = entity.data.walkSpeed);
                 var left = map.getTiles([ round(sx - modifier) ], map.roundBetween(sy, ey));
@@ -28,9 +29,9 @@ entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = 
                 }), modifier = 0, entity.data.event.walk && entity.data.direction.right && (modifier = entity.data.walkSpeed);
                 var right = map.getTiles([ round(ex + modifier) ], map.roundBetween(sy, ey));
                 (ex + modifier >= map.currentMap.width * 32 || right.indexOf(!0) > -1) && entity.on.collideRight.call(entity, {
-                    x: round(ex + modifier)
-                
-}), modifier = 0, entity.data.event.jump && (modifier = Math.floor(2 * entity.data.jumpRate));
+                    
+x: round(ex + modifier)
+                }), modifier = 0, entity.data.event.jump && (modifier = Math.floor(2 * entity.data.jumpRate));
                 var top = map.getTiles(map.roundBetween(sx, ex), [ round(sy + modifier) ]);
                 (sy + modifier <= 0 || top.indexOf(!0) > -1) && entity.on.collideTop.call(entity, {
                     y: round(sy + modifier)
@@ -42,8 +43,8 @@ entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = 
             }
             if (contains(checkAgainst, "entity")) for (var i = 0; i < renderList.length; i++) {
                 var target = renderList[i];
-                if (target.data.uniqueId !== entity.data.uniqueId && contains(target.data.physics.types, "entity")) 
-var tsx = target.data.x - target.data.frameData.cpx, tsy = target.data.y - target.data.frameData.cpy, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
+                if (target.data.uniqueId !== entity.data.uniqueId && contains
+(target.data.physics.types, "entity")) var tsx = target.data.x - target.data.frameData.cpx, tsy = target.data.y - target.data.frameData.cpy, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
             }
         }
         return !1;

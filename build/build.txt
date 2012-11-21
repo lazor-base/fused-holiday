@@ -1,6 +1,7 @@
 
 scripts/main.js
 ----------------
+scripts/load.js
 /data/maps/test.js
 /data/maps/moarmaps.js
 scripts/entity.js

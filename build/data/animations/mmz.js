@@ -1,5 +1,5 @@
-define([], function() {
-    return {
+define([ "load" ], function(load) {
+    return load.ready(), {
         stand: {
             speed: 0,
             frames: [ {
@@ -43,9 +43,9 @@ define([], function() {
                 y: 43,
                 w: 37,
                 h: 39,
-                cpx: 18,
                 
-cpy: 19
+cpx: 18,
+                cpy: 19
             }, {
                 x: 127,
                 y: 44,
@@ -88,9 +88,9 @@ cpy: 19
                 h: 38,
                 cpx: 18,
                 cpy: 19
-            }, {
-                x: 380
-,
+            }, 
+{
+                x: 380,
                 y: 45,
                 w: 38,
                 h: 37,
@@ -136,8 +136,8 @@ cpy: 19
                 h: 39,
                 cpx: 18,
                 cpy: 19
-            } ]
+            
+} ]
         }
-    
-};
+    };
 });

@@ -1,5 +1,5 @@
-define([ "animation" ], function(animation) {
-    return {
+define([ "animation", "load" ], function(animation, load) {
+    return load.ready(), {
         cloneObject: function(object, isArray) {
             if (isArray) {
                 var newObject = [];
@@ -19,8 +19,8 @@ define([ "animation" ], function(animation) {
             environment: {}
         },
         make: function(master, spriteSheetPath, type, animationJSON, dataJSON, eventJSON) {
-            return master[type] = master[type] || {}, master[type][dataJSON.id
-] = {
+            return master[type] = master[type] || 
+{}, master[type][dataJSON.id] = {
                 spriteSheet: spriteSheetPath,
                 image: null,
                 counter: 0,
@@ -42,8 +42,8 @@ define([ "animation" ], function(animation) {
         },
         clone: function(entity) {
             var clone = this.cloneObject(entity), image = new Image;
-            return image.src = entity.spriteSheet, clone.image = image, clone.data.uniqueId = Math.floor(Math.random() * 1e6), clone.data.frameData = 
-clone.animations[clone.data.action].frames[0], clone;
+            return image.src = entity.spriteSheet, clone.image = image, clone.data.uniqueId = Math.floor(Math.random() * 1e6
+), clone.data.frameData = clone.animations[clone.data.action].frames[0], clone;
         },
         spawn: function(entity, attributes, renderList) {
             var object = this.clone(entity);
@@ -54,8 +54,8 @@ clone.animations[clone.data.action].frames[0], clone;
             var result = [], sx = entity.data.x - entity.data.frameData.cpx, sy = entity.data.y - entity.data.frameData.cpy, ex = sx + entity.data.w, ey = sy + entity.data.h, mx = (sx + ex) / 2, my = (sy + ey) / 2;
             for (var i = 0; i < animation.renderList.length; i++) {
                 var target = animation.renderList[i], tsx = target.data.x, tsy = target.data.y, tex = tsx + target.data.w, tey = tsy + target.data.h, tmx = (tsx + tex) / 2, tmy = (tsy + tey) / 2;
-                animation.context.fillRect(sx, sy, 32, 32), animation.context.fillRect(tsx, tsy, target.data.w, target.data.h), sx - (entity.data.direction
-.left === !0) <= tex && sy <= tey && ey >= tsy && sx - (entity.data.direction.left === !0) >= tsx && result.push({
+                animation.context.fillRect(sx, sy, 32, 32), animation.context.fillRect(tsx, tsy, target.data.w, target.data.h), 
+sx - (entity.data.direction.left === !0) <= tex && sy <= tey && ey >= tsy && sx - (entity.data.direction.left === !0) >= tsx && result.push({
                     direction: "left",
                     target: target
                 }), ex + (entity.data.direction.right === !0) >= tsx && sy <= tey && ey >= tsy && ex + (entity.data.direction.right === !0) <= tex && result.push({

@@ -1,4 +1,4 @@
-define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/master.js","load"], function(test, moarmaps, animation, master,load) {
+define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/master.js", "load"], function(test, moarmaps, animation, master, load) {
 	load.ready();
 	return {
 		maps: {
@@ -22,6 +22,48 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 			this.sheetImage.src = this.currentMap.tilesets[0].image;
 			this.maxOffsetX = master.environment.world.data.maxOffsetX = this.currentMap.width * 32;
 			this.maxOffsetY = master.environment.world.data.maxOffsetY = this.currentMap.width * 32;
+			return false;
+		},
+		findPlayerSpawnX: function() {
+			var length = this.currentMap.layers.length;
+			var tiles = this.currentMap.tilesets[0].tileproperties;
+			var l, i, width, thisLayer, tileId, height;
+			for (l = 0; l < length; l++) {
+				thisLayer = this.currentMap.layers[l];
+				if (thisLayer.name === "event") {
+					width = thisLayer.width;
+					height = thisLayer.height;
+					for (var x = 0; x < width; x++) {
+						for (var y = 0; y < height; y++) {
+							tileId = thisLayer.data[(width * y) + x] - 1;
+							if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") {
+								return x*32;
+							}
+						}
+					}
+				}
+			}
+			return false;
+		},
+		findPlayerSpawnY: function() {
+			var length = this.currentMap.layers.length;
+			var tiles = this.currentMap.tilesets[0].tileproperties;
+			var l, i, width, thisLayer, tileId, height;
+			for (l = 0; l < length; l++) {
+				thisLayer = this.currentMap.layers[l];
+				if (thisLayer.name === "event") {
+					width = thisLayer.width;
+					height = thisLayer.height;
+					for (var x = 0; x < width; x++) {
+						for (var y = 0; y < height; y++) {
+							tileId = thisLayer.data[(width * y) + x] - 1;
+							if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") {
+								return y*32;
+							}
+						}
+					}
+				}
+			}
 			return false;
 		},
 		animate: function(animation) {
@@ -48,7 +90,6 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 								if (typeof thisLayer.data[(width * thisY) + thisX] === "number") {
 									tileId = thisLayer.data[(width * thisY) + thisX] - 1;
 									if (tileId !== -1) {
-										// console.log(this.currentMap.tileheight * x,this.currentMap.tileheight * y, animation)
 										tile = this.currentMap.tilesets[0].tileproperties[tileId];
 										animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight);
 									}
@@ -92,7 +133,7 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 		tileList2: [],
 		tileList3: [],
 		tileListIndex: 0,
-		getTiles: function(xList, yList, debug) {
+		getTiles: function(xList, yList) {
 			var index = this.tileListIndex;
 			var results = this["tileList" + index];
 			if (results.length) {
@@ -129,17 +170,18 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 		events: function(x, y) {
 			var index = this.eventDataListIndex;
 			var results = this["eventDataList" + index];
+			var tiles = this.currentMap.tilesets[0].tileproperties;
+			var length = this.currentMap.layers.length;
+			var thisLayer, width, tileId, l;
 			if (results.length) {
 				results.length = 0;
 			}
-			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {
-				var thisLayer = this.currentMap.layers[l];
+				thisLayer = this.currentMap.layers[l];
 				if (thisLayer.name === "event") {
-					var width = thisLayer.width;
-					var tileId = thisLayer.data[(width * y) + x] - 1;
+					width = thisLayer.width;
+					tileId = thisLayer.data[(width * y) + x] - 1;
 					if (tileId !== -1) {
-						var tiles = this.currentMap.tilesets[0].tileproperties;
 						if (results[index]) {
 							results[index] = tiles[tileId];
 						} else {
@@ -153,6 +195,25 @@ define(["/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/mast
 				this.eventDataListIndex = 0;
 			}
 			return results;
+		},
+		removeDoor: function(x, y) {
+			var length = this.currentMap.layers.length;
+			var tiles = this.currentMap.tilesets[0].tileproperties;
+			var l, i, width, thisLayer, tileId;
+			for (l = 0; l < length; l++) {
+				thisLayer = this.currentMap.layers[l];
+				if (thisLayer.name === "event" || thisLayer.name === "floor") {
+					width = thisLayer.width;
+					for (i = y - 1; i < y + 2; i++) {
+						tileId = thisLayer.data[(width * i) + x] - 1;
+						if (tileId !== -1 && (tiles[tileId].group === "door" || (tiles[tileId].event && tiles[tileId].event.indexOf("door") > -1))) {
+							thisLayer.data[(width * i) + x] = 0;
+							this.drawnMap = false;
+						}
+					}
+				}
+			}
+			return false;
 		},
 		xy: {
 			x: 0,

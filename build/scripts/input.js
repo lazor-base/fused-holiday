@@ -1,5 +1,5 @@
-define([], function() {
-    return {
+define([ "load" ], function(load) {
+    return load.ready(), {
         keys: {
             up: !1,
             down: !1,
@@ -22,8 +22,8 @@ define([], function() {
             return event.keyCode === 39 && (this.keys.right = !0), event.keyCode === 37 && (this.keys.left = !0), event.keyCode === 32 && (this.keys.space = !0), event.keyCode === 38 && (this.keys.up = !0), event.keyCode === 40 && (this.keys.down = !0), event.keyCode === 90 && (this.keys.z = !0), event.keyCode === 88 && (this.keys.x = !0), !1;
         },
         keyUp: function(event, input) {
-            return event.keyCode === 39 && 
-(this.keys.right = !1), event.keyCode === 37 && (this.keys.left = !1), event.keyCode === 32 && (this.keys.space = !1), event.keyCode === 38 && (this.keys.up = !1), event.keyCode === 40 && (this.keys.down = !1), event.keyCode === 90 && (this.keys.z = !1), event.keyCode === 88 && (this.keys.x = !1), !1;
+            return event
+.keyCode === 39 && (this.keys.right = !1), event.keyCode === 37 && (this.keys.left = !1), event.keyCode === 32 && (this.keys.space = !1), event.keyCode === 38 && (this.keys.up = !1), event.keyCode === 40 && (this.keys.down = !1), event.keyCode === 90 && (this.keys.z = !1), event.keyCode === 88 && (this.keys.x = !1), !1;
         }
     };
 });
