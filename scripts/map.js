@@ -1,4 +1,4 @@
-define([ "/data/maps/test.js", "/data/maps/moarmaps.js", "animation", "/data/master.js", "load" ], function(test, moarmaps, animation, master, load) {
+define([ "data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.js", "load" ], function(test, moarmaps, animation, master, load) {
     return load.ready(), {
         maps: {
             test: test,
