@@ -1,4 +1,7 @@
-define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.js", "load"], function(test, moarmaps, animation, master, load) {
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
+define(["../data/maps/test.js", "../data/maps/moarmaps.js", "animation", "../data/master.js", "load"], function(test, moarmaps, animation, master, load) {
+	"use strict";
 	load.ready();
 	return {
 		maps: {
@@ -27,17 +30,17 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 		findPlayerSpawnX: function() {
 			var length = this.currentMap.layers.length;
 			var tiles = this.currentMap.tilesets[0].tileproperties;
-			var l, i, width, thisLayer, tileId, height;
+			var l, x, y, width, thisLayer, tileId, height;
 			for (l = 0; l < length; l++) {
 				thisLayer = this.currentMap.layers[l];
 				if (thisLayer.name === "event") {
 					width = thisLayer.width;
 					height = thisLayer.height;
-					for (var x = 0; x < width; x++) {
-						for (var y = 0; y < height; y++) {
+					for (x = 0; x < width; x++) {
+						for (y = 0; y < height; y++) {
 							tileId = thisLayer.data[(width * y) + x] - 1;
 							if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") {
-								return x*32;
+								return x * 32;
 							}
 						}
 					}
@@ -48,17 +51,17 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 		findPlayerSpawnY: function() {
 			var length = this.currentMap.layers.length;
 			var tiles = this.currentMap.tilesets[0].tileproperties;
-			var l, i, width, thisLayer, tileId, height;
+			var l, x, y, width, thisLayer, tileId, height;
 			for (l = 0; l < length; l++) {
 				thisLayer = this.currentMap.layers[l];
 				if (thisLayer.name === "event") {
 					width = thisLayer.width;
 					height = thisLayer.height;
-					for (var x = 0; x < width; x++) {
-						for (var y = 0; y < height; y++) {
+					for (x = 0; x < width; x++) {
+						for (y = 0; y < height; y++) {
 							tileId = thisLayer.data[(width * y) + x] - 1;
 							if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") {
-								return y*32;
+								return y * 32;
 							}
 						}
 					}
@@ -66,9 +69,7 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 			}
 			return false;
 		},
-		animate: function(animation) {
-			var thisLayer, l, x, y, tileId, width, tile, thisY, thisX;
-			var length = this.currentMap.layers.length;
+		recalculate: function() {
 			if (this.offsetX !== this.world.offsetX || this.offsetY !== this.world.offsetY) {
 				this.offsetX = this.world.offsetX;
 				this.offsetY = this.world.offsetY;
@@ -76,7 +77,10 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 				this.yList = this.roundBetween(this.offsetY - this.minOffset, this.offsetY + this.minOffset, true);
 				this.drawnMap = false;
 			}
-
+		},
+		animate: function(animation) {
+			var thisLayer, l, x, y, tileId, width, tile, thisY, thisX;
+			var length = this.currentMap.layers.length;
 			if (this.drawnMap === false) {
 				for (l = 0; l < length; l++) {
 					thisLayer = this.currentMap.layers[l];
@@ -125,8 +129,18 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 			for (var i = roundedStart; i < roundedEnd; i++) {
 				numbers.push(i);
 			}
+			// console.log(roundedStart,roundedEnd,start,end, map)
 			numbers.push(roundedEnd);
 			return numbers;
+		},
+		containsImpassable: function(list) {
+			var i = 0;
+			for (i = 0; i < list.length; i++) {
+				if (list[i][0] && list[i][0].passable === "false") {
+					return list[i];
+				}
+			}
+			return false;
 		},
 		tileList0: [],
 		tileList1: [],
@@ -134,29 +148,36 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 		tileList3: [],
 		tileListIndex: 0,
 		getTiles: function(xList, yList) {
+			var l, x, y, length, thisLayer, width, thisX, thisY, tileId, tiles, result;
 			var index = this.tileListIndex;
+			var localIndex = 0;
+			// console.log(xList,yList)
 			var results = this["tileList" + index];
-			if (results.length) {
-				results.length = 0;
-			}
-			var length = this.currentMap.layers.length;
+			length = this.currentMap.layers.length;
+			var initialLength = results.length;
 			for (l = 0; l < length; l++) {
-				var thisLayer = this.currentMap.layers[l];
-				var width = thisLayer.width;
-				for (var x = 0; x < xList.length; x++) {
-					var thisX = xList[x];
-					for (var y = 0; y < yList.length; y++) {
-						var thisY = yList[y];
-						var tileId = thisLayer.data[(width * thisY) + thisX] - 1;
-						var tiles = this.currentMap.tilesets[0].tileproperties;
-						if (tileId === -1) {
-							results.push(false)
-						} else {
-							results.push(tiles[tileId].passable === "false");
+				thisLayer = this.currentMap.layers[l];
+				width = thisLayer.width;
+				for (x = 0; x < xList.length; x++) {
+					thisX = xList[x];
+					for (y = 0; y < yList.length; y++) {
+						thisY = yList[y];
+						tileId = thisLayer.data[(width * thisY) + thisX] - 1;
+						tiles = this.currentMap.tilesets[0].tileproperties;
+						if (tileId !== -1) {
+							if (results[localIndex]) {
+								results[localIndex] = [tiles[tileId], thisX, thisY];
+							} else {
+								results.push([tiles[tileId], thisX, thisY]);
+							}
+							localIndex++;
+							// console.log(y, yList,xList.length,yList.length)
 						}
 					}
 				}
 			}
+			results.length = localIndex;
+			// console.log(initialLength,results.length, localIndex,xList.length*yList.length)
 			this.tileListIndex++;
 			if (this.tileListIndex > 3) {
 				this.tileListIndex = 0;
@@ -172,24 +193,25 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 			var results = this["eventDataList" + index];
 			var tiles = this.currentMap.tilesets[0].tileproperties;
 			var length = this.currentMap.layers.length;
-			var thisLayer, width, tileId, l;
-			if (results.length) {
-				results.length = 0;
-			}
+			var thisLayer, width, tileId, l, result;
+			var localIndex = 0;
 			for (l = 0; l < length; l++) {
 				thisLayer = this.currentMap.layers[l];
 				if (thisLayer.name === "event") {
 					width = thisLayer.width;
 					tileId = thisLayer.data[(width * y) + x] - 1;
 					if (tileId !== -1) {
-						if (results[index]) {
-							results[index] = tiles[tileId];
+						result = tiles[tileId];
+						if (results[localIndex]) {
+							results[localIndex] = result;
 						} else {
-							results.push(tiles[tileId]);
+							results.push(result);
 						}
+						localIndex++;
 					}
 				}
 			}
+			results.length = localIndex;
 			this.eventDataListIndex++;
 			if (this.eventDataListIndex > 2) {
 				this.eventDataListIndex = 0;
@@ -220,7 +242,7 @@ define(["data/maps/test.js", "data/maps/moarmaps.js", "animation", "data/master.
 			y: 0
 		},
 		matchDoor: function(originX, originY) {
-			var thisLayer, l, x, y, tileId, width, height, tile, searchTile, xy;
+			var thisLayer, l, x, y, tileId, width, height, searchTile, xy;
 			xy = this.xy;
 			var length = this.currentMap.layers.length;
 			for (l = 0; l < length; l++) {

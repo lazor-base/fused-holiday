@@ -1,7 +1,10 @@
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
 define([], function() {
+	"use strict";
 	return {
 		progress: 0,
-		total: 19,
+		total: 16,
 		callback:null,
 		progressDiv:null,
 		ready: function() {
@@ -19,5 +22,5 @@ define([], function() {
 		complete: function(callback) {
 			this.callback = callback;
 		}
-	}
+	};
 });

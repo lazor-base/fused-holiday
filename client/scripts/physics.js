@@ -1,4 +1,7 @@
-define(["map","load"], function(map,load) {
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
+define(["map", "load"], function(map, load) {
+	"use strict";
 	load.ready();
 	var contains = function(item, content) {
 		return item.indexOf(content) > -1;
@@ -10,99 +13,122 @@ define(["map","load"], function(map,load) {
 		}
 		return num;
 	};
-	var mapCollision = function(x, y) {
-		var results = false;
-		var length = map.currentMap.layers.length;
-		for (l = 0; l < length; l++) {
-			var thisLayer = map.currentMap.layers[l];
-			var width = thisLayer.width;
-			var tileId = thisLayer.data[(width * round(y)) + round(x)] - 1;
-			if (tileId !== -1) {
-				var tiles = map.currentMap.tilesets[0].tileproperties;
-				if (tiles[tileId].passable === "false") {
-					results = tiles[tileId];
-				}
-			}
-		}
-		return results;
-	};
 	return function Physics(entity, renderList) {
 		var checkAgainst = entity.data.physics.checkAgainst;
-		var types = entity.data.physics.types;
 		if (entity.data.physics.checkAgainst.length > 0) {
 			var sx = entity.data.x - entity.data.frameData.cpx;
 			var sy = entity.data.y - entity.data.frameData.cpy;
 			var ex = sx + entity.data.w;
 			var ey = sy + entity.data.h;
-			var mx = (sx + ex) / 2;
-			var my = (sy + ey) / 2;
-			var modifier = 0;
-			var tsx, tsy, tex, tey;
+			var tsx, tsy, tex, tey, target, i, top, right, bottom, left, result, leftModifier, rightModifier, topModifier, bottomModifier;
+			leftModifier = rightModifier = topModifier = bottomModifier = 0;
+			if (entity.data.event.walk && entity.data.direction.left) {
+				leftModifier = entity.data.walkSpeed;
+			}
+			if (entity.data.event.walk && entity.data.direction.right) {
+				rightModifier = entity.data.walkSpeed;
+			}
+			if (entity.data.event.jump) {
+				topModifier = Math.floor(2 * entity.data.jumpRate);
+			}
+			if (entity.data.event.fall) {
+				bottomModifier = Math.floor(2 * entity.data.fallRate);
+			}
 			if (contains(checkAgainst, "map")) {
-				// if (entity.data.moving) {
-					modifier = 0;
-					if (entity.data.event.walk && entity.data.direction.left) {
-						modifier = entity.data.walkSpeed;
-					}
+				left = map.getTiles([round(sx)], map.roundBetween(sy, ey));
+				result = map.containsImpassable(left);
+				if (sx - leftModifier <= 0 || result) {
+					entity.on.collideLeft(entity, result[1], result[2], result[0]);
+				}
 
-					var left = map.getTiles([round(sx - modifier)], map.roundBetween(sy, ey));
-					if (sx + modifier <= 0 || left.indexOf(true) > -1) {
-						entity.on.collideLeft.call(entity, {
-							x: round(sx + modifier)
-						});
-					}
-					modifier = 0;
-					if (entity.data.event.walk && entity.data.direction.right) {
-						modifier = entity.data.walkSpeed;
-					}
-
-
-					var right = map.getTiles([round(ex + modifier)], map.roundBetween(sy, ey));
-					if (ex + modifier >= map.currentMap.width * 32 || right.indexOf(true) > -1) {
-						entity.on.collideRight.call(entity, {
-							x: round(ex + modifier)
-						});
-					}
-					modifier = 0;
-					if (entity.data.event.jump) {
-						modifier = Math.floor(2 * entity.data.jumpRate);
-					}
-
-
-					var top = map.getTiles(map.roundBetween(sx, ex), [round(sy + modifier)]);
-					if (sy + modifier <= 0 || top.indexOf(true) > -1) {
-						entity.on.collideTop.call(entity, {
-							y: round(sy + modifier)
-						});
-					}
-				// }
-				modifier = 0;
-				if (entity.data.event.fall) {
-					modifier = Math.floor(2 * entity.data.fallRate);
+				right = map.getTiles([round(ex)], map.roundBetween(sy, ey));
+				result = map.containsImpassable(right);
+				if (ex + rightModifier >= map.currentMap.width * 32 || result) {
+					entity.on.collideRight(entity, result[1], result[2], result[0]);
 				}
 
 
-				var bottom = map.getTiles(map.roundBetween(sx, ex), [round(ey + modifier)]);
-				if (ey + modifier >= map.currentMap.height * 32 || bottom.indexOf(true) > -1) {
-					entity.on.collideBottom.call(entity, {
-						y: round(ey + modifier)
-					});
+				top = map.getTiles(map.roundBetween(sx, ex), [round(sy)]);
+				result = map.containsImpassable(top);
+				if (sy + topModifier <= 0 || result) {
+					entity.on.collideTop(entity, result[1], result[2], result[0]);
+				}
+
+
+				bottom = map.getTiles(map.roundBetween(sx, ex), [round(ey)]);
+				result = map.containsImpassable(bottom);
+				if (ey + bottomModifier >= map.currentMap.height * 32 || result) {
+					// console.log(entity.data.y, ey)
+					entity.on.collideBottom(entity, result[1], result[2], result[0]);
 				}
 			}
 			if (contains(checkAgainst, "entity")) {
-				for (var i = 0; i < renderList.length; i++) {
-					var target = renderList[i];
+				for (i = 0; i < renderList.length; i++) {
+					target = renderList[i];
 					if (target.data.uniqueId !== entity.data.uniqueId && contains(target.data.physics.types, "entity")) {
-						var tsx = target.data.x - target.data.frameData.cpx;
-						var tsy = target.data.y - target.data.frameData.cpy;
-						var tex = tsx + target.data.w;
-						var tey = tsy + target.data.h;
-						var tmx = (tsx + tex) / 2;
-						var tmy = (tsy + tey) / 2;
+						tsx = target.data.x - target.data.frameData.cpx;
+						tsy = target.data.y - target.data.frameData.cpy;
+						tex = tsx + target.data.w;
+						tey = tsy + target.data.h;
+						var collision = false;
+						var directions = [];
+						if (sx < tsx) {
+							if (ex < tsx) {
+								collision = false;
+							} else {
+								if (sy < tsy) {
+									if (ey < tsy) {
+										collision = false;
+									} else {
+										collision = "1";
+									}
+								} else {
+									if (sy > tey) {
+										collision = false;
+									} else {
+										collision = "2";
+									}
+								}
+							}
+						} else {
+							if (sx > tex) {
+								collision = false;
+							} else {
+								if (sy < tsy) {
+									if (ey < tsy) {
+										collision = false;
+									} else {
+										collision = "3";
+									}
+								} else {
+									if (sy > tey) {
+										collision = false;
+									} else {
+										// console.log(sx > tsx,sx < tex,sy < tey,sy > tsy)
+										collision = "4";
+									}
+								}
+							}
+						}
+						if (sx - leftModifier <= tex && collision && ex - leftModifier >= tex) {
+							// console.log(sx>= tsy,ey + bottomModifier >= tsy, bottomModifier)
+							entity.on.collideLeft(entity, round(tsx), round(sy), target);
+						}
+						if (ex + rightModifier >= tsx && collision && sx + rightModifier <= tsx) {
+							// console.log("right", collision)
+							entity.on.collideRight(entity, round(tex), round(sy), target);
+						}
+						if (sy + topModifier <= tey && collision && ey + topModifier >= tey) {
+							// console.log("top", collision)
+							entity.on.collideTop(entity, round(sx), round(tey), target);
+						}
+						if (ey + bottomModifier >= tsy && collision && sy + bottomModifier <= tsy) {
+							entity.on.collideBottom(entity, round(sx), round(tsy), target);
+						}
 					}
 				}
 			}
 		}
-			return false;
+		return false;
 	};
 });

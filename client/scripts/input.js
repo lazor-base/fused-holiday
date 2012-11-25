@@ -1,4 +1,7 @@
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
 define(["load"], function(load) {
+	"use strict";
 	load.ready();
 	return {
 		keys: {
@@ -14,14 +17,7 @@ define(["load"], function(load) {
 			document.addEventListener(name, fn);
 			return false;
 		},
-		trigger: function(name, details) {
-			var event = new CustomEvent(name, {
-				"detail": details
-			});
-			document.dispatchEvent(event);
-			return false;
-		},
-		keyDown: function(event, input) {
+		keyDown: function(event) {
 			if (event.keyCode === 39) {
 				this.keys.right = true;
 			}
@@ -45,7 +41,7 @@ define(["load"], function(load) {
 			}
 			return false;
 		},
-		keyUp: function(event, input) {
+		keyUp: function(event) {
 			if (event.keyCode === 39) {
 				this.keys.right = false;
 			}
@@ -69,5 +65,5 @@ define(["load"], function(load) {
 			}
 			return false;
 		}
-	}
+	};
 });

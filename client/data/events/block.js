@@ -1,101 +1,91 @@
-define(["animation", "input", "map","load"], function(animation, input, map,load) {
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
+define(["animation", "input", "map", "load"], function(animation, input, map, load) {
+	"use strict";
 	load.ready();
 	return {
-		animate: function(target, event) {
-			if (this.data.event.fall || !this.data.onLand) {
-				this.on.fall.call(this, target, event);
+		animate: function(self, environment, context, map) {
+			if (self.data.event.fall || !self.data.onLand) {
+				self.on.fall(self, environment);
 			}
-			if (this.data.event.move) {
-				this.on.move.call(this, target, event);
+			if (self.data.event.move) {
+				self.on.move(self);
 			}
-			animation.context.drawImage(this.image, this.data.frameData.x, this.data.frameData.y, this.data.frameData.w, this.data.frameData.h, this.data.x - this.data.frameData.cpx, this.data.y - this.data.frameData.cpy, this.data.w, this.data.h);
-			this.on.resetCollisions.call(this);
+			var frameData = self.data.frameData;
+			context.drawImage(self.image, self.data.frameData.x, self.data.frameData.y, self.data.frameData.w, self.data.frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), self.data.w, self.data.h);
+			self.on.resetCollisions(self);
 		},
-		// fall: function(target, event) {
-		// 	var collide = this.on.collision.call(this, target, event);
-		// 	this.data.jumpRate = this.data.jumpForce;
-		// 	if (collide.triggers.indexOf("bottom") > -1) {
-		// 		this.data.event.fall = false;
-		// 		this.on.land.call(this, target, event);
-		// 	} else {
-		// 		this.data.action = "fall";
-		// 		this.data.event.fall = true;
-		// 		this.data.y += Math.floor(2 * this.data.fallRate);
-		// 		this.data.fallRate += target.world.data.gravity;
-		// 	}
-		// 	this.on.parseTilePosition.call(this, target, event);
-		// },
-		move: function(target, event) {
-			if (this.data.direction.right === true && this.data.blocked.right === false) {
-				this.data.x = this.data.x + this.data.moveSpeed;
-			} else if (this.data.direction.left === true && this.data.blocked.left === false) {
-				this.data.x = this.data.x - this.data.moveSpeed;
+		move: function(self) {
+			if (self.data.direction.right === true && self.data.blocked.right === false) {
+				self.data.x = self.data.x + self.data.moveSpeed;
+			} else if (self.data.direction.left === true && self.data.blocked.left === false) {
+				self.data.x = self.data.x - self.data.moveSpeed;
 			}
 		},
-		fall: function(target, event) {
-			this.data.event.fall = true;
-			this.data.y += Math.floor(2 * this.data.fallRate);
-			this.data.fallRate += target.world.data.gravity;
+		fall: function(self, environment) {
+			self.data.event.fall = true;
+			self.data.y += Math.floor(2 * self.data.fallRate);
+			self.data.fallRate += environment.world.data.gravity;
 
 		},
-		land: function(target, event) {
-			this.data.onLand = true;
-			this.data.event.fall = false;
-			this.data.fallRate = 0;
+		land: function(self) {
+			self.data.onLand = true;
+			self.data.event.fall = false;
+			self.data.fallRate = 0;
 		},
-		collideBottom: function(target) {
-			if (this.data.event.fall) {
-				this.data.y = (target.y * 32) - 32;
-				this.on.land.call(this);
+		collideBottom: function(self, x, y, collideTarget) {
+			if (self.data.event.fall) {
+				self.data.y = (y*32) - (self.data.h-self.data.frameData.cpy);
+				self.on.land(self);
 			}
-			this.data.onLand = true;
-			this.data.blocked.down = true;
+			self.data.onLand = true;
+			self.data.blocked.down = true;
 		},
-		collideTop: function(target) {
-			this.data.blocked.up = true;
+		collideTop: function(self, x, y, collideTarget) {
+			self.data.blocked.up = true;
 		},
-		collideRight: function(target) {
-			this.data.event.move = true;
-			this.data.direction.left = true;
-			this.data.blocked.right = true;
+		collideRight: function(self, x, y, collideTarget) {
+			self.data.event.move = true;
+			self.data.direction.left = true;
+			self.data.blocked.right = true;
 		},
-		collideLeft: function(target) {
-			this.data.event.move = true;
-			this.data.direction.right = true;
-			this.data.blocked.left = true;
+		collideLeft: function(self, x, y, collideTarget) {
+			self.data.event.move = true;
+			self.data.direction.right = true;
+			self.data.blocked.left = true;
 		},
-		parseTilePosition: function() {
+		parseTilePosition: function(self) {
 			var round = function(number) {
 				var num = Math.round(number / 32);
 				return num;
 			};
-			// console.log(this.data)
-			var speed = this.animations[this.data.action].speed;
-			var counter = this.counter;
+			// console.log(self.data)
+			var speed = self.animations[self.data.action].speed;
+			var counter = self.counter;
 			var index = Math.floor(counter / speed);
-			if (index > this.animations[this.data.action].frames.length - 1 || speed === 0) {
+			if (index > self.animations[self.data.action].frames.length - 1 || speed === 0) {
 				index = 0;
-				this.counter = 0;
+				self.counter = 0;
 			}
-			this.data.frameData = this.animations[this.data.action].frames[index];
-			this.data.tileX = round(this.data.x - this.data.frameData.cpx);
-			this.data.tileY = round(this.data.y - this.data.frameData.cpy);
+			self.data.frameData = self.animations[self.data.action].frames[index];
+			self.data.tileX = round(self.data.x - self.data.frameData.cpx);
+			self.data.tileY = round(self.data.y - self.data.frameData.cpy);
 		},
 		// everything to be done after the sprite has been animated.
-		resetCollisions: function() {
-			this.data.action = "idle";
-			this.data.onLand = false;
-			this.data.direction.left = false;
-			this.data.direction.right = false;
-			this.data.blocked.left = false;
-			this.data.blocked.right = false;
-			this.data.blocked.up = false;
-			this.data.blocked.down = false;
-			if (this.data.isFlipped) {
+		resetCollisions: function(self) {
+			self.data.action = "idle";
+			self.data.onLand = false;
+			self.data.direction.left = false;
+			self.data.direction.right = false;
+			self.data.blocked.left = false;
+			self.data.blocked.right = false;
+			self.data.blocked.up = false;
+			self.data.blocked.down = false;
+			if (self.data.isFlipped) {
 				animation.context.restore();
-				this.data.isFlipped = false;
+				self.data.isFlipped = false;
 			}
-			this.on.parseTilePosition.call(this);
+			self.on.parseTilePosition(self);
 		}
 	};
 });

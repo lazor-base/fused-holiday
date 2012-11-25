@@ -1,12 +1,12 @@
 define([ "animation", "input", "map", "load" ], function(animation, input, map, load) {
     return load.ready(), {
-        animate: function(target, event) {
-            (this.data.event.fall || !this.data.onLand) && this.on.fall.call(this, target, event), this.data.event.move && this.on.move.call(this, target, event), animation.context.drawImage(this.image, this.data.frameData.x, this.data.frameData.y, this.data.frameData.w, this.data.frameData.h, this.data.x - this.data.frameData.cpx, this.data.y - this.data.frameData.cpy, this.data.w, this.data.h), this.on.resetCollisions.call(this);
+        animate: function(self, environment, event) {
+            (this.data.event.fall || !this.data.onLand) && this.on.fall.call(this, target, event), this.data.event.move && this.on.move(self), animation.context.drawImage(this.image, this.data.frameData.x, this.data.frameData.y, this.data.frameData.w, this.data.frameData.h, this.data.x - this.data.frameData.cpx, this.data.y - this.data.frameData.cpy, this.data.w, this.data.h), this.on.resetCollisions.call(this);
         },
-        move: function(target, event) {
+        move: function(self) {
             this.data.direction.right === !0 && this.data.blocked.right === !1 ? this.data.x = this.data.x + this.data.moveSpeed : this.data.direction.left === !0 && this.data.blocked.left === !1 && (this.data.x = this.data.x - this.data.moveSpeed);
         },
-        fall: function(target, event) {
+        fall: function(environment, event) {
             this.data.event.fall = !0, this.data.y += Math
 .floor(2 * this.data.fallRate), this.data.fallRate += target.world.data.gravity;
         },
@@ -29,7 +29,7 @@ define([ "animation", "input", "map", "load" ], function(animation, input, map, 
             var round = function(number) {
                 var num = Math.round(number / 32);
                 return num;
-            }, speed = 
+            }, speed =
 this.animations[this.data.action].speed, counter = this.counter, index = Math.floor(counter / speed);
             if (index > this.animations[this.data.action].frames.length - 1 || speed === 0) index = 0, this.counter = 0;
             this.data.frameData = this.animations[this.data.action].frames[index], this.data.tileX = round(this.data.x - this.data.frameData.cpx), this.data.tileY = round(this.data.y - this.data.frameData.cpy);

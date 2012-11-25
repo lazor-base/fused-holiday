@@ -1,4 +1,7 @@
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
 define(["load"], function(load) {
+	"use strict";
 	load.ready();
 	return {
 		health: 100,
@@ -37,13 +40,14 @@ define(["load"], function(load) {
 		targetDoor: {
 			x: 0,
 			y: 0,
-			xSpeed:0,
-			ySpeed:0
+			xSpeed: 0,
+			ySpeed: 0
 		},
-		keys:{
-			level1:false,
+		keys: {
+			level1: false,
 		},
 		moving: false,
+		onScreen:false,
 		coolDown: 0,
 		jumpRate: -3,
 		jumpForce: -3,

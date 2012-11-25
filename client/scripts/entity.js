@@ -1,4 +1,7 @@
-define(["animation","load"], function(animation,load) {
+/*global define:true */
+/*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
+define(["animation", "load"], function(animation, load) {
+	"use strict";
 	load.ready();
 	return {
 		/**
@@ -8,9 +11,10 @@ define(["animation","load"], function(animation,load) {
 		 * @return {Object}          Cloned Object.
 		 */
 		cloneObject: function(object, isArray) {
+			var newObject, i, attr;
 			if (isArray) {
-				var newObject = [];
-				for (var i = 0; i < object.length; i++) {
+				newObject = [];
+				for (i = 0; i < object.length; i++) {
 					if (typeof object[i] === "object") {
 						newObject.push(this.cloneObject(object[i], Array.isArray(object[i])));
 					} else {
@@ -18,8 +22,8 @@ define(["animation","load"], function(animation,load) {
 					}
 				}
 			} else {
-				var newObject = {};
-				for (var attr in object) {
+				newObject = {};
+				for (attr in object) {
 					if (typeof object[attr] === "object") {
 						newObject[attr] = this.cloneObject(object[attr], Array.isArray(object[attr]));
 					} else {
@@ -64,10 +68,10 @@ define(["animation","load"], function(animation,load) {
 		 * @return {Boolean}        Whether the entity is moving.
 		 */
 		isMoving: function(entity) {
-			if (entity.data.event) {
-				for (var attr in entity.data.event) {
-					if (entity.data.event[attr]) {
-						console.log(attr)
+			var object = entity.data.event;
+			if (object) {
+				for (var attr in object) {
+					if (object.hasOwnProperty(attr) && object[attr]) {
 						return true;
 					}
 				}
@@ -75,9 +79,12 @@ define(["animation","load"], function(animation,load) {
 			return false;
 		},
 		stop: function(entity) {
-			if (entity.data.event) {
-				for (var attr in entity.data.event) {
-					entity.data.event[attr] = false;
+			var object = entity.data.event;
+			if (object) {
+				for (var attr in object) {
+					if (object.hasOwnProperty(attr)) {
+						entity.data.event[attr] = false;
+					}
 				}
 				return true;
 			}
@@ -101,11 +108,20 @@ define(["animation","load"], function(animation,load) {
 		spawn: function(entity, attributes, renderList) {
 			var object = this.clone(entity);
 			for (var attr in attributes) {
-				object.data[attr] = attributes[attr];
+				if (attributes.hasOwnProperty(attr)) {
+					object.data[attr] = attributes[attr];
+				}
 			}
 			this.inGame.push(object);
 			renderList.push(object);
 			return false;
+		},
+		booleanToNumber: function(bool) {
+			if (bool) {
+				return 1;
+			} else {
+				return 0;
+			}
 		},
 		collide: function(entity) {
 			var result = [];
@@ -113,37 +129,33 @@ define(["animation","load"], function(animation,load) {
 			var sy = entity.data.y - entity.data.frameData.cpy;
 			var ex = sx + entity.data.w;
 			var ey = sy + entity.data.h;
-			var mx = (sx + ex) / 2;
-			var my = (sy + ey) / 2;
 			for (var i = 0; i < animation.renderList.length; i++) {
 				var target = animation.renderList[i];
 				var tsx = target.data.x;
 				var tsy = target.data.y;
 				var tex = tsx + target.data.w;
 				var tey = tsy + target.data.h;
-				var tmx = (tsx + tex) / 2;
-				var tmy = (tsy + tey) / 2;
-				animation.context.fillRect(sx, sy, 32, 32)
-				animation.context.fillRect(tsx, tsy, target.data.w, target.data.h)
-				if (sx - !! (entity.data.direction.left === true) <= tex && (sy <= tey && ey >= tsy) && sx - !! (entity.data.direction.left === true) >= tsx) {
+				animation.context.fillRect(sx, sy, 32, 32);
+				animation.context.fillRect(tsx, tsy, target.data.w, target.data.h);
+				if (sx - this.booleanToNumber(entity.data.direction.left) <= tex && (sy <= tey && ey >= tsy) && sx - this.booleanToNumber(entity.data.direction.left) >= tsx) {
 					result.push({
 						direction: "left",
 						target: target
 					});
 				}
-				if (ex + !! (entity.data.direction.right === true) >= tsx && (sy <= tey && ey >= tsy) && ex + !! (entity.data.direction.right === true) <= tex) {
+				if (ex + this.booleanToNumber(entity.data.direction.right) >= tsx && (sy <= tey && ey >= tsy) && ex + this.booleanToNumber(entity.data.direction.right) <= tex) {
 					result.push({
 						direction: "right",
 						target: target
 					});
 				}
-				if (sy - !! (entity.data.event.jump === true) <= tey && (sx <= tex && ex >= tsx) && sy - !! (entity.data.event.jump === true) >= tsy) {
+				if (sy - this.booleanToNumber(entity.data.event.jump) <= tey && (sx <= tex && ex >= tsx) && sy - this.booleanToNumber(entity.data.event.jump) >= tsy) {
 					result.push({
 						direction: "top",
 						target: target
 					});
 				}
-				if (ey + !! (entity.data.event.fall === true) >= tsy && (sx <= tex && ex >= tsx) && ey + !! (entity.data.event.fall === true) <= tey) {
+				if (ey + this.booleanToNumber(entity.data.event.fall) >= tsy && (sx <= tex && ex >= tsx) && ey + this.booleanToNumber(entity.data.event.fall) <= tey) {
 					result.push({
 						direction: "bottom",
 						target: target
