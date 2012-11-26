@@ -22,9 +22,7 @@ define(["map", "load"], function(map, load) {
 			var ey = sy + entity.data.h;
 			var tsx, tsy, tex, tey, target, i, top, right, bottom, left, result, leftModifier, rightModifier, topModifier, bottomModifier;
 			leftModifier = rightModifier = topModifier = bottomModifier = 0;
-			if (entity.data.event.walk && entity.data.direction.left) {
 				leftModifier = entity.data.walkSpeed;
-			}
 			if (entity.data.event.walk && entity.data.direction.right) {
 				rightModifier = entity.data.walkSpeed;
 			}
@@ -35,9 +33,10 @@ define(["map", "load"], function(map, load) {
 				bottomModifier = Math.floor(2 * entity.data.fallRate);
 			}
 			if (contains(checkAgainst, "map")) {
-				left = map.getTiles([round(sx)], map.roundBetween(sy, ey));
+				left = map.getTiles([round(sx- leftModifier)], map.roundBetween(sy, ey));
 				result = map.containsImpassable(left);
 				if (sx - leftModifier <= 0 || result) {
+					console.log("left")
 					entity.on.collideLeft(entity, result[1], result[2], result[0]);
 				}
 
@@ -58,7 +57,6 @@ define(["map", "load"], function(map, load) {
 				bottom = map.getTiles(map.roundBetween(sx, ex), [round(ey)]);
 				result = map.containsImpassable(bottom);
 				if (ey + bottomModifier >= map.currentMap.height * 32 || result) {
-					// console.log(entity.data.y, ey)
 					entity.on.collideBottom(entity, result[1], result[2], result[0]);
 				}
 			}
@@ -76,6 +74,7 @@ define(["map", "load"], function(map, load) {
 							if (ex < tsx) {
 								collision = false;
 							} else {
+								// right
 								if (sy < tsy) {
 									if (ey < tsy) {
 										collision = false;
@@ -94,6 +93,7 @@ define(["map", "load"], function(map, load) {
 							if (sx > tex) {
 								collision = false;
 							} else {
+								// left
 								if (sy < tsy) {
 									if (ey < tsy) {
 										collision = false;
@@ -110,16 +110,13 @@ define(["map", "load"], function(map, load) {
 								}
 							}
 						}
-						if (sx - leftModifier <= tex && collision && ex - leftModifier >= tex) {
-							// console.log(sx>= tsy,ey + bottomModifier >= tsy, bottomModifier)
+						if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey))) {
 							entity.on.collideLeft(entity, round(tsx), round(sy), target);
 						}
-						if (ex + rightModifier >= tsx && collision && sx + rightModifier <= tsx) {
-							// console.log("right", collision)
+						if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey))) {
 							entity.on.collideRight(entity, round(tex), round(sy), target);
 						}
 						if (sy + topModifier <= tey && collision && ey + topModifier >= tey) {
-							// console.log("top", collision)
 							entity.on.collideTop(entity, round(sx), round(tey), target);
 						}
 						if (ey + bottomModifier >= tsy && collision && sy + bottomModifier <= tsy) {

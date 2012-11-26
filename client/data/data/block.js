@@ -31,7 +31,7 @@ define(["load"], function(load) {
 			left:false
 		},
 		physics: {
-			checkAgainst:["map"],
+			checkAgainst:["map", "entity"],
 			types:["entity","block"]
 		},
 		event:{

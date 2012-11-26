@@ -24,6 +24,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 					self.counter = 0;
 				}
 			} else if (self.data.event.walk) {
+					// console.log(self.data.blocked.left, self.data.blocked.right)
 				if (input.keys.right === true && self.data.blocked.right === false) {
 					self.data.moving = true;
 					self.data.x = self.data.x + self.data.walkSpeed;
@@ -373,6 +374,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			return false;
 		},
 		collideLeft: function(self, x, y, collideTarget) {
+			// self.data.x = (x*32) - (self.data.w-self.data.frameData.cpx);
 			self.data.action = "stand";
 			self.data.event.walk = false;
 			self.data.event.stand = true;

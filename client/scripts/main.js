@@ -17,9 +17,9 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 		x: map.findPlayerSpawnX(),
 		y: map.findPlayerSpawnY()
 	}, animation.renderList);
-	// entity.spawn(master.characters.block, {
-	// 	x: randomFromTo(1, 22) * 32
-	// }, animation.renderList);
+	entity.spawn(master.characters.block, {
+		x: randomFromTo(1, 22) * 32
+	}, animation.renderList);
 	entity.spawn(master.characters.block, {
 		x: 3*32
 	}, animation.renderList);
