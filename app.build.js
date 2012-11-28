@@ -1,6 +1,6 @@
 ({
     appDir: "client",
-    baseUrl: "scripts",
+    baseUrl: "",
     dir: "build",
     modules: [
         {

@@ -14,6 +14,8 @@
 		}
 		body{
 			background:black;
+			margin:0;
+			padding:0;
 		}
 		#progress {
 			position: absolute;
@@ -35,10 +37,42 @@
 		#progress.closed {
 			bottom:100%;
 		}
+		#scoring {
+			position:absolute;
+			top:0;
+			left:0;
+			right:0;
+			margin:auto;
+			width:50%;
+			text-align:center;
+			color:white;
+			font-size:20px;
+			background:rgba(180,180,180,0.9);
+			-webkit-transition:all .2s linear;
+		}
+		#scoring.complete {
+			height:300px;
+			font-size:40px;
+			z-index:5;
+		}
+		#finalScoreContainer {
+			height:auto;
+			max-height:0px;
+			overflow:hidden;
+			-webkit-transition:all .1s linear;
+		}
+		#scoring.complete #finalScoreContainer {
+			max-height:50px;
+		}
 		</style>
 		<script data-main="../scripts/main" src="../scripts/require.js"></script>
 	</head>
 	<body>
+		<div id="scoring">
+			<div>Score: <span id="points">0</span></div>
+		<div>Time: <span id="timer">1:00:00</span></div>
+		<div id="finalScoreContainer">Final Score: <span id="finalScore"></span></div>
+	</div>
 		<canvas id="background" width="448" height="448"></canvas>
 		<canvas id="floor" width="448" height="448"></canvas>
 		<canvas id="foreground" width="448" height="448"></canvas>

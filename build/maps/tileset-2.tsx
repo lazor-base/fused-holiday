@@ -73,15 +73,6 @@
    <property name="y" value="2"/>
   </properties>
  </tile>
- <tile id="22">
-  <properties>
-   <property name="group" value="door"/>
-   <property name="name" value="background_door_top"/>
-   <property name="passable" value="true"/>
-   <property name="x" value="6"/>
-   <property name="y" value="2"/>
-  </properties>
- </tile>
  <tile id="26">
   <properties>
    <property name="event" value="ladder"/>
@@ -103,15 +94,6 @@
    <property name="name" value="wall_left_top_right"/>
    <property name="passable" value="false"/>
    <property name="x" value="5"/>
-   <property name="y" value="3"/>
-  </properties>
- </tile>
- <tile id="30">
-  <properties>
-   <property name="group" value="door"/>
-   <property name="name" value="background_door_bottom"/>
-   <property name="passable" value="true"/>
-   <property name="x" value="6"/>
    <property name="y" value="3"/>
   </properties>
  </tile>

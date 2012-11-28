@@ -10,7 +10,7 @@ define(["load"], function(load) {
 		tileX: 14,
 		tileY: 10,
 		w: 32,
-		h: 32,
+		h: 64,
 		id: "player",
 		gameEnd:false,
 		direction: {

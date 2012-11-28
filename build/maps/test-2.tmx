@@ -13,12 +13,12 @@
  </layer>
  <layer name="foreground" width="24" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AbiNDCTB4h5gZgPiOVJ1EuMe5DNJxUQ4x5KzCcGDDXz0eOE2uajxwmtwwcXAADr+gG0
+   eJxjYBgFww2I0cBMHiDmBWI+MvQS4x5KzCcGjJqPCtDjhNbuxwUAvqcBLQ==
   </data>
  </layer>
  <layer name="event" width="24" height="12" opacity="0.75">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AYqUFqbyuZKo/GJNV+WTPOpDQaD+Vo0Nh8fkEFiw+JEmYrmg4AmkeooCQdSAACDwQIT
+   eJxjYBgFAwW0aWSuCo3MlyZTnyyNzScWEGO+Fo3Nxwdk6GC+JpQNixNlHOZTEg6kAAAm0QIv
   </data>
  </layer>
 </map>

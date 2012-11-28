@@ -1,11 +1,12 @@
-define([ "load" ], function(load) {
-    return load.ready(), {
-        id: "world",
-        gravity: .125,
-        offsetX: 160,
-        offsetY: 160,
-        minOffset: 224,
-        maxOffsetX: 0,
-        maxOffsetY: 0
-    };
+define(["load"], function(load) {
+	load.ready();
+	return {
+		id: "world",
+		gravity: 0.125,
+		offsetX: 160,
+		offsetY: 160,
+		minOffset: 224,
+		maxOffsetX:0,
+		maxOffsetY:0
+	};
 });

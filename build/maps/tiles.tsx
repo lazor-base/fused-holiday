@@ -194,4 +194,9 @@
    <property name="lock" value="level1"/>
   </properties>
  </tile>
+ <tile id="30">
+  <properties>
+   <property name="event" value="blockSpawn"/>
+  </properties>
+ </tile>
 </tileset>

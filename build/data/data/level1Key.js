@@ -36,7 +36,7 @@ define(["load"], function(load) {
 		},
 		physics: {
 			checkAgainst: ["map", "entity"],
-			types: ["key"]
+			types: ["entity", "key"]
 		}
 	};
 });

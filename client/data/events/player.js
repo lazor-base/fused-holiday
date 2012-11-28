@@ -138,39 +138,28 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 
 			if (input.keys.up === true) {
 				if ((self.data.event.jump || self.data.event.fall) && !self.data.event.climb) {
-					console.log("climb")
 					climbUp(self);
 				} else if (find(current, "ladder") && !find(above, "ladder")) {
-					console.log("climb")
 					climbUp(self);
 				} else if (find(current, "ladder") && find(above, "ladder")) {
-					console.log("climb")
 					climbUp(self);
 				} else if (!find(current, "ladder") && find(below, "ladder") && self.data.event.climb) {
-					console.log("climb")
 					climbUp(self);
 				} else if (!find(current, "ladder") && !find(above, "ladder")) {
-					console.log("fall")
 					fall(self);
 				} else {
-					console.log("fall")
 					fall(self);
 				}
 			} else if (input.keys.down === true) {
 				if (find(current, "wall") && find(current, "ladder") && find(below, "ladder")) {
-					console.log("climb")
 					climDown(self);
 				} else if (!find(current, "ladder") && find(below, "ladder")) {
-					console.log("climb")
 					climDown(self);
 				} else if (find(current, "ladder") && find(below, "ladder")) {
-					console.log("climb")
 					climDown(self);
 				} else if (find(current, "ladder") && !find(below, "ladder")) {
-					console.log("fall")
 					fall(self);
 				} else {
-					console.log("fall")
 					fall(self);
 				}
 			} else if (input.keys.space) {
@@ -474,6 +463,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 		},
 		// everything to be done after the sprite has been animated.
 		resetCollisions: function(self, animation) {
+			self.on.parseTilePosition(self);
 			self.data.action = "stand";
 			self.data.onLand = false;
 			self.data.blocked.left = false;
@@ -495,7 +485,6 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			if (self.data.coolDown < 0) {
 				self.data.coolDown = 0;
 			}
-			self.on.parseTilePosition(self);
 			return false;
 		}
 	};

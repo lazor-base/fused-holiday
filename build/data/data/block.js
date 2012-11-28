@@ -1,40 +1,42 @@
-define([ "load" ], function(load) {
-    return load.ready(), {
-        health: 100,
-        x: 448,
-        y: 96,
-        tileX: 14,
-        tileY: 3,
-        w: 64,
-        h: 64,
-        id: "block",
-        action: "idle",
-        fallRate: 0,
-        passable: !1,
-        frameData: null,
-        onLand: !1,
-        moveSpeed: 1,
-        direction: {
-            right: !1,
-            left: !1
-        },
-        event: {
-            fall: !0,
-            move: !1
-        },
-        moving: !1,
-        blocked: {
-            up: !1,
-            down: !1,
-            right: !1,
-            left: !1
-        },
-        physics: {
-            checkAgainst: [ "map" ],
-            types: [ "entity", "block" ]
-        },
-        event: {
-            fall: !0
-        }
-    };
+define(["load"], function(load) {
+	load.ready();
+	return {
+		health: 100,
+		x: 14 * 32,
+		y: 3 * 32,
+		tileX: 14,
+		tileY: 3,
+		w: 64,
+		h: 64,
+		id: "block",
+		action: "idle",
+		fallRate: 0,
+		passable: false,
+		frameData: null,
+		onLand: false,
+		moveSpeed: 1,
+		uniqueId: 0,
+		direction: {
+			right: false,
+			left: false,
+			up:false,
+			down:false
+		},
+		event: {
+			fall: true,
+			move: false,
+			drag: false
+		},
+		moving: false,
+		blocked: {
+			up: false,
+			down: false,
+			right: false,
+			left: false
+		},
+		physics: {
+			checkAgainst: ["map", "entity"],
+			types: ["entity", "block"]
+		}
+	};
 });
