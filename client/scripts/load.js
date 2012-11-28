@@ -4,7 +4,7 @@ define([], function() {
 	"use strict";
 	return {
 		progress: 0,
-		total: 16,
+		total: 20,
 		callback:null,
 		progressDiv:null,
 		ready: function() {

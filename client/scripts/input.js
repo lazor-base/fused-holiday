@@ -11,7 +11,8 @@ define(["load"], function(load) {
 			left: false,
 			space: false,
 			z: false,
-			x: false
+			x: false,
+			shift:false,
 		},
 		listen: function(name, fn) {
 			document.addEventListener(name, fn);
@@ -25,6 +26,7 @@ define(["load"], function(load) {
 				this.keys.left = true;
 			}
 			if (event.keyCode === 32) {
+			event.preventDefault();
 				this.keys.space = true;
 			}
 			if (event.keyCode === 38) {
@@ -38,6 +40,8 @@ define(["load"], function(load) {
 			}
 			if (event.keyCode === 88) {
 				this.keys.x = true;
+			}if (event.keyCode === 16) {
+				this.keys.shift = true;
 			}
 			return false;
 		},
@@ -62,6 +66,9 @@ define(["load"], function(load) {
 			}
 			if (event.keyCode === 88) {
 				this.keys.x = false;
+			}
+			if (event.keyCode === 16) {
+				this.keys.shift = false;
 			}
 			return false;
 		}

@@ -1,11 +1,12 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["../data/maps/test.js", "../data/maps/moarmaps.js", "animation", "../data/master.js", "load"], function(test, moarmaps, animation, master, load) {
+define(["../data/maps/test.js","../data/maps/test-2.js", "../data/maps/moarmaps.js", "animation", "../data/master.js", "load"], function(test, test2, moarmaps, animation, master, load) {
 	"use strict";
 	load.ready();
 	return {
 		maps: {
 			test: test,
+			test2: test2,
 			moarmaps: moarmaps
 		},
 		world: master.environment.world.data,
@@ -27,6 +28,50 @@ define(["../data/maps/test.js", "../data/maps/moarmaps.js", "animation", "../dat
 			this.maxOffsetY = master.environment.world.data.maxOffsetY = this.currentMap.width * 32;
 			return false;
 		},
+		findBlockSpawns: function() {
+			var length = this.currentMap.layers.length;
+			var tiles = this.currentMap.tilesets[0].tileproperties;
+			var l, x, y, width, thisLayer, tileId, height;
+			var results = [];
+			for (l = 0; l < length; l++) {
+				thisLayer = this.currentMap.layers[l];
+				if (thisLayer.name === "event") {
+					width = thisLayer.width;
+					height = thisLayer.height;
+					for (x = 0; x < width; x++) {
+						for (y = 0; y < height; y++) {
+							tileId = thisLayer.data[(width * y) + x] - 1;
+							if (tileId !== -1 && tiles[tileId].event === "blockSpawn") {
+								results.push([x,y]);
+							}
+						}
+					}
+				}
+			}
+			return results;
+		},
+		findKeySpawns: function() {
+			var length = this.currentMap.layers.length;
+			var tiles = this.currentMap.tilesets[0].tileproperties;
+			var l, x, y, width, thisLayer, tileId, height;
+			var results = [];
+			for (l = 0; l < length; l++) {
+				thisLayer = this.currentMap.layers[l];
+				if (thisLayer.name === "event") {
+					width = thisLayer.width;
+					height = thisLayer.height;
+					for (x = 0; x < width; x++) {
+						for (y = 0; y < height; y++) {
+							tileId = thisLayer.data[(width * y) + x] - 1;
+							if (tileId !== -1 && tiles[tileId].event === "keySpawn") {
+								results.push([tiles[tileId].keyId,x,y]);
+							}
+						}
+					}
+				}
+			}
+			return results;
+		},
 		findPlayerSpawnX: function() {
 			var length = this.currentMap.layers.length;
 			var tiles = this.currentMap.tilesets[0].tileproperties;
@@ -39,7 +84,7 @@ define(["../data/maps/test.js", "../data/maps/moarmaps.js", "animation", "../dat
 					for (x = 0; x < width; x++) {
 						for (y = 0; y < height; y++) {
 							tileId = thisLayer.data[(width * y) + x] - 1;
-							if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") {
+							if (tileId !== -1 && tiles[tileId].event === "playerSpawn") {
 								return x * 32;
 							}
 						}
@@ -60,7 +105,7 @@ define(["../data/maps/test.js", "../data/maps/moarmaps.js", "animation", "../dat
 					for (x = 0; x < width; x++) {
 						for (y = 0; y < height; y++) {
 							tileId = thisLayer.data[(width * y) + x] - 1;
-							if (tileId !== -1 && tiles[tileId].event === "spawnPlayer") {
+							if (tileId !== -1 && tiles[tileId].event === "playerSpawn") {
 								return y * 32;
 							}
 						}
@@ -120,11 +165,17 @@ define(["../data/maps/test.js", "../data/maps/moarmaps.js", "animation", "../dat
 				}
 				return num;
 			};
-			if (start % 32 === 0 && !map) {
-				return [round(start)];
-			}
 			var roundedStart = round(start);
 			var roundedEnd = round(end);
+			if (start % 32 === 0 && !map) {
+				var length = round(end-start);
+				var numbers = [];
+
+				for(var i=0;i<length;i++) {
+					numbers.push(roundedStart+i);
+				}
+				return numbers;
+			}
 			var numbers = [];
 			for (var i = roundedStart; i < roundedEnd; i++) {
 				numbers.push(i);

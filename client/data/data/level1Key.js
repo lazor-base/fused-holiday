@@ -6,9 +6,9 @@ define(["load"], function(load) {
 		y: 3 * 32,
 		tileX: 14,
 		tileY: 3,
-		w: 64,
-		h: 64,
-		id: "block",
+		w: 29,
+		h: 26,
+		id: "level1Key",
 		action: "idle",
 		fallRate: 0,
 		passable: false,
@@ -23,7 +23,7 @@ define(["load"], function(load) {
 			down:false
 		},
 		event: {
-			fall: true,
+			fall: false,
 			move: false,
 			drag: false
 		},
@@ -36,7 +36,7 @@ define(["load"], function(load) {
 		},
 		physics: {
 			checkAgainst: ["map", "entity"],
-			types: ["entity", "block"]
+			types: ["entity", "key"]
 		}
 	};
 });

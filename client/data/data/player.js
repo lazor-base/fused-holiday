@@ -12,6 +12,7 @@ define(["load"], function(load) {
 		w: 32,
 		h: 32,
 		id: "player",
+		gameEnd:false,
 		direction: {
 			up: false,
 			right: false,
@@ -25,8 +26,10 @@ define(["load"], function(load) {
 			dash: false,
 			climb: false,
 			action: false,
-			stop: false
+			stop: false,
+			drag: false
 		},
+		score:0,
 		lastDirection: "right",
 		action: "stand",
 		onLand: false,
@@ -52,9 +55,12 @@ define(["load"], function(load) {
 		jumpRate: -3,
 		jumpForce: -3,
 		fallRate: 0,
-		walkSpeed: 2,
+		moveSpeed: 2,
+		blockId:0,
+		blockSide:"left",
 		frameData: null,
 		isFlipped: false,
+		uniqueId:0,
 		physics: {
 			checkAgainst: ["map", "entity", "bullet"],
 			types: ["player", "entity"]

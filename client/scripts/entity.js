@@ -101,7 +101,7 @@ define(["animation", "load"], function(animation, load) {
 			image.src = entity.spriteSheet;
 			// entity.image = image;
 			clone.image = image;
-			clone.data.uniqueId = Math.floor(Math.random() * 1000000);
+			clone.data.uniqueId = Math.floor(Math.random() * 1000000)+1;
 			clone.data.frameData = clone.animations[clone.data.action].frames[0];
 			return clone;
 		},
@@ -121,6 +121,14 @@ define(["animation", "load"], function(animation, load) {
 				return 1;
 			} else {
 				return 0;
+			}
+		},
+		getEntity: function(id, animation) {
+			for(var i=0;i<animation.renderList.length;i++) {
+				var item = animation.renderList[i];
+				if(item.data.uniqueId === id) {
+					return item;
+				}
 			}
 		},
 		collide: function(entity) {

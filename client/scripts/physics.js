@@ -22,9 +22,10 @@ define(["map", "load"], function(map, load) {
 			var ey = sy + entity.data.h;
 			var tsx, tsy, tex, tey, target, i, top, right, bottom, left, result, leftModifier, rightModifier, topModifier, bottomModifier;
 			leftModifier = rightModifier = topModifier = bottomModifier = 0;
-				leftModifier = entity.data.walkSpeed;
+			leftModifier = entity.data.moveSpeed;
+			rightModifier = entity.data.moveSpeed;
 			if (entity.data.event.walk && entity.data.direction.right) {
-				rightModifier = entity.data.walkSpeed;
+				rightModifier = entity.data.moveSpeed;
 			}
 			if (entity.data.event.jump) {
 				topModifier = Math.floor(2 * entity.data.jumpRate);
@@ -33,10 +34,9 @@ define(["map", "load"], function(map, load) {
 				bottomModifier = Math.floor(2 * entity.data.fallRate);
 			}
 			if (contains(checkAgainst, "map")) {
-				left = map.getTiles([round(sx- leftModifier)], map.roundBetween(sy, ey));
+				left = map.getTiles([round(sx - leftModifier)], map.roundBetween(sy, ey));
 				result = map.containsImpassable(left);
 				if (sx - leftModifier <= 0 || result) {
-					console.log("left")
 					entity.on.collideLeft(entity, result[1], result[2], result[0]);
 				}
 
@@ -104,23 +104,30 @@ define(["map", "load"], function(map, load) {
 									if (sy > tey) {
 										collision = false;
 									} else {
-										// console.log(sx > tsx,sx < tex,sy < tey,sy > tsy)
 										collision = "4";
 									}
 								}
 							}
 						}
-						if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey))) {
+
+						if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
+							entity.on.collideTop(entity, round(sx), round(tey), target);
+							collision = false;
+						}
+						if (ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy && entity.data.direction.down && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
+							entity.on.collideBottom(entity, round(sx), round(tsy), target);
+							collision = false;
+						}
+				if (contains(entity.data.physics.types, "block") && contains(target.data.physics.types, "block")) {
+					// console.log(ey + bottomModifier >= tsy , collision, sy + bottomModifier < tsy, entity.data.direction.down , ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex)))
+				}
+						if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
+							collision = false;
 							entity.on.collideLeft(entity, round(tsx), round(sy), target);
 						}
-						if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey))) {
+						if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
+							collision = false;
 							entity.on.collideRight(entity, round(tex), round(sy), target);
-						}
-						if (sy + topModifier <= tey && collision && ey + topModifier >= tey) {
-							entity.on.collideTop(entity, round(sx), round(tey), target);
-						}
-						if (ey + bottomModifier >= tsy && collision && sy + bottomModifier <= tsy) {
-							entity.on.collideBottom(entity, round(sx), round(tsy), target);
 						}
 					}
 				}

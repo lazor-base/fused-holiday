@@ -5,12 +5,7 @@ define(["animation", "input", "map", "load"], function(animation, input, map, lo
 	load.ready();
 	return {
 		animate: function(self, environment, animation, map) {
-			if (self.data.event.fall || !self.data.onLand) {
-				self.on.fall(self, environment);
-			}
-			if (self.data.event.move) {
-				self.on.move(self);
-			}
+			self.counter++;
 			var frameData = self.data.frameData;
 			animation.context.drawImage(self.image, self.data.frameData.x, self.data.frameData.y, self.data.frameData.w, self.data.frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), self.data.w, self.data.h);
 			self.on.resetCollisions(self);

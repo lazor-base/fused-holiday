@@ -49,7 +49,8 @@ define(["physics", "map", "load"], function(physics, map, load) {
 		},
 		animationLoop: function(animation, map, master) {
 			var length = animation.renderList.length;
-			var thisEntity, i;
+			var thisEntity, i,stop;
+			stop = false;
 			animation.setup("objects");
 			for (i = 0; i < length; i++) {
 				thisEntity = animation.renderList[i];
@@ -62,14 +63,17 @@ define(["physics", "map", "load"], function(physics, map, load) {
 					physics(thisEntity, animation.renderList);
 					if (thisEntity.data.id === "player") {
 						animation.setup("player");
-						thisEntity.on.animate(thisEntity, master.environment, animation.context, map);
+						if(thisEntity.data.gameEnd) {
+							stop = thisEntity;
+						}
+						thisEntity.on.animate(thisEntity, master.environment, animation, map);
 						animation.context.fillStyle = "rgba(0,0,0,0.5)";
 						animation.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// animation.context.fillStyle = "red";
 						// animation.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 						animation.setup("objects");
 					} else {
-						thisEntity.on.animate(thisEntity, master.environment, animation.context, map);
+						thisEntity.on.animate(thisEntity, master.environment, animation, map);
 						animation.context.fillStyle = "rgba(0,0,0,0.5)";
 						animation.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// animation.context.fillStyle = "red";
@@ -78,7 +82,7 @@ define(["physics", "map", "load"], function(physics, map, load) {
 				}
 			}
 			map.animate(animation);
-			return false;
+			return stop;
 		}
 	};
 });

@@ -24,15 +24,13 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 					self.counter = 0;
 				}
 			} else if (self.data.event.walk) {
-					// console.log(self.data.blocked.left, self.data.blocked.right)
 				if (input.keys.right === true && self.data.blocked.right === false) {
 					self.data.moving = true;
-					self.data.x = self.data.x + self.data.walkSpeed;
+					self.data.x = self.data.x + self.data.moveSpeed;
 				} else if (input.keys.left === true && self.data.blocked.left === false) {
 					self.data.moving = true;
-					self.data.x = self.data.x - self.data.walkSpeed;
+					self.data.x = self.data.x - self.data.moveSpeed;
 				}
-
 			}
 			if (input.keys.right === false && self.data.direction.right === true) {
 				self.counter = 0;
@@ -92,8 +90,8 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				return false;
 			};
 			var climbUp = function(self) {
-				if(self.data.blocked.up) {
-					return false;
+				if (self.data.blocked.up) {
+					// return false;
 				}
 				self.data.moving = true;
 				self.data.fallRate = 0;
@@ -101,6 +99,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				self.data.action = "climb";
 				self.data.event.jump = false;
 				self.data.event.fall = false;
+				self.data.direction.up = true;
 				self.data.y = self.data.y - 1;
 				self.data.onLand = false;
 				self.counter++;
@@ -108,8 +107,8 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				return false;
 			};
 			var climDown = function(self) {
-				if(self.data.blocked.down) {
-					return false;
+				if (self.data.blocked.down) {
+					// return false;
 				}
 				self.data.moving = true;
 				self.data.fallRate = 0;
@@ -117,6 +116,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				self.data.action = "climb";
 				self.data.event.jump = false;
 				self.data.event.fall = false;
+				self.data.direction.down = true;
 				self.data.y = self.data.y + 1;
 				self.data.onLand = false;
 				self.counter++;
@@ -138,28 +138,39 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 
 			if (input.keys.up === true) {
 				if ((self.data.event.jump || self.data.event.fall) && !self.data.event.climb) {
+					console.log("climb")
 					climbUp(self);
 				} else if (find(current, "ladder") && !find(above, "ladder")) {
+					console.log("climb")
 					climbUp(self);
 				} else if (find(current, "ladder") && find(above, "ladder")) {
+					console.log("climb")
 					climbUp(self);
 				} else if (!find(current, "ladder") && find(below, "ladder") && self.data.event.climb) {
+					console.log("climb")
 					climbUp(self);
 				} else if (!find(current, "ladder") && !find(above, "ladder")) {
+					console.log("fall")
 					fall(self);
 				} else {
+					console.log("fall")
 					fall(self);
 				}
 			} else if (input.keys.down === true) {
 				if (find(current, "wall") && find(current, "ladder") && find(below, "ladder")) {
+					console.log("climb")
 					climDown(self);
 				} else if (!find(current, "ladder") && find(below, "ladder")) {
+					console.log("climb")
 					climDown(self);
 				} else if (find(current, "ladder") && find(below, "ladder")) {
+					console.log("climb")
 					climDown(self);
 				} else if (find(current, "ladder") && !find(below, "ladder")) {
+					console.log("fall")
 					fall(self);
 				} else {
+					console.log("fall")
 					fall(self);
 				}
 			} else if (input.keys.space) {
@@ -207,6 +218,8 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			below = map.events(x, y + 1);
 			if (find(current, "door")) {
 				self.on.door(self, find(current, "door"), x, y, map);
+			} else if (find(current, "mapEnd")) {
+				self.data.gameEnd = true;
 			} else {
 				if (find(current, "ladder") || find(below, "ladder")) {
 					self.on.climb(self, map);
@@ -254,38 +267,113 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				self.data.onLand = false;
 				self.data.action = "jump";
 				self.data.event.jump = true;
+				self.data.direction.up = true;
 				self.data.y += Math.floor(2 * self.data.jumpRate);
 				self.data.jumpRate += environment.world.data.gravity;
 			}
 			return false;
 		},
 		fall: function(self, environment) {
-			// console.log(self.data.y)
 			self.data.moving = true;
 			self.data.action = "fall";
 			self.data.event.fall = true;
 			// self.data.event.climb = false;
 			self.data.event.jump = false;
+			self.data.direction.up = false;
+			self.data.direction.down = true;
 			self.data.y += Math.floor(2 * self.data.fallRate);
 			self.data.fallRate += environment.world.data.gravity;
 			return false;
 		},
 		land: function(self) {
-			// console.log("land")
 			self.data.action = "land";
 			self.data.onLand = true;
 			self.data.event.jump = false;
 			self.data.event.fall = false;
 			self.data.event.climb = false;
+			self.data.direction.down = false;
 			self.data.fallRate = 0;
 			self.data.jumpRate = self.data.jumpForce;
 			return false;
 		},
-		animate: function(self, environment, context, map) {
+		getBlockId: function(self, target, side) {
+			if (target.data && target.data.id === "block" && !self.data.event.jump && !self.data.event.fall) {
+				self.data.blockId = target.data.uniqueId;
+				self.data.blockSide = side;
+			} else {
+				self.data.blockId = 0;
+			}
+			return false;
+		},
+		drag: function(self, animation) {
+			if (self.data.blockId !== 0 && !self.data.event.jump && !self.data.event.fall) {
+				self.data.event.drag = true;
+				var side = self.data.blockSide;
+				var block = entity.getEntity(self.data.blockId, animation);
+				if (block.data.event.fall) {
+					self.data.event.drag = false;
+					self.data.blockId = 0;
+					self.on.walk(self);
+					return true;
+				}
+				block.on.drag(block);
+				if (side === "left") {
+					// self.data.action = "drag";
+					if (input.keys.left && input.keys.right) {
+
+					} else if (input.keys.right) {
+						block.on.drag(block, false, true);
+						if (self.data.blocked.right === false && block.data.blocked.right === false) {
+							self.data.direction.right = true;
+							self.data.moving = true;
+							self.data.x = self.data.x + block.data.moveSpeed;
+						}
+						block.on.push(block, "right")
+					} else if (input.keys.left) {
+						block.on.drag(block, true, false);
+						block.on.push(block, "left")
+						if (self.data.blocked.left === false && block.data.blocked.left === false) {
+							self.data.direction.left = true;
+							self.data.moving = true;
+							self.data.x = self.data.x - block.data.moveSpeed;
+						}
+					}
+				} else if (side === "right") {
+					if (input.keys.left && input.keys.right) {
+
+					} else if (input.keys.right) {
+						block.on.drag(block, false, true);
+						block.on.push(block, "right")
+						if (self.data.blocked.right === false && block.data.blocked.right === false) {
+							self.data.direction.right = true;
+							self.data.moving = true;
+							self.data.x = self.data.x + block.data.moveSpeed;
+						}
+
+					} else if (input.keys.left) {
+						block.on.drag(block, true, false);
+						if (self.data.blocked.left === false && block.data.blocked.left === false) {
+							self.data.direction.left = true;
+							self.data.moving = true;
+							self.data.x = self.data.x - block.data.moveSpeed;
+						}
+						block.on.push(block, "left")
+					}
+				}
+				block.data.blocked.left = false;
+				block.data.blocked.right = false;
+			} else {
+				self.data.event.drag = false;
+				self.data.blockId = 0;
+				self.on.walk(self);
+			}
+			return false;
+		},
+		animate: function(self, environment, animation, map) {
 			self.data.moving = false;
 			if (self.data.travel) {
 				self.on.moveDoors(self, map);
-				self.on.resetCollisions(self, context);
+				self.on.resetCollisions(self, animation);
 				self.on.moveMap(self, environment, map);
 				return false;
 			}
@@ -300,7 +388,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				}
 				self.data.action = "walk";
 			}
-			if(self.data.event.climb) {
+			if (self.data.event.climb) {
 				self.data.action = "climb";
 			}
 			self.data.direction.left = self.data.lastDirection === "left";
@@ -309,14 +397,15 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				self.on.action(self, map);
 			}
 			if (self.data.event.fall || (!self.data.onLand && !self.data.event.climb && !self.data.event.jump)) {
-				// console.log("fall")
 				self.on.fall(self, environment);
 			} else if (self.data.event.climb) {
 				self.on.climb(self, map);
 			} else if (self.data.event.jump || input.keys.space) {
 				self.on.jump(self, environment);
 			}
-			if (self.data.event.walk || input.keys.left || input.keys.right) {
+			if (self.data.event.drag || input.keys.shift) {
+				self.on.drag(self, animation);
+			} else if (self.data.event.walk || input.keys.left || input.keys.right) {
 				self.on.walk(self);
 			}
 			if (self.animations[self.data.action].speed > 0 && self.data.event.climb === false) {
@@ -331,25 +420,22 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			var frameData = self.data.frameData = self.animations[self.data.action].frames[index];
 			if (self.data.direction.left === true) {
 				if (!self.data.isFlipped) {
-					context.save();
-					context.scale(-1, 1);
-					context.translate(-context.canvas.width, 0);
+					animation.context.save();
+					animation.context.scale(-1, 1);
+					animation.context.translate(-animation.canvas.width, 0);
 					self.data.isFlipped = true;
 				}
-				context.drawImage(self.image, frameData.x, frameData.y, frameData.w, frameData.h, context.canvas.width - map.offset(self.data.x - frameData.cpx, "X") - frameData.w, map.offset(self.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
+				animation.context.drawImage(self.image, frameData.x, frameData.y, frameData.w, frameData.h, animation.canvas.width - map.offset(self.data.x - frameData.cpx, "X") - frameData.w, map.offset(self.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
 			} else {
-				context.drawImage(self.image, frameData.x, frameData.y, frameData.w, frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
+				animation.context.drawImage(self.image, frameData.x, frameData.y, frameData.w, frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
 			}
 			self.on.moveMap(self, environment, map);
-			self.on.resetCollisions(self, context);
+			self.on.resetCollisions(self, animation);
 			return false;
 		},
 		collideBottom: function(self, x, y, collideTarget) {
-			// console.log("bottom")
 			if (self.data.event.fall) {
-				// console.log(y*32,(y*32) - (self.data.h-self.data.frameData.cpy), (self.data.h-self.data.frameData.cpy))
-				self.data.y = (y*32) - (self.data.h-self.data.frameData.cpy);
-				// console.log(self.data.y,y*32)
+				self.data.y = (y * 32) - (self.data.h - self.data.frameData.cpy);
 				self.on.land(self);
 			}
 			self.data.onLand = true;
@@ -371,27 +457,36 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			self.data.event.walk = false;
 			self.data.event.stand = true;
 			self.data.blocked.right = true;
+			if (input.keys.shift) {
+				self.on.getBlockId(self, collideTarget, "right");
+			}
 			return false;
 		},
 		collideLeft: function(self, x, y, collideTarget) {
-			// self.data.x = (x*32) - (self.data.w-self.data.frameData.cpx);
 			self.data.action = "stand";
 			self.data.event.walk = false;
 			self.data.event.stand = true;
 			self.data.blocked.left = true;
+			if (input.keys.shift) {
+				self.on.getBlockId(self, collideTarget, "left");
+			}
 			return false;
 		},
 		// everything to be done after the sprite has been animated.
-		resetCollisions: function(self, context) {
-			// console.log("reset")
+		resetCollisions: function(self, animation) {
 			self.data.action = "stand";
 			self.data.onLand = false;
 			self.data.blocked.left = false;
 			self.data.blocked.right = false;
+			self.data.direction.up = true;
+			self.data.direction.down = true;
 			self.data.blocked.up = false;
 			self.data.blocked.down = false;
+			if (!input.keys.shift) {
+				self.data.blockId = 0;
+			}
 			if (self.data.isFlipped) {
-				context.restore();
+				animation.context.restore();
 				self.data.isFlipped = false;
 			}
 			if (self.data.coolDown > 0) {
