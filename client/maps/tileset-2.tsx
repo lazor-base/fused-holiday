@@ -64,6 +64,12 @@
    <property name="y" value="1"/>
   </properties>
  </tile>
+ <tile id="15">
+  <properties>
+   <property name="event" value="keySpawn"/>
+   <property name="keyId" value="level3"/>
+  </properties>
+ </tile>
  <tile id="21">
   <properties>
    <property name="group" value="door"/>
@@ -80,6 +86,12 @@
    <property name="passable" value="true"/>
    <property name="x" value="6"/>
    <property name="y" value="2"/>
+  </properties>
+ </tile>
+ <tile id="23">
+  <properties>
+   <property name="event" value="keySpawn"/>
+   <property name="keyId" value="level2"/>
   </properties>
  </tile>
  <tile id="26">
@@ -113,6 +125,12 @@
    <property name="passable" value="true"/>
    <property name="x" value="6"/>
    <property name="y" value="3"/>
+  </properties>
+ </tile>
+ <tile id="31">
+  <properties>
+   <property name="event" value="door"/>
+   <property name="lock" value="level3"/>
   </properties>
  </tile>
  <tile id="34">
@@ -150,6 +168,12 @@
    <property name="passable" value="false"/>
    <property name="x" value="6"/>
    <property name="y" value="4"/>
+  </properties>
+ </tile>
+ <tile id="39">
+  <properties>
+   <property name="event" value="door"/>
+   <property name="lock" value="level2"/>
   </properties>
  </tile>
  <tile id="40">
@@ -214,6 +238,16 @@
    <property name="y" value="5"/>
   </properties>
  </tile>
+ <tile id="48">
+  <properties>
+   <property name="event" value="doorC"/>
+  </properties>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="event" value="doorB"/>
+  </properties>
+ </tile>
  <tile id="50">
   <properties>
    <property name="group" value="wall"/>
@@ -259,6 +293,36 @@
    <property name="y" value="6"/>
   </properties>
  </tile>
+ <tile id="55">
+  <properties>
+   <property name="event" value="doorK"/>
+  </properties>
+ </tile>
+ <tile id="56">
+  <properties>
+   <property name="event" value="doorD"/>
+  </properties>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="event" value="doorE"/>
+  </properties>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="event" value="doorF"/>
+  </properties>
+ </tile>
+ <tile id="59">
+  <properties>
+   <property name="event" value="doorG"/>
+  </properties>
+ </tile>
+ <tile id="60">
+  <properties>
+   <property name="event" value="doorH"/>
+  </properties>
+ </tile>
  <tile id="61">
   <properties>
    <property name="group" value="wall"/>
@@ -266,6 +330,16 @@
    <property name="passable" value="false"/>
    <property name="x" value="5"/>
    <property name="y" value="7"/>
+  </properties>
+ </tile>
+ <tile id="62">
+  <properties>
+   <property name="event" value="doorI"/>
+  </properties>
+ </tile>
+ <tile id="63">
+  <properties>
+   <property name="event" value="doorJ"/>
   </properties>
  </tile>
 </tileset>

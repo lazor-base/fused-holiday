@@ -5,80 +5,26 @@ define(["animation", "input", "map", "load"], function(animation, input, map, lo
 	load.ready();
 	return {
 		animate: function(self, environment, animation, map) {
-			self.counter++;
+			// self.counter++;
 			var frameData = self.data.frameData;
-			animation.context.drawImage(self.image, self.data.frameData.x, self.data.frameData.y, self.data.frameData.w, self.data.frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), self.data.w, self.data.h);
+			animation.context.drawImage(self.image, self.data.frameData.x, self.data.frameData.y, self.data.frameData.w, self.data.frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), self.data.frameData.w, self.data.frameData.h);
 			self.on.resetCollisions(self);
 		},
-		move: function(self) {
-			// var dragged = self.data.event.drag;
-			// self.data.event.drag = false;
-			if (self.data.direction.right === true && self.data.blocked.right === false) {
-				// self.data.event.drag = dragged;
-				self.data.x = self.data.x + self.data.moveSpeed;
-			} else if (self.data.direction.left === true && self.data.blocked.left === false) {
-				// self.data.event.drag = dragged;
-				self.data.x = self.data.x - self.data.moveSpeed;
-			}
-		},
-		fall: function(self, environment) {
-			self.data.event.drag = false;
-			self.data.event.fall = true;
-			self.data.direction.up = false;
-			self.data.direction.down = true;
-			self.data.y += Math.floor(2 * self.data.fallRate);
-			self.data.fallRate += environment.world.data.gravity;
+	collect:function(self, collideTarget) {
 
-		},
-		land: function(self) {
-			self.data.direction.down = false;
-			self.data.onLand = true;
-			self.data.event.fall = false;
-			self.data.fallRate = 0;
-		},
-		drag: function(self, left, right) {
-			self.data.event.drag = true;
-			if (left && right) {
-				self.data.direction.left = left;
-				self.data.direction.right = right;
-			}
-		},
-		push: function(self, direction) {
-			if (self.data.blocked[direction] === false) {
-				self.data.direction[direction] = true;
-				if (direction === "left") {
-					self.data.x = self.data.x - self.data.moveSpeed;
-				} else {
-					self.data.x = self.data.x + self.data.moveSpeed;
-				}
-			}
-		},
+	},
+
 		collideBottom: function(self, x, y, collideTarget) {
-			if (self.data.event.fall) {
-				self.data.y = (y * 32) - (self.data.h - self.data.frameData.cpy);
-				self.on.land(self);
-			}
-			self.data.onLand = true;
-			self.data.blocked.down = true;
+			self.on.collect(self,collideTarget);
 		},
 		collideTop: function(self, x, y, collideTarget) {
-			self.data.blocked.up = true;
+			self.on.collect(self,collideTarget);
 		},
 		collideRight: function(self, x, y, collideTarget) {
-			// self.data.event.move = true;
-			// self.data.direction.left = true;
-			if (collideTarget.data && collideTarget.data.id === "player" && self.data.event.drag) {
-				return true;
-			}
-			self.data.blocked.right = true;
+			self.on.collect(self,collideTarget);
 		},
 		collideLeft: function(self, x, y, collideTarget) {
-			// self.data.event.move = true;
-			// self.data.direction.right = true;
-			if (collideTarget.data && collideTarget.data.id === "player" && self.data.event.drag) {
-				return true;
-			}
-			self.data.blocked.left = true;
+			self.on.collect(self,collideTarget);
 		},
 		parseTilePosition: function(self) {
 			var round = function(number) {
