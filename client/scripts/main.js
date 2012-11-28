@@ -27,9 +27,13 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 			y: blockSpawns[i][1] * 32
 		}, animation.renderList);
 	}
+	entity.spawn(master.characters.block, {
+			x: 21 * 32,
+			y: 7 * 32
+		}, animation.renderList);
 	var keySpawns = map.findKeySpawns();
 	for (var i = 0; i < keySpawns.length; i++) {
-		entity.spawn(master.objects[keySpawns[i][0]+"Key"], {
+		entity.spawn(master.objects[keySpawns[i][0]], {
 			x: keySpawns[i][1] * 32,
 			y: keySpawns[i][2] * 32
 		}, animation.renderList);

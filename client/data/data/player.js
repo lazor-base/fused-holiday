@@ -48,6 +48,8 @@ define(["load"], function(load) {
 		},
 		keys: {
 			level1: false,
+			level2: false,
+			level3: false
 		},
 		moving: false,
 		onScreen:false,

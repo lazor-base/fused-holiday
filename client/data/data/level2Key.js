@@ -8,7 +8,7 @@ define(["load"], function(load) {
 		tileY: 3,
 		w: 29,
 		h: 26,
-		id: "level1",
+		id: "level2",
 		action: "idle",
 		fallRate: 0,
 		passable: false,

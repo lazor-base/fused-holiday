@@ -55,6 +55,7 @@ define(["animation", "load"], function(animation, load) {
 			master[type][dataJSON.id] = {
 				spriteSheet: spriteSheetPath,
 				image: null,
+				remove:false,
 				counter: 0,
 				animations: this.cloneObject(animationJSON),
 				data: this.cloneObject(dataJSON),

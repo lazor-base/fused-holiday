@@ -50,7 +50,7 @@ define(["load"], function(load) {
         "tileheight": 32,
         "tilesets": [{
             "firstgid": 1,
-            "image": "..\/..\/images\/tiles-2.png",
+            "image": "..\/images\/tiles-2.png",
             "imageheight": 256,
             "imagewidth": 256,
             "margin": 0,
