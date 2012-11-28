@@ -1,8 +1,7 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["animation", "load"], function(animation, load) {
+define(["animation"], function(animation) {
 	"use strict";
-	load.ready();
 	return {
 		/**
 		 * Copy readable properties to a new object and return the clone.

@@ -1,8 +1,7 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["physics", "map", "load"], function(physics, map, load) {
+define(["physics", "map"], function(physics, map) {
 	"use strict";
-	load.ready();
 	(function() {
 		var lastTime = 0;
 		var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -47,7 +46,7 @@ define(["physics", "map", "load"], function(physics, map, load) {
 			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			return false;
 		},
-		animationLoop: function(animation, map, master) {
+		animationLoop: function(animation, map, master, messageDiv) {
 			var length = animation.renderList.length;
 			var thisEntity, i,stop;
 			stop = false;
@@ -66,14 +65,14 @@ define(["physics", "map", "load"], function(physics, map, load) {
 						if(thisEntity.data.gameEnd) {
 							stop = thisEntity;
 						}
-						thisEntity.on.animate(thisEntity, master.environment, animation, map);
+						thisEntity.on.animate(thisEntity, master.environment, animation, map, messageDiv);
 						animation.context.fillStyle = "rgba(0,0,0,0.5)";
 						animation.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// animation.context.fillStyle = "red";
 						// animation.context.fillRect(thisEntity.data.tileX*32,thisEntity.data.tileY*32,thisEntity.data.w,thisEntity.data.h)
 						animation.setup("objects");
 					} else {
-						thisEntity.on.animate(thisEntity, master.environment, animation, map);
+						thisEntity.on.animate(thisEntity, master.environment, animation, map, messageDiv);
 						animation.context.fillStyle = "rgba(0,0,0,0.5)";
 						animation.context.fillRect(map.offset(thisEntity.data.x - thisEntity.data.frameData.cpx, "X"), map.offset(thisEntity.data.y - thisEntity.data.frameData.cpy, "Y"), thisEntity.data.w, thisEntity.data.h)
 						// animation.context.fillStyle = "red";

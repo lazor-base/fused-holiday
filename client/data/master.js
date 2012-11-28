@@ -5,13 +5,12 @@ define(["entity", "../data/data/world.js",
 	"../data/animations/level1Key.js", "../data/data/level1Key.js", "../data/events/level1Key.js",
 	"../data/animations/level2Key.js", "../data/data/level2Key.js", "../data/events/level2Key.js",
 	"../data/animations/level3Key.js", "../data/data/level3Key.js", "../data/events/level3Key.js",
-	"../data/animations/block.js", "../data/data/block.js", "../data/events/block.js","load"], function(entity, world,
+	"../data/animations/block.js", "../data/data/block.js", "../data/events/block.js"], function(entity, world,
 		playerAnimation, playerData, playerEvents,
 		level1KeyAnimations, level1KeyData, level1KeyEvents,
 		level2KeyAnimations, level2KeyData, level2KeyEvents,
 		level3KeyAnimations, level3KeyData, level3KeyEvents,
-		blockAnimation, blockData, blockEvents,load) {
-		load.ready();
+		blockAnimation, blockData, blockEvents) {
 	var master = {
 		characters: {},
 		tiles: {},

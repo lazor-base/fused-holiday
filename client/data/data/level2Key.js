@@ -1,5 +1,4 @@
-define(["load"], function(load) {
-	load.ready();
+define([], function() {
 	return {
 		health: 100,
 		x: 14 * 32,
@@ -9,6 +8,7 @@ define(["load"], function(load) {
 		w: 29,
 		h: 26,
 		id: "level2",
+		collected: false,
 		action: "idle",
 		fallRate: 0,
 		passable: false,
@@ -19,8 +19,8 @@ define(["load"], function(load) {
 		direction: {
 			right: false,
 			left: false,
-			up:false,
-			down:false
+			up: false,
+			down: false
 		},
 		event: {
 			fall: false,

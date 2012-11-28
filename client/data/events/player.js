@@ -1,8 +1,7 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["animation", "input", "map", "entity", "load"], function(animation, input, map, entity, load) {
+define(["animation", "input", "map", "entity"], function(animation, input, map, entity) {
 	"use strict";
-	load.ready();
 	return {
 		walk: function(self) {
 			if (self.data.event.stop) {
@@ -53,7 +52,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			}
 			return false;
 		},
-		door: function(self, door, x, y, map) {
+		door: function(self, door, x, y, map, messageDiv) {
 			self.data.coolDown = 10;
 			var locked = false;
 			if (door.lock) {
@@ -61,6 +60,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				if (self.data.keys[door.lock]) {
 					locked = false;
 				} else {
+					messageDiv.textContent = "Key: " + door.lock + " needed!";
 					return false;
 				}
 			}
@@ -72,6 +72,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 				self.data.targetDoor.xSpeed = Math.floor(((targetDoor.x - self.data.tileX) * 32) / 12);
 				self.data.targetDoor.ySpeed = Math.floor(((targetDoor.y - self.data.tileY) * 32) / 12);
 			} else if (door.event === "door" && !locked) {
+				// messageDiv.textContent = "Door Unlocked!";
 				map.removeDoor(x, y);
 			}
 			return false;
@@ -184,7 +185,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			self.data.tileY = round(self.data.y - self.data.frameData.cpy);
 			return false;
 		},
-		action: function(self, map) {
+		action: function(self, map, messageDiv) {
 			if (self.data.coolDown) {
 				return false;
 			}
@@ -206,7 +207,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			current = map.events(x, y);
 			below = map.events(x, y + 1);
 			if (find(current, "door")) {
-				self.on.door(self, find(current, "door"), x, y, map);
+				self.on.door(self, find(current, "door"), x, y, map, messageDiv);
 			} else if (find(current, "mapEnd")) {
 				self.data.gameEnd = true;
 			} else {
@@ -222,7 +223,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 					data = find(collideData, "door");
 					// to doing the wrong action on a background door, we need to make sure this is an inline door.
 					if (data && data.event === "door") {
-						self.on.door(self, data, x, y, map);
+						self.on.door(self, data, x, y, map, messageDiv);
 					}
 				}
 			}
@@ -358,7 +359,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			}
 			return false;
 		},
-		animate: function(self, environment, animation, map) {
+		animate: function(self, environment, animation, map, messageDiv) {
 			self.data.moving = false;
 			if (self.data.travel) {
 				self.on.moveDoors(self, map);
@@ -383,7 +384,7 @@ define(["animation", "input", "map", "entity", "load"], function(animation, inpu
 			self.data.direction.left = self.data.lastDirection === "left";
 			self.data.direction.right = self.data.lastDirection === "right";
 			if ((self.data.event.action || input.keys.up || input.keys.down) && self.data.event.climb === false) {
-				self.on.action(self, map);
+				self.on.action(self, map, messageDiv);
 			}
 			if (self.data.event.fall || (!self.data.onLand && !self.data.event.climb && !self.data.event.jump)) {
 				self.on.fall(self, environment);

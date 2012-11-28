@@ -1,6 +1,6 @@
 /*global require:true, requestAnimationFrame:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-require(["animation", "input", "entity", "map", "../data/master.js", "load"], function(animation, input, entity, map, master, load) {
+require(["animation", "input", "entity", "map", "../data/master.js"], function(animation, input, entity, map, master) {
 	"use strict";
 	input.listen("keydown", function() {
 		input.keyDown(event, input);
@@ -8,11 +8,11 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 	input.listen("keyup", function() {
 		input.keyUp(event, input);
 	});
-	var startDate, currentDate, timerDiv, scoreDiv, finalScoreDiv, currentTime;
+	var startDate, currentDate, timerDiv, scoreDiv, finalScoreDiv, currentTime, messageDiv;
 	var randomFromTo = function(from, to) {
 		return Math.floor(Math.random() * (to - from + 1) + from);
 	};
-	map.buildMap("test2");
+	map.buildMap("map1");
 	entity.spawn(master.characters.player, {
 		x: map.findPlayerSpawnX(),
 		y: map.findPlayerSpawnY()
@@ -27,10 +27,10 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 			y: blockSpawns[i][1] * 32
 		}, animation.renderList);
 	}
-	entity.spawn(master.characters.block, {
-			x: 21 * 32,
-			y: 7 * 32
-		}, animation.renderList);
+	// entity.spawn(master.characters.block, {
+	// 		x: 21 * 32,
+	// 		y: 7 * 32
+	// 	}, animation.renderList);
 	var keySpawns = map.findKeySpawns();
 	for (var i = 0; i < keySpawns.length; i++) {
 		entity.spawn(master.objects[keySpawns[i][0]], {
@@ -41,7 +41,7 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 	var gameEnd = function(player, time) {
 		animation.stopLoop(animation.mainLoop);
 		scoreDiv.setAttribute("class","complete");
-		finalScoreDiv.innerText = player.data.score*time;
+		finalScoreDiv.innerText = time/1600;
 	}
 	var beginRender = function() {
 		var pad = function(length, number) {
@@ -57,7 +57,7 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 		var minutes = Math.floor((currentTime / (1000 * 60)) % 60);
 		var hours = Math.floor((currentTime / (1000 * 60 * 60)) % 24);
 		timerDiv.textContent = pad(2, "" + hours) + ":" + pad(2, "" + minutes) + ":" + pad(2, "" + seconds) + ":" + pad(3, "" + milliseconds);
-		var animationLoop = animation.animationLoop(animation, map, master)
+		var animationLoop = animation.animationLoop(animation, map, master, messageDiv)
 		if (animationLoop) {
 			gameEnd(animationLoop, currentTime);
 		} else {
@@ -66,11 +66,11 @@ require(["animation", "input", "entity", "map", "../data/master.js", "load"], fu
 	};
 	var setup = function() {
 		scoreDiv = document.getElementById("scoring");
+		messageDiv = document.getElementById("message");
 		timerDiv = document.getElementById("timer");
 		finalScoreDiv = document.getElementById("finalScore");
 		startDate = new Date();
 		animation.mainLoop = beginRender();
 	};
-	load.complete(setup);
-	load.ready();
+	setup();
 });

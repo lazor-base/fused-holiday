@@ -1,5 +1,4 @@
-define(["load"], function(load) {
-	load.ready();
+define([], function() {
 	return {
 		"idle": {
 			"speed": 1,
@@ -8,7 +7,7 @@ define(["load"], function(load) {
 				"y": 0,
 				"w": 28,
 				"h": 32,
-				"cpx": 14,
+				"cpx": 0,
 				"cpy": 0
 			},{
 				"x": 33,

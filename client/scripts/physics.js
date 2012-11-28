@@ -1,8 +1,7 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["map", "load"], function(map, load) {
+define(["map"], function(map) {
 	"use strict";
-	load.ready();
 	var contains = function(item, content) {
 		return item.indexOf(content) > -1;
 	};
@@ -109,6 +108,9 @@ define(["map", "load"], function(map, load) {
 								}
 							}
 						}
+				if (contains(entity.data.physics.types, "player") && contains(target.data.physics.types, "block")) {
+					// console.log(sy + topModifier <= tey , collision , ey + topModifier > tey , entity.data.direction.up , (ex > tsx && sx < tsx) , (sx < tex && ex > tex) , (sx >= tsx && ex <= tex))
+				}
 
 						if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
 							entity.on.collideTop(entity, round(sx), round(tey), target);
@@ -118,9 +120,6 @@ define(["map", "load"], function(map, load) {
 							entity.on.collideBottom(entity, round(sx), round(tsy), target);
 							collision = false;
 						}
-				if (contains(entity.data.physics.types, "block") && contains(target.data.physics.types, "block")) {
-					// console.log(ey + bottomModifier >= tsy , collision, sy + bottomModifier < tsy, entity.data.direction.down , ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex)))
-				}
 						if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
 							collision = false;
 							entity.on.collideLeft(entity, round(tsx), round(sy), target);

@@ -1,5 +1,4 @@
-define(["load"], function(load) {
-	load.ready();
+define([], function() {
 	return {
 		"stand": {
 			"speed": 0,

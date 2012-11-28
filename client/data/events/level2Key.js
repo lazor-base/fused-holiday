@@ -1,22 +1,26 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["animation", "input", "map", "load"], function(animation, input, map, load) {
+define(["animation", "input", "map"], function(animation, input, map) {
 	"use strict";
-	load.ready();
 	return {
-		animate: function(self, environment, animation, map) {
+		animate: function(self, environment, animation, map, messageDiv) {
 			// self.counter++;
+			if (self.data.collected) {
+				messageDiv.textContent = "Key: " + self.data.id + " collected!";
+				self.remove = true;
+				return true;
+			}
 			var frameData = self.data.frameData;
 			animation.context.drawImage(self.image, self.data.frameData.x, self.data.frameData.y, self.data.frameData.w, self.data.frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), self.data.frameData.w, self.data.frameData.h);
 			self.on.resetCollisions(self);
 		},
 		collect: function(self, collideTarget) {
 			if (collideTarget.data && collideTarget.data.id === "player") {
-				self.remove = true;
+				self.data.collected = true;
 				collideTarget.data.keys[self.data.id] = true;
 			}
 		},
-		destroy:function() {
+		destroy: function() {
 
 		},
 		collideBottom: function(self, x, y, collideTarget) {

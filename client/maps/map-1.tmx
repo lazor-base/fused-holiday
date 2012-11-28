@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="70" height="60" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset-2" tilewidth="32" tileheight="32">
+  <image source="../images/tiles-2.png" width="256" height="256"/>
+  <tile id="3">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="door_bottom"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="3"/>
+    <property name="y" value="0"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="door_top"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="4"/>
+    <property name="y" value="0"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="door_mid"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="5"/>
+    <property name="y" value="0"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="group" value="background"/>
+    <property name="name" value="background_blue"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="7"/>
+    <property name="y" value="0"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="group" value="empty"/>
+    <property name="name" value="ladder_left"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="3"/>
+    <property name="y" value="1"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="group" value="ladder"/>
+    <property name="name" value="ladder_mid"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="4"/>
+    <property name="y" value="1"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="group" value="empty"/>
+    <property name="name" value="ladder_right"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="5"/>
+    <property name="y" value="1"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="event" value="keySpawn"/>
+    <property name="keyId" value="level3"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="background_door"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="5"/>
+    <property name="y" value="2"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="background_door_top"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="6"/>
+    <property name="y" value="2"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="event" value="keySpawn"/>
+    <property name="keyId" value="level2"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="event" value="ladder"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="event" value="door"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="event" value="doorA"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_left_top_right"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="5"/>
+    <property name="y" value="3"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="group" value="door"/>
+    <property name="name" value="background_door_bottom"/>
+    <property name="passable" value="true"/>
+    <property name="x" value="6"/>
+    <property name="y" value="3"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="event" value="door"/>
+    <property name="lock" value="level3"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="event" value="playerSpawn"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="event" value="mapEnd"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_left_top"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="4"/>
+    <property name="y" value="4"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_roof"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="5"/>
+    <property name="y" value="4"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_top_right"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="6"/>
+    <property name="y" value="4"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="event" value="door"/>
+    <property name="lock" value="level2"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="event" value="keySpawn"/>
+    <property name="keyId" value="level1"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="event" value="blockSpawn"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="event" value="door"/>
+    <property name="lock" value="level1"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_bottom_left_top"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="3"/>
+    <property name="y" value="5"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_left"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="4"/>
+    <property name="y" value="5"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_mid"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="5"/>
+    <property name="y" value="5"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_right"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="6"/>
+    <property name="y" value="5"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_top_right_bottom"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="7"/>
+    <property name="y" value="5"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="event" value="doorC"/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="event" value="doorB"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_left_right"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="2"/>
+    <property name="y" value="6"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_floor_roof"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="3"/>
+    <property name="y" value="6"/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_left_bottom"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="4"/>
+    <property name="y" value="6"/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_floor"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="5"/>
+    <property name="y" value="6"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_bottom_right"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="6"/>
+    <property name="y" value="6"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="event" value="doorK"/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="event" value="doorD"/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="event" value="doorE"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="event" value="doorF"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="event" value="doorG"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="event" value="doorH"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="group" value="wall"/>
+    <property name="name" value="wall_left_bottom_right"/>
+    <property name="passable" value="false"/>
+    <property name="x" value="5"/>
+    <property name="y" value="7"/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="event" value="doorI"/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="event" value="doorJ"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="70" height="60" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6F71r/iKZgDSFg1VVVVVVVVVVVVVVVVVVVVVd8H6IyDQQ==
+  </data>
+ </layer>
+ <layer name="floor" width="70" height="60">
+  <data encoding="base64" compression="zlib">
+   eJztmttuwjAMhnOxrU8ycrPCJAbc8aw8Ku0kpBA5B8dJc+j/SZZANLbz1zhpYFJKTTDSvhf7SzSd2V+NmJS/1c4CTamxEn8xtszlUXoOPejyArrQurzIHbNXXWyNqHo5qfee8bszXSaHLnuvly11uaj0Ne7G8KeZ+brWXipmCV22Mm58zvV2f6HM1XNG1gX1Ir92/X5eDZuhy7+t/e9gWG1duP2d6q85dPkU3q+ejDO3r0y6xD6r6k50+TBeK4EuseNq1mMott1rc/TdEXRZ9zdHh5XWhdNXtee+poxtWZccPmNipTyTldDFrgPXva6pS6hWDx7j7AdK149rHjE5trrfCOX1Q8yXc05k+7gmaNeiLr3H6yVP6JIeL7S+6w3ylJzv+XLlnM9xteul5qhcS54tQRfoYpp5vkvtCbi+a3IOvJf44n7eEtCFxl7XbgJfI+mSE2re5rPEUfn3C6MiqZeRawm60ITm5vuddi6bWlXs/YvN3TN2z/VSamzrQBca6EIj/W8TAAAAAAAAAAAAAACgXZ5BiIfa
+  </data>
+ </layer>
+ <layer name="foreground" width="70" height="60" visible="0" opacity="0.76">
+  <data encoding="base64" compression="zlib">
+   eJzt17EKg0AQRdHtbExaS///L2MjBFxBRZgHewKnS7FcZ1idWmsTwJ8l4AyJ1oAzcHRlXt+e6aodaTf+e2Ve355pO/LMvPlsvgFnSaKLLrrookt2l1G+Ge52GeV9yB5ldUnfx6ou6fs46h6lz2vVs0+f16ou6KKLLuRxl/e5ywHO7b/qc+AeP7Pf496n+3TRRRdddAEAAAAA6PsB+DR1yg==
+  </data>
+ </layer>
+ <layer name="event" width="70" height="60" visible="0" opacity="0.49">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEOgzAMhWFvHXsA1KldKBPdev+LdaqEIioCtdFz8lv6tihyXkgAszx1OVGmIpf1Ipf1qlnPq3Jcb7nwvPzvWjnuvmPOm9OYPbzOyNfoONevfYvYTw9P5/nKdZalmssg0IMicmkzF+9z30ouUcjleC6TQJ/KucwC/Srm0hPuF51cMpzHZS5R3wIZmUAPW7z36y2wJgXcoeTSSy6Rd37mXCKZQA9oG+9yAADyegj0oI7/DHIhF3Ihl3OZQA8AAAAAAAAAcNQH0Exvxg==
+  </data>
+ </layer>
+</map>

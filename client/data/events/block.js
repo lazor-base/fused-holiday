@@ -1,8 +1,7 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["animation", "input", "map", "load"], function(animation, input, map, load) {
+define(["animation", "input", "map"], function(animation, input, map) {
 	"use strict";
-	load.ready();
 	return {
 		animate: function(self, environment, animation, map) {
 			if (self.data.event.fall || !self.data.onLand) {

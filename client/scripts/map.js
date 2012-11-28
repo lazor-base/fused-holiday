@@ -1,10 +1,10 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["../data/maps/test.js","../data/maps/test-2.js", "../data/maps/moarmaps.js", "animation", "../data/master.js", "load"], function(test, test2, moarmaps, animation, master, load) {
+define(["../data/maps/map-1.js", "../data/maps/test.js", "../data/maps/test-2.js", "../data/maps/moarmaps.js", "animation", "../data/master.js"], function(map1, test, test2, moarmaps, animation, master) {
 	"use strict";
-	load.ready();
 	return {
 		maps: {
+			map1: map1,
 			test: test,
 			test2: test2,
 			moarmaps: moarmaps
@@ -42,7 +42,7 @@ define(["../data/maps/test.js","../data/maps/test-2.js", "../data/maps/moarmaps.
 						for (y = 0; y < height; y++) {
 							tileId = thisLayer.data[(width * y) + x] - 1;
 							if (tileId !== -1 && tiles[tileId].event === "blockSpawn") {
-								results.push([x,y]);
+								results.push([x, y]);
 							}
 						}
 					}
@@ -64,7 +64,7 @@ define(["../data/maps/test.js","../data/maps/test-2.js", "../data/maps/moarmaps.
 						for (y = 0; y < height; y++) {
 							tileId = thisLayer.data[(width * y) + x] - 1;
 							if (tileId !== -1 && tiles[tileId].event === "keySpawn") {
-								results.push([tiles[tileId].keyId,x,y]);
+								results.push([tiles[tileId].keyId, x, y]);
 							}
 						}
 					}
@@ -140,6 +140,9 @@ define(["../data/maps/test.js","../data/maps/test-2.js", "../data/maps/moarmaps.
 									tileId = thisLayer.data[(width * thisY) + thisX] - 1;
 									if (tileId !== -1) {
 										tile = this.currentMap.tilesets[0].tileproperties[tileId];
+										if(!tile) {
+										console.log(tileId, thisX, thisY, thisLayer.name);
+									}
 										animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight);
 									}
 								}
@@ -168,11 +171,11 @@ define(["../data/maps/test.js","../data/maps/test-2.js", "../data/maps/moarmaps.
 			var roundedStart = round(start);
 			var roundedEnd = round(end);
 			if (start % 32 === 0 && !map) {
-				var length = round(end-start);
+				var length = round(end - start);
 				var numbers = [];
 
-				for(var i=0;i<length;i++) {
-					numbers.push(roundedStart+i);
+				for (var i = 0; i < length; i++) {
+					numbers.push(roundedStart + i);
 				}
 				return numbers;
 			}
