@@ -12,6 +12,7 @@ define([], function() {
 		h: 64,
 		id: "player",
 		travelTime:0,
+		dragged:false,
 		gameEnd:false,
 		direction: {
 			up: false,

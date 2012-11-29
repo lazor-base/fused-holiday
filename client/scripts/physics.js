@@ -108,34 +108,42 @@ define(["map"], function(map) {
 								}
 							}
 						}
-						if (contains(entity.data.physics.types, "player") && contains(target.data.physics.types, "block") && collision) {
-							// console.log("top",sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex)))
-						}
-						if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-							collision = false;
-							entity.on.collideLeft(entity, round(tsx), round(sy), target);
-						}
-						if (contains(entity.data.physics.types, "player") && contains(target.data.physics.types, "block")) {
-							// console.log(target.data.direction.left,target.data.direction.right, target.data.event.move)
-						}
-						if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-							collision = false;
-							entity.on.collideRight(entity, round(tex), round(sy), target);
-						}
+						if (entity.data.dragged) {
+							if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
+								collision = false;
+								entity.on.collideLeft(entity, round(tsx), round(sy), target);
+							}
+							if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
+								collision = false;
+								entity.on.collideRight(entity, round(tex), round(sy), target);
+							}
 
-						if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
-							entity.on.collideTop(entity, round(sx), round(tey), target);
-							collision = false;
-						}
-						if (contains(entity.data.physics.types, "player") && contains(target.data.physics.types, "block") && collision) {
-							// console.log("bottom",ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy && entity.data.direction.down && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex)))
-						}
-						if (ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy /*&& entity.data.direction.down*/ && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
-							entity.on.collideBottom(entity, round(sx), round(tsy), target);
-							collision = false;
-						}
-						if (contains(entity.data.physics.types, "player") && contains(target.data.physics.types, "block") && collision) {
-							// console.log("left",sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey)))
+							if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
+								entity.on.collideTop(entity, round(sx), round(tey), target);
+								collision = false;
+							}
+							if (ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy && entity.data.direction.down && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
+								entity.on.collideBottom(entity, round(sx), round(tsy), target);
+								collision = false;
+							}
+						} else {
+							if (ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy && entity.data.direction.down && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
+								entity.on.collideBottom(entity, round(sx), round(tsy), target);
+								collision = false;
+							}
+							if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
+								collision = false;
+								entity.on.collideLeft(entity, round(tsx), round(sy), target);
+							}
+							if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
+								collision = false;
+								entity.on.collideRight(entity, round(tex), round(sy), target);
+							}
+
+							if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
+								entity.on.collideTop(entity, round(sx), round(tey), target);
+								collision = false;
+							}
 						}
 					}
 				}

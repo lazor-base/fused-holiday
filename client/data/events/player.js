@@ -299,7 +299,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		drag: function(self, animation) {
 			if (self.data.blockId !== 0 && !self.data.event.jump && !self.data.event.fall) {
-				// console.log("start")
+				self.data.dragged = true;
 				self.data.event.drag = true;
 				var side = self.data.blockSide;
 				var block = entity.getEntity(self.data.blockId, animation);

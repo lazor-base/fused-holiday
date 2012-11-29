@@ -18,7 +18,7 @@ define(["entity", "../data/data/world.js",
 		tools: {},
 		environment: {}
 	};
-	entity.make(master, "../images/tiles.png", "characters", blockAnimation, blockData, blockEvents);
+	entity.make(master, "../images/tiles-2.png", "characters", blockAnimation, blockData, blockEvents);
 	entity.make(master, "../images/joeHumanSpriteSheet.png", "characters", playerAnimation, playerData, playerEvents);
 	entity.make(master, "../images/level1Key.png", "objects", level1KeyAnimations, level1KeyData, level1KeyEvents);
 	entity.make(master, "../images/level2Key.png", "objects", level2KeyAnimations, level2KeyData, level2KeyEvents);
