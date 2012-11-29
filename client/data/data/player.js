@@ -11,6 +11,7 @@ define([], function() {
 		w: 32,
 		h: 64,
 		id: "player",
+		travelTime:0,
 		gameEnd:false,
 		direction: {
 			up: false,

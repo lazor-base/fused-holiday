@@ -28,8 +28,8 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		}, animation.renderList);
 	}
 	// entity.spawn(master.characters.block, {
-	// 		x: 21 * 32,
-	// 		y: 7 * 32
+	// 		x: 7 * 32,
+	// 		y: 3 * 32
 	// 	}, animation.renderList);
 	var keySpawns = map.findKeySpawns();
 	for (var i = 0; i < keySpawns.length; i++) {
@@ -40,8 +40,8 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 	}
 	var gameEnd = function(player, time) {
 		animation.stopLoop(animation.mainLoop);
-		scoreDiv.setAttribute("class","complete");
-		finalScoreDiv.innerText = time/1600;
+		scoreDiv.setAttribute("class", "complete");
+		finalScoreDiv.innerText = time / 1600;
 	}
 	var beginRender = function() {
 		var pad = function(length, number) {
@@ -72,5 +72,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		startDate = new Date();
 		animation.mainLoop = beginRender();
 	};
-	setup();
+	(function() {
+		setup();
+	}());
 });

@@ -112,6 +112,7 @@ define(["animation", "input", "map"], function(animation, input, map) {
 				self.data.blocked.left = false;
 				self.data.blocked.right = false;
 			}
+			self.data.event.move = false;
 			self.data.event.drag = false;
 			self.data.blocked.up = false;
 			self.data.blocked.down = false;

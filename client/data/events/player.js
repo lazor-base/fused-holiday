@@ -41,12 +41,13 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		moveDoors: function(self) {
 			if (self.data.travel) {
-				if (self.data.tileX === self.data.targetDoor.x && self.data.tileY === self.data.targetDoor.y) {
+				if (self.data.travelTime === 0) {
 					self.data.x = self.data.targetDoor.x * 32 + self.data.frameData.cpx;
 					self.data.y = self.data.targetDoor.y * 32 + self.data.frameData.cpy;
 					self.data.travel = false;
 					return true;
 				}
+				self.data.travelTime--;
 				self.data.x += self.data.targetDoor.xSpeed;
 				self.data.y += self.data.targetDoor.ySpeed;
 			}
@@ -69,6 +70,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				var targetDoor = map.matchDoor(x, y);
 				self.data.targetDoor.x = targetDoor.x;
 				self.data.targetDoor.y = targetDoor.y;
+				self.data.travelTime = Math.floor(((targetDoor.x*32)-self.data.x)/(Math.floor(((targetDoor.x - self.data.tileX) * 32) / 12)));
 				self.data.targetDoor.xSpeed = Math.floor(((targetDoor.x - self.data.tileX) * 32) / 12);
 				self.data.targetDoor.ySpeed = Math.floor(((targetDoor.y - self.data.tileY) * 32) / 12);
 			} else if (door.event === "door" && !locked) {
@@ -297,6 +299,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 		},
 		drag: function(self, animation) {
 			if (self.data.blockId !== 0 && !self.data.event.jump && !self.data.event.fall) {
+				// console.log("start")
 				self.data.event.drag = true;
 				var side = self.data.blockSide;
 				var block = entity.getEntity(self.data.blockId, animation);
@@ -317,11 +320,11 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 							self.data.direction.right = true;
 							self.data.moving = true;
 							self.data.x = self.data.x + block.data.moveSpeed;
+							block.on.push(block, "right");
 						}
-						block.on.push(block, "right")
 					} else if (input.keys.left) {
 						block.on.drag(block, true, false);
-						block.on.push(block, "left")
+						block.on.push(block, "left");
 						if (self.data.blocked.left === false && block.data.blocked.left === false) {
 							self.data.direction.left = true;
 							self.data.moving = true;
@@ -346,13 +349,14 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 							self.data.direction.left = true;
 							self.data.moving = true;
 							self.data.x = self.data.x - block.data.moveSpeed;
+							block.on.push(block, "left")
 						}
-						block.on.push(block, "left")
 					}
 				}
 				block.data.blocked.left = false;
 				block.data.blocked.right = false;
 			} else {
+				// console.log("stop")
 				self.data.event.drag = false;
 				self.data.blockId = 0;
 				self.on.walk(self);

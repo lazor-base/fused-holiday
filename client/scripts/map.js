@@ -20,6 +20,7 @@ define(["../data/maps/map-1.js", "../data/maps/test.js", "../data/maps/test-2.js
 		currentMap: null,
 		sheetImage: null,
 		drawnMap: false,
+		timesDrawn: 0,
 		buildMap: function(name) {
 			this.currentMap = this.maps[name];
 			this.sheetImage = new Image();
@@ -140,9 +141,9 @@ define(["../data/maps/map-1.js", "../data/maps/test.js", "../data/maps/test-2.js
 									tileId = thisLayer.data[(width * thisY) + thisX] - 1;
 									if (tileId !== -1) {
 										tile = this.currentMap.tilesets[0].tileproperties[tileId];
-										if(!tile) {
-										console.log(tileId, thisX, thisY, thisLayer.name);
-									}
+										if (tile) {
+											// console.log(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1), this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1), this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight);
+										}
 										animation.context.drawImage(this.sheetImage, this.currentMap.tileheight * tile.x, this.currentMap.tileheight * tile.y, this.currentMap.tileheight, this.currentMap.tileheight, this.currentMap.tileheight * (x + 1) - this.remainder(this.offsetX), this.currentMap.tileheight * (y + 1) - this.remainder(this.offsetY), this.currentMap.tileheight, this.currentMap.tileheight);
 									}
 								}
@@ -150,7 +151,12 @@ define(["../data/maps/map-1.js", "../data/maps/test.js", "../data/maps/test-2.js
 						}
 					}
 				}
-				this.drawnMap = true;
+				if (this.timesDrawn > 1) {
+					this.drawnMap = true;
+					this.timesDrawn = 0;
+				} else {
+					this.timesDrawn++
+				}
 			}
 			return false;
 		},
