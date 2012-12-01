@@ -7,3 +7,5 @@ Keyboard button style by http://forrst.com/posts/Pure_CSS_iPad_functional_Keyboa
 Maps created in Tiled Map Editor http://www.mapeditor.org/
 
 Used the requestAnimationFrame polyfill by Paul Irish http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+
+Audio is via Daniel Besser. Check out his soundcloud! http://soundcloud.com/beesaur/
