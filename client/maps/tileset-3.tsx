@@ -276,9 +276,9 @@
  </tile>
  <tile id="43">
   <properties>
-   <property name="group" value="wall"/>
-   <property name="name" value="wall_bottom_left_top"/>
-   <property name="passable" value="false"/>
+   <property name="group" value="empty"/>
+   <property name="name" value="small_cloud"/>
+   <property name="passable" value="true"/>
    <property name="x" value="3"/>
    <property name="y" value="5"/>
   </properties>
