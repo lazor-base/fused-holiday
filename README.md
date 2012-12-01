@@ -1,3 +1,5 @@
+*Only tested in Chrome*
+
 Initially an entry for GitHub Game Off 2012, there were some complications preventing this project from becoming more ambitious.
 
 To Run the game, launch game/index.html. Alternatively, a mirror is available at http://arka-tech.net/fused-holiday
