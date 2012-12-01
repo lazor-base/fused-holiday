@@ -3,7 +3,7 @@
 require(["animation", "input", "entity", "map", "../data/master.js"], function(animation, input, entity, map, master) {
 	"use strict";
 	var scores = JSON.parse(localStorage.getItem("scores")) || [];
-	var lowTime = 41000;
+	var lowTime = 75000;
 	var highScore = 30000;
 	var gameStarted = false;
 	input.listen("keydown", function() {

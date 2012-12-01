@@ -66,6 +66,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				}
 			}
 			if (door.event !== "door" && !locked) {
+				self.data.openedDoor = true;
 				self.data.travel = true;
 				var targetDoor = map.matchDoor(x, y);
 				self.data.targetDoor.x = targetDoor.x;
@@ -208,7 +209,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			var y = self.data.tileY;
 			current = map.events(x, y);
 			below = map.events(x, y + 1);
-			if (find(current, "door")) {
+			if (find(current, "door") && !self.data.openedDoor) {
 				self.on.door(self, find(current, "door"), x, y, map, messageDiv);
 			} else if (find(current, "mapEnd")) {
 				self.data.gameEnd = true;
@@ -224,7 +225,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 					collideData = map.events(x, y);
 					data = find(collideData, "door");
 					// to doing the wrong action on a background door, we need to make sure this is an inline door.
-					if (data && data.event === "door") {
+					if (data && data.event === "door" && !self.data.openedDoor) {
 						self.on.door(self, data, x, y, map, messageDiv);
 					}
 				}
@@ -497,6 +498,9 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			}
 			if (self.data.coolDown < 0) {
 				self.data.coolDown = 0;
+			}
+			if(self.data.openedDoor && !input.keys.up) {
+				self.data.openedDoor = false;
 			}
 			return false;
 		}

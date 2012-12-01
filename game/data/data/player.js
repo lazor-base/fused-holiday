@@ -31,6 +31,7 @@ define([], function() {
 			drag: false
 		},
 		score:0,
+		openedDoor:false,
 		lastDirection: "right",
 		action: "stand",
 		onLand: false,
