@@ -42,7 +42,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		animation.stopLoop(animation.mainLoop);
 		scoreDiv.setAttribute("class", "complete");
 		// TODO
-		finalScoreDiv.innerText = (51000 - time)+ " / "+10000;
+		finalScoreDiv.innerText = (71000 - time)+ " / "+30000;
 	}
 	var beginRender = function() {
 		var pad = function(length, number) {
