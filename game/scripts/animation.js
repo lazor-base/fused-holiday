@@ -53,13 +53,16 @@ define(["physics", "map"], function(physics, map) {
 			animation.setup("objects");
 			for (i = 0; i < length; i++) {
 				thisEntity = animation.renderList[i];
+				physics(thisEntity, animation.renderList);
+			}
+			for (i = 0; i < length; i++) {
+				thisEntity = animation.renderList[i];
 				if (thisEntity.remove) {
 					thisEntity.on.destroy(thisEntity);
 					animation.renderList.splice(i);
 					length = animation.renderList.length;
 					i--;
 				} else {
-					physics(thisEntity, animation.renderList);
 					if (thisEntity.data.id === "player") {
 						animation.setup("player");
 						if(thisEntity.data.gameEnd) {
@@ -71,6 +74,10 @@ define(["physics", "map"], function(physics, map) {
 						thisEntity.on.animate(thisEntity, master.environment, animation, map, messageDiv);
 					}
 				}
+			}
+			for (i = 0; i < length; i++) {
+				thisEntity = animation.renderList[i];
+				thisEntity.on.resetCollisions(thisEntity, animation);
 			}
 			map.animate(animation);
 			return stop;

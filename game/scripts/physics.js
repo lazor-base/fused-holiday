@@ -21,10 +21,11 @@ define(["map"], function(map) {
 			var ey = sy + entity.data.h;
 			var tsx, tsy, tex, tey, target, i, top, right, bottom, left, result, leftModifier, rightModifier, topModifier, bottomModifier;
 			leftModifier = rightModifier = topModifier = bottomModifier = 1;
-			leftModifier = entity.data.moveSpeed;
-			rightModifier = entity.data.moveSpeed;
-			if (entity.data.event.walk && entity.data.direction.right) {
+			if ((entity.data.event.walk || entity.data.move) && entity.data.direction.right) {
 				rightModifier = entity.data.moveSpeed;
+			}
+			if ((entity.data.event.walk || entity.data.move) && entity.data.direction.left) {
+				leftModifier = entity.data.moveSpeed;
 			}
 			if (entity.data.event.jump) {
 				topModifier = Math.floor(2 * entity.data.jumpRate);
@@ -36,27 +37,27 @@ define(["map"], function(map) {
 				left = map.getTiles([round(sx - leftModifier)], map.roundBetween(sy, ey));
 				result = map.containsImpassable(left);
 				if (sx - leftModifier <= 0 || result) {
-					entity.on.collideLeft(entity, result[1], result[2], result[0]);
+					entity.on.collideLeft(entity, result[1]*32, result[2]*32, result[0]);
 				}
 
 				right = map.getTiles([round(ex + rightModifier)], map.roundBetween(sy, ey));
 				result = map.containsImpassable(right);
 				if (ex + rightModifier >= map.currentMap.width * 32 || result) {
-					entity.on.collideRight(entity, result[1], result[2], result[0]);
+					entity.on.collideRight(entity, result[1]*32, result[2]*32, result[0]);
 				}
 
 
 				top = map.getTiles(map.roundBetween(sx, ex), [round(sy + topModifier)]);
 				result = map.containsImpassable(top);
 				if (sy + topModifier <= 0 || result) {
-					entity.on.collideTop(entity, result[1], result[2], result[0]);
+					entity.on.collideTop(entity, result[1]*32, result[2]*32, result[0]);
 				}
 
 
 				bottom = map.getTiles(map.roundBetween(sx, ex), [round(ey + bottomModifier)]);
 				result = map.containsImpassable(bottom);
 				if (ey + bottomModifier >= map.currentMap.height * 32 || result) {
-					entity.on.collideBottom(entity, result[1], result[2], result[0]);
+					entity.on.collideBottom(entity, result[1]*32, result[2]*32, result[0]);
 				}
 			}
 			if (contains(checkAgainst, "entity")) {
@@ -109,18 +110,18 @@ define(["map"], function(map) {
 							}
 						}
 							if (sx - leftModifier < tex && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-								entity.on.collideLeft(entity, round(tsx), round(sy), target);
+								entity.on.collideLeft(entity, tex, sy, target);
 							}
 							if (ex + rightModifier > tsx && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-								entity.on.collideRight(entity, round(tex), round(sy), target);
+								entity.on.collideRight(entity, tsx, sy, target);
 							}
 
 							if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
-								entity.on.collideTop(entity, round(sx), round(tey), target);
+								entity.on.collideTop(entity, sx, tey, target);
 								collision = false;
 							}
 							if (ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy && entity.data.direction.down && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
-								entity.on.collideBottom(entity, round(sx), round(tsy), target);
+								entity.on.collideBottom(entity, sx, tsy, target);
 								collision = false;
 							}
 					}

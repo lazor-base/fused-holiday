@@ -50,6 +50,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				self.data.travelTime--;
 				self.data.x += self.data.targetDoor.xSpeed;
 				self.data.y += self.data.targetDoor.ySpeed;
+				console.log(self.data.targetDoor.xSpeed,self.data.y)
 			}
 			return false;
 		},
@@ -71,9 +72,10 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				var targetDoor = map.matchDoor(x, y);
 				self.data.targetDoor.x = targetDoor.x;
 				self.data.targetDoor.y = targetDoor.y;
-				self.data.travelTime = Math.floor(((targetDoor.x*32)-self.data.x)/(Math.floor(((targetDoor.x - self.data.tileX) * 32) / 12)));
+				self.data.travelTime = Math.floor(((targetDoor.x * 32) - self.data.x) / (Math.floor(((targetDoor.x - self.data.tileX) * 32) / 12)));
 				self.data.targetDoor.xSpeed = Math.floor(((targetDoor.x - self.data.tileX) * 32) / 12);
 				self.data.targetDoor.ySpeed = Math.floor(((targetDoor.y - self.data.tileY) * 32) / 12);
+				console.log(self.data.targetDoor.xSpeed,self.data.targetDoor.ySpeed, self.data.travelTime)
 			} else if (door.event === "door" && !locked) {
 				// messageDiv.textContent = "Door Unlocked!";
 				map.removeDoor(x, y);
@@ -304,7 +306,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				self.data.event.drag = true;
 				var side = self.data.blockSide;
 				var block = entity.getEntity(self.data.blockId, animation);
-				if (block.data.event.fall) {
+				if (!block.data.onLand) {
 					self.data.event.drag = false;
 					self.data.blockId = 0;
 					self.on.walk(self);
@@ -367,7 +369,7 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			self.data.moving = false;
 			if (self.data.travel) {
 				self.on.moveDoors(self, map);
-				self.on.resetCollisions(self, animation);
+				// self.on.resetCollisions(self, animation);
 				self.on.moveMap(self, environment, map);
 				return false;
 			}
@@ -406,8 +408,8 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				self.counter++;
 			}
 			var speed = self.animations[self.data.action].speed;
-			if(self.data.event.drag) {
-				if(self.data.blockSide === "left") {
+			if (self.data.event.drag) {
+				if (self.data.blockSide === "left") {
 					self.data.direction.left = true;
 					self.data.direction.right = false;
 				} else {
@@ -419,6 +421,10 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			if (index > self.animations[self.data.action].frames.length - 1 || speed === 0) {
 				index = 0;
 				self.counter = 0;
+			}
+			if (self.data.isFlipped) {
+				animation.context.restore();
+				self.data.isFlipped = false;
 			}
 			var frameData = self.data.frameData = self.animations[self.data.action].frames[index];
 			if (self.data.direction.left === true) {
@@ -433,12 +439,12 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				animation.context.drawImage(self.image, frameData.x, frameData.y, frameData.w, frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), frameData.w, frameData.h);
 			}
 			self.on.moveMap(self, environment, map);
-			self.on.resetCollisions(self, animation);
+			// self.on.resetCollisions(self, animation);
 			return false;
 		},
 		collideBottom: function(self, x, y, collideTarget) {
 			if (self.data.event.fall) {
-				self.data.y = (y * 32) - (self.data.h - self.data.frameData.cpy);
+				self.data.y = y - (self.data.h - self.data.frameData.cpy);
 				self.on.land(self);
 			}
 			self.data.onLand = true;
@@ -456,6 +462,9 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			return false;
 		},
 		collideRight: function(self, x, y, collideTarget) {
+			if (!self.data.event.climb && !self.data.travel) {
+				self.data.x = x - self.data.w;
+			}
 			self.data.action = "stand";
 			self.data.event.walk = false;
 			self.data.event.stand = true;
@@ -466,6 +475,12 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			return false;
 		},
 		collideLeft: function(self, x, y, collideTarget) {
+			if (!self.data.event.climb && !self.data.travel) {
+				self.data.x = x;
+				if (!collideTarget.data) {
+					self.data.x += 32;
+				}
+			}
 			self.data.action = "stand";
 			self.data.event.walk = false;
 			self.data.event.stand = true;
@@ -489,17 +504,13 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 			if (!input.keys.shift) {
 				self.data.blockId = 0;
 			}
-			if (self.data.isFlipped) {
-				animation.context.restore();
-				self.data.isFlipped = false;
-			}
 			if (self.data.coolDown > 0) {
 				self.data.coolDown--;
 			}
 			if (self.data.coolDown < 0) {
 				self.data.coolDown = 0;
 			}
-			if(self.data.openedDoor && !input.keys.up) {
+			if (self.data.openedDoor && !input.keys.up) {
 				self.data.openedDoor = false;
 			}
 			return false;

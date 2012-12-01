@@ -20,9 +20,13 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		return Math.floor(Math.random() * (to - from + 1) + from);
 	};
 	map.buildMap("map2");
+	// entity.spawn(master.characters.player, {
+	// 	x: map.findPlayerSpawnX(),
+	// 	y: map.findPlayerSpawnY()
+	// }, animation.renderList);
 	entity.spawn(master.characters.player, {
-		x: map.findPlayerSpawnX(),
-		y: map.findPlayerSpawnY()
+		x: 15*32,
+		y: 45*32
 	}, animation.renderList);
 	// entity.spawn(master.characters.block, {
 	// 	x: randomFromTo(2, 22) * 32

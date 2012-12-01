@@ -15,6 +15,8 @@ define([], function() {
 		onLand: false,
 		moveSpeed: 1,
 		uniqueId: 0,
+		collideTargetLeft:"empty",
+		collideTargetRight:"empty",
 		direction: {
 			right: false,
 			left: false,

@@ -12,16 +12,11 @@ define(["animation", "input", "map"], function(animation, input, map) {
 			}
 			var frameData = self.data.frameData;
 			animation.context.drawImage(self.image, self.data.frameData.x, self.data.frameData.y, self.data.frameData.w, self.data.frameData.h, map.offset(self.data.x - frameData.cpx, "X"), map.offset(self.data.y - frameData.cpy, "Y"), self.data.w, self.data.h);
-			self.on.resetCollisions(self);
 		},
 		move: function(self) {
-			// var dragged = self.data.event.drag;
-			// self.data.event.drag = false;
 			if (self.data.direction.right === true && self.data.blocked.right === false) {
-				// self.data.event.drag = dragged;
 				self.data.x = self.data.x + self.data.moveSpeed;
 			} else if (self.data.direction.left === true && self.data.blocked.left === false) {
-				// self.data.event.drag = dragged;
 				self.data.x = self.data.x - self.data.moveSpeed;
 			}
 		},
@@ -46,6 +41,11 @@ define(["animation", "input", "map"], function(animation, input, map) {
 				self.data.direction.left = left;
 				self.data.direction.right = right;
 			}
+			if(left && self.data.blocked.left && self.data.collideTargetLeft === "player") {
+				self.data.blocked.left = false;
+			} else if(right && self.data.blocked.right && self.data.collideTargetRight === "player") {
+				self.data.blocked.right = false;
+			}
 		},
 		push: function(self, direction) {
 			if (self.data.blocked[direction] === false) {
@@ -59,7 +59,7 @@ define(["animation", "input", "map"], function(animation, input, map) {
 		},
 		collideBottom: function(self, x, y, collideTarget) {
 			if (self.data.event.fall) {
-				self.data.y = (y * 32) - (self.data.h - self.data.frameData.cpy);
+				self.data.y = y - (self.data.h - self.data.frameData.cpy);
 				self.on.land(self);
 			}
 			self.data.onLand = true;
@@ -69,19 +69,21 @@ define(["animation", "input", "map"], function(animation, input, map) {
 			self.data.blocked.up = true;
 		},
 		collideRight: function(self, x, y, collideTarget) {
+			if (collideTarget.data && collideTarget.data.id === "player") {
+				self.data.collideTargetRight = "player";
+			}
+
 			// self.data.event.move = true;
 			// self.data.direction.left = true;
-			if (collideTarget.data && collideTarget.data.id === "player" && self.data.event.drag) {
-				return true;
-			}
 			self.data.blocked.right = true;
 		},
 		collideLeft: function(self, x, y, collideTarget) {
+			if (collideTarget.data && collideTarget.data.id === "player") {
+				self.data.collideTargetLeft = "player";
+			}
+
 			// self.data.event.move = true;
 			// self.data.direction.right = true;
-			if (collideTarget.data && collideTarget.data.id === "player" && self.data.event.drag) {
-				return true;
-			}
 			self.data.blocked.left = true;
 		},
 		parseTilePosition: function(self) {
@@ -108,14 +110,14 @@ define(["animation", "input", "map"], function(animation, input, map) {
 			self.data.direction.right = false;
 			self.data.direction.up = true;
 			self.data.direction.down = true;
-			if (!self.data.event.drag) {
-				self.data.blocked.left = false;
-				self.data.blocked.right = false;
-			}
+			self.data.blocked.left = false;
+			self.data.blocked.right = false;
 			self.data.event.move = false;
 			self.data.event.drag = false;
 			self.data.blocked.up = false;
 			self.data.blocked.down = false;
+			self.data.collideTargetRight = "empty";
+			self.data.collideTargetLeft = "empty";
 			if (self.data.isFlipped) {
 				animation.context.restore();
 				self.data.isFlipped = false;
