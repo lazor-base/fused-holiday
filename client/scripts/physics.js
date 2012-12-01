@@ -20,7 +20,7 @@ define(["map"], function(map) {
 			var ex = sx + entity.data.w;
 			var ey = sy + entity.data.h;
 			var tsx, tsy, tex, tey, target, i, top, right, bottom, left, result, leftModifier, rightModifier, topModifier, bottomModifier;
-			leftModifier = rightModifier = topModifier = bottomModifier = 0;
+			leftModifier = rightModifier = topModifier = bottomModifier = 1;
 			leftModifier = entity.data.moveSpeed;
 			rightModifier = entity.data.moveSpeed;
 			if (entity.data.event.walk && entity.data.direction.right) {
@@ -108,13 +108,10 @@ define(["map"], function(map) {
 								}
 							}
 						}
-						if (entity.data.dragged) {
-							if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-								collision = false;
+							if (sx - leftModifier < tex && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
 								entity.on.collideLeft(entity, round(tsx), round(sy), target);
 							}
-							if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-								collision = false;
+							if (ex + rightModifier > tsx && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
 								entity.on.collideRight(entity, round(tex), round(sy), target);
 							}
 
@@ -126,25 +123,6 @@ define(["map"], function(map) {
 								entity.on.collideBottom(entity, round(sx), round(tsy), target);
 								collision = false;
 							}
-						} else {
-							if (ey + bottomModifier >= tsy && collision && sy + bottomModifier < tsy && entity.data.direction.down && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
-								entity.on.collideBottom(entity, round(sx), round(tsy), target);
-								collision = false;
-							}
-							if (sx - leftModifier < tex && collision && ex - leftModifier > tex && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-								collision = false;
-								entity.on.collideLeft(entity, round(tsx), round(sy), target);
-							}
-							if (ex + rightModifier > tsx && collision && sx + rightModifier < tsx && ((ey > tsy && sy < tsy) || (sy < tey && ey > tey) || (sy >= tsy && ey <= tey))) {
-								collision = false;
-								entity.on.collideRight(entity, round(tex), round(sy), target);
-							}
-
-							if (sy + topModifier <= tey && collision && ey + topModifier > tey && entity.data.direction.up && ((ex > tsx && sx < tsx) || (sx < tex && ex > tex) || (sx >= tsx && ex <= tex))) {
-								entity.on.collideTop(entity, round(sx), round(tey), target);
-								collision = false;
-							}
-						}
 					}
 				}
 			}

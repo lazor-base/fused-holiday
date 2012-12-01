@@ -20,17 +20,17 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 	// entity.spawn(master.characters.block, {
 	// 	x: randomFromTo(2, 22) * 32
 	// }, animation.renderList);
-	var blockSpawns = map.findBlockSpawns();
-	for (var i = 0; i < blockSpawns.length; i++) {
-		entity.spawn(master.characters.block, {
-			x: blockSpawns[i][0] * 32,
-			y: blockSpawns[i][1] * 32
-		}, animation.renderList);
-	}
-	// entity.spawn(master.characters.block, {
-	// 		x: 7 * 32,
-	// 		y: 3 * 32
+	// var blockSpawns = map.findBlockSpawns();
+	// for (var i = 0; i < blockSpawns.length; i++) {
+	// 	entity.spawn(master.characters.block, {
+	// 		x: blockSpawns[i][0] * 32,
+	// 		y: blockSpawns[i][1] * 32
 	// 	}, animation.renderList);
+	// }
+	entity.spawn(master.characters.block, {
+			x: 7 * 32,
+			y: 3 * 32
+		}, animation.renderList);
 	var keySpawns = map.findKeySpawns();
 	for (var i = 0; i < keySpawns.length; i++) {
 		entity.spawn(master.objects[keySpawns[i][0]], {
