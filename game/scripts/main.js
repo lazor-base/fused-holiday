@@ -7,7 +7,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 	var highScore = 30000;
 	var gameStarted = false;
 	input.listen("keydown", function() {
-		if(!gameStarted) {
+		if (!gameStarted) {
 			startGame();
 		}
 		input.keyDown(event, input);
@@ -46,15 +46,25 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		}, animation.renderList);
 	}
 	var loadScores = function() {
+		var pad = function(length, number) {
+			if (number.length < length) {
+				number = pad(length, "0" + number);
+			}
+			return number;
+		};
 		var frag = document.createDocumentFragment();
-		if(scores.length) {
+		if (scores.length) {
 			var li = document.createElement("li");
-			li.textContent =  "Previous Scores";
+			li.textContent = "Previous Scores";
 			frag.appendChild(li);
 		}
-		for (var i = scores.length-1; i > 0; i--) {
+		for (var i = scores.length - 1; i > -1; i--) {
 			var li = document.createElement("li");
-			li.textContent =  ((lowTime + highScore) - scores[i]) + " / " + highScore;
+			var milliseconds = Math.floor(scores[i] % 1000);
+			var seconds = Math.floor((scores[i] / 1000) % 60);
+			var minutes = Math.floor((scores[i] / (1000 * 60)) % 60);
+			var hours = Math.floor((scores[i] / (1000 * 60 * 60)) % 24);
+			li.textContent = ((lowTime + highScore) - scores[i]) + " / " + highScore+" - "+(pad(2, "" + hours) + ":" + pad(2, "" + minutes) + ":" + pad(2, "" + seconds) + ":" + pad(3, "" + milliseconds));
 			frag.appendChild(li);
 		}
 		return frag;
@@ -112,6 +122,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		document.getElementById("clearScores").addEventListener("click", clearScores);
 		document.getElementById("tryAgain").addEventListener("click", tryAgain);
 		document.getElementById("startGame").addEventListener("click", startGame);
+		document.getElementById("scores").appendChild(loadScores());
 	};
 	(function() {
 		setup();

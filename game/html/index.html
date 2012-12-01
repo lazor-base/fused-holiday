@@ -79,6 +79,9 @@ body {
 #loading.hidden #startGame {
 	display:none;
 }
+#previousScores, #scores {
+	max-height:50px;
+}
 .key {
 	background: -webkit-linear-gradient(top, #EEEEF0, #D3D3D9);
 	background: -moz-linear-gradient(top, #EEEEF0, #D3D3D9);
@@ -125,9 +128,10 @@ input[type=button] {
 				<p>Use the <span class="key">left</span> and <span class="key">right</span> arrow keys to move.</p>
 				<p>Use <span class="key">spacebar</span> to jump, hold it for a higher jump.</p>
 				<p>Press <span class="key">up</span> to interact with doors, ladders, and brick walls.</p>
-				<p>Hold <span class="key">shift</span> next to a box to drag it, using the arrow keys.</p>
+				<p>Hold <span class="key">shift</span> next to a box to drag it <span class="key">left</span> or <span class="key">right</span>.</p>
 			</div>
-			<input id="startGame" value="Press any key to start" type="button" class="key">
+			<ol id="scores"></ol>
+			<h2 id="startGame">Press Any Key to Start</h2>
 		</div>
 		<canvas id="background" width="448" height="448"></canvas>
 		<canvas id="floor" width="448" height="448"></canvas>
