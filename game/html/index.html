@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery+RequireJS Sample Page</title>
+		<style>
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	background: transparent;
+}
+body {
+	background: black;
+	margin: 0;
+	padding: 0;
+}
+#scoring {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 50%;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	background: rgba(180,180,180,0.9);
+	-webkit-transition: all .2s linear;
+	-moz-transition: all .2s linear;
+	-o-transition: all .2s linear;
+	-ms-transition: all .2s linear;
+	transition: all .2s linear;
+	height: auto;
+	max-height: 50px;
+	z-index: 1;
+}
+#scoring.complete {
+	max-height: 500px;
+	z-index: 5;
+}
+#finalScoreContainer {
+	height: auto;
+	max-height: 0px;
+	overflow: hidden;
+	-webkit-transition: all .1s linear;
+	-moz-transition: all .1s linear;
+	-o-transition: all .1s linear;
+	-ms-transition: all .1s linear;
+	transition: all .1s linear;
+}
+#scoring.complete #finalScoreContainer {
+	max-height: 500px;
+}
+#loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 50%;
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	background: rgba(180,180,180,0.9);
+	height: auto;
+	z-index: 2;
+}
+#loading.hidden {
+	font-size: 1.1em;
+	right:100%;
+	z-index:0;
+	background:black;
+	text-align:left;
+}
+#loading.hidden #startGame {
+	display:none;
+}
+.key {
+	background: -webkit-linear-gradient(top, #EEEEF0, #D3D3D9);
+	background: -moz-linear-gradient(top, #EEEEF0, #D3D3D9);
+	background: -o-linear-gradient(top, #EEEEF0, #D3D3D9);
+	background: -ms-linear-gradient(top, #EEEEF0, #D3D3D9);
+	background: linear-gradient(top, #EEEEF0, #D3D3D9);
+	padding: 5px;
+	padding-bottom: 5px;
+	color: black;
+	padding-top: 0px;
+	text-align: center;
+	font: 20px sans-serif;
+	text-shadow: 0 1px 0 white;
+	line-height: 29px;
+	display: inline-block;
+	border: 1px solid #58575E;
+	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), inset 0 -2px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 white;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25), inset 0 -2px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 white;
+	border-radius: 5px;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+}
+input[type=button] {
+	cursor:pointer;
+}
+		</style>
+		<script data-main="../scripts/main" src="../scripts/require.js"></script>
+	</head>
+	<body>
+		<div id="scoring">
+			<div>Message: <span id="message"></span></div>
+			<div>Time: <span id="timer">1:00:00</span></div>
+			<div id="finalScoreContainer">Final Score: <span id="finalScore"></span>
+				<ol id="previousScores"></ol>
+				<div><input id="clearScores" value="Clear Scores" type="button" class="key"><input id="tryAgain" value="Try Again" type="button" class="key"></div>
+			</div>
+		</div>
+		<div id="loading">
+			<div>
+				<p>Use the <span class="key">left</span> and <span class="key">right</span> arrow keys to move.</p>
+				<p>Use <span class="key">spacebar</span> to jump, hold it for a higher jump.</p>
+				<p>Press <span class="key">up</span> to interact with doors, ladders, and brick walls.</p>
+				<p>Hold <span class="key">shift</span> next to a box to drag it, using the arrow keys.</p>
+			</div>
+			<input id="startGame" value="Press any key to start" type="button" class="key">
+		</div>
+		<canvas id="background" width="448" height="448"></canvas>
+		<canvas id="floor" width="448" height="448"></canvas>
+		<canvas id="foreground" width="448" height="448"></canvas>
+		<canvas id="objects" width="448" height="448"></canvas>
+		<canvas id="player" width="448" height="448"></canvas>
+	</body>
+</html>
