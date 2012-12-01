@@ -12,7 +12,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 	var randomFromTo = function(from, to) {
 		return Math.floor(Math.random() * (to - from + 1) + from);
 	};
-	map.buildMap("map1");
+	map.buildMap("map2");
 	entity.spawn(master.characters.player, {
 		x: map.findPlayerSpawnX(),
 		y: map.findPlayerSpawnY()
@@ -41,7 +41,8 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 	var gameEnd = function(player, time) {
 		animation.stopLoop(animation.mainLoop);
 		scoreDiv.setAttribute("class", "complete");
-		finalScoreDiv.innerText = time / 1600;
+		// TODO
+		finalScoreDiv.innerText = (51000 - time)+ " / "+10000;
 	}
 	var beginRender = function() {
 		var pad = function(length, number) {

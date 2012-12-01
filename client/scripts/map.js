@@ -1,10 +1,11 @@
 /*global define:true */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, es5:true, indent:4, maxerr:50, camelcase:false, boss:true, smarttabs:true, white:false */
-define(["../data/maps/map-1.js", "../data/maps/test.js", "../data/maps/test-2.js", "../data/maps/moarmaps.js", "animation", "../data/master.js"], function(map1, test, test2, moarmaps, animation, master) {
+define(["../data/maps/map-2.js","../data/maps/map-1.js", "../data/maps/test.js", "../data/maps/test-2.js", "../data/maps/moarmaps.js", "animation", "../data/master.js"], function(map2, map1, test, test2, moarmaps, animation, master) {
 	"use strict";
 	return {
 		maps: {
 			map1: map1,
+			map2: map2,
 			test: test,
 			test2: test2,
 			moarmaps: moarmaps
