@@ -82,6 +82,9 @@ body {
 #previousScores, #scores {
 	max-height:50px;
 }
+#message {
+	font-weight:bold;
+}
 .key {
 	background: -webkit-linear-gradient(top, #EEEEF0, #D3D3D9);
 	background: -moz-linear-gradient(top, #EEEEF0, #D3D3D9);
@@ -111,12 +114,21 @@ body {
 input[type=button] {
 	cursor:pointer;
 }
+#messageDiv {
+position: absolute;
+left: 0;
+right: 0;
+margin: auto;
+bottom: 0;
+color: white;
+text-align: center;
+font-size: 20px;
+}
 		</style>
 		<script data-main="../scripts/main" src="../scripts/require.js"></script>
 	</head>
 	<body>
 		<div id="scoring">
-			<div>Message: <span id="message"></span></div>
 			<div>Time: <span id="timer">1:00:00</span></div>
 			<div id="finalScoreContainer">Final Score: <span id="finalScore"></span>
 				<ol id="previousScores"></ol>
@@ -133,6 +145,7 @@ input[type=button] {
 			<ol id="scores"></ol>
 			<h2 id="startGame">Press Any Key to Start</h2>
 		</div>
+		<div id="messageDiv">Message: <span id="message"></span></div>
 		<canvas id="background" width="448" height="448"></canvas>
 		<canvas id="floor" width="448" height="448"></canvas>
 		<canvas id="foreground" width="448" height="448"></canvas>
