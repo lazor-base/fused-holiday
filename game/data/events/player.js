@@ -50,7 +50,6 @@ define(["animation", "input", "map", "entity"], function(animation, input, map, 
 				self.data.travelTime--;
 				self.data.x += self.data.targetDoor.xSpeed;
 				self.data.y += self.data.targetDoor.ySpeed;
-				console.log(self.data.targetDoor.xSpeed,self.data.y)
 			}
 			return false;
 		},

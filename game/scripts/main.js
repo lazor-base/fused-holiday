@@ -6,31 +6,49 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 	var lowTime = 75000;
 	var highScore = 30000;
 	var gameStarted = false;
+	var keyPressZ = false;
+	var keyPressX = false;
+	var audioOn = false;
 	input.listen("keydown", function() {
 		if (!gameStarted) {
 			startGame();
 		}
 		input.keyDown(event, input);
+		if (input.keys.z && !keyPressZ) {
+			keyPressZ = true;
+			if (audioOn) {
+				audioOn = false;
+				audioElement.pause();
+			} else {
+				audioOn = true;
+				audioElement.play();
+			}
+		}
+		if(input.keys.x && !keyPressX) {
+			keyPressX = true;
+			audioElement.pause();
+			audioElement.currentTime=0;
+			audioOn = false;
+		}
 	});
 	input.listen("keyup", function() {
 		input.keyUp(event, input);
+		if (!input.keys.z) {
+			keyPressZ = false;
+		}
+		if (!input.keys.x) {
+			keyPressX = false;
+		}
 	});
-	var startDate, currentDate, timerDiv, scoreDiv, finalScoreDiv, currentTime, messageDiv;
+	var startDate, currentDate, timerDiv, scoreDiv, finalScoreDiv, currentTime, messageDiv, audioElement;
 	var randomFromTo = function(from, to) {
 		return Math.floor(Math.random() * (to - from + 1) + from);
 	};
 	map.buildMap("map2");
-	// entity.spawn(master.characters.player, {
-	// 	x: map.findPlayerSpawnX(),
-	// 	y: map.findPlayerSpawnY()
-	// }, animation.renderList);
 	entity.spawn(master.characters.player, {
-		x: 15*32,
-		y: 45*32
+		x: map.findPlayerSpawnX(),
+		y: map.findPlayerSpawnY()
 	}, animation.renderList);
-	// entity.spawn(master.characters.block, {
-	// 	x: randomFromTo(2, 22) * 32
-	// }, animation.renderList);
 	var blockSpawns = map.findBlockSpawns();
 	for (var i = 0; i < blockSpawns.length; i++) {
 		entity.spawn(master.characters.block, {
@@ -38,10 +56,6 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 			y: blockSpawns[i][1] * 32
 		}, animation.renderList);
 	}
-	// entity.spawn(master.characters.block, {
-	// 		x: 7 * 32,
-	// 		y: 3 * 32
-	// 	}, animation.renderList);
 	var keySpawns = map.findKeySpawns();
 	for (var i = 0; i < keySpawns.length; i++) {
 		entity.spawn(master.objects[keySpawns[i][0]], {
@@ -68,7 +82,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 			var seconds = Math.floor((scores[i] / 1000) % 60);
 			var minutes = Math.floor((scores[i] / (1000 * 60)) % 60);
 			var hours = Math.floor((scores[i] / (1000 * 60 * 60)) % 24);
-			li.textContent = ((lowTime + highScore) - scores[i]) + " / " + highScore+" - "+(pad(2, "" + hours) + ":" + pad(2, "" + minutes) + ":" + pad(2, "" + seconds) + ":" + pad(3, "" + milliseconds));
+			li.textContent = ((lowTime + highScore) - scores[i]) + " / " + highScore + " - " + (pad(2, "" + hours) + ":" + pad(2, "" + minutes) + ":" + pad(2, "" + seconds) + ":" + pad(3, "" + milliseconds));
 			frag.appendChild(li);
 		}
 		return frag;
@@ -123,6 +137,7 @@ require(["animation", "input", "entity", "map", "../data/master.js"], function(a
 		messageDiv = document.getElementById("message");
 		timerDiv = document.getElementById("timer");
 		finalScoreDiv = document.getElementById("finalScore");
+		audioElement = document.getElementById("music")
 		document.getElementById("clearScores").addEventListener("click", clearScores);
 		document.getElementById("tryAgain").addEventListener("click", tryAgain);
 		document.getElementById("startGame").addEventListener("click", startGame);
